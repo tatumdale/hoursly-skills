@@ -4,7 +4,7 @@ Installable agent skills for the [Hoursly](https://hoursly.app) MCP server. They
 
 The skills use the open [Agent Skills](https://agentskills.io) format, so one folder works in Claude, ChatGPT and Codex, Cursor and GitHub Copilot.
 
-> **Status: early.** This repository currently ships the foundation skill, `hoursly-core`, and the tooling around it. More skills are being added in waves. See [Roadmap](#roadmap). Nothing here has been verified in every host yet; see [docs/hosts.md](docs/hosts.md) for exactly what has and has not been tested.
+> **Status: early.** This repository currently ships the foundation skill `hoursly-core`, the `capture-time` skill, and the tooling around them. More skills are being added in waves. See [Roadmap](#roadmap). Nothing here has been verified in every host yet; see [docs/hosts.md](docs/hosts.md) for exactly what has and has not been tested.
 
 ## What a skill is, and what it is not
 
@@ -20,6 +20,7 @@ A skill never replaces the connection. You connect the Hoursly MCP server in you
 | Skill | What it does | Needs |
 |---|---|---|
 | [`hoursly-core`](skills/hoursly-core/SKILL.md) | Orients on your workspace and applies Hoursly's access, confirmation, money and disclosure rules. Load it before other Hoursly skills. | Any connection |
+| [`capture-time`](skills/capture-time/SKILL.md) | Reconstructs a day or week from calendar, email, chat, tickets and git, and proposes time entries for review. Writes only the rows you approve. | Any connection to propose; Standard access to commit |
 
 ## Install
 
@@ -45,8 +46,8 @@ The shared rules are in [`shared/safety.md`](shared/safety.md).
 
 | Wave | Content |
 |---|---|
-| 0 | Repository, `hoursly-core`, validation, install guides (this release) |
-| 1 | Capture my day and week (propose-only), unbilled sweep, invoice draft and lock, month-end close |
+| 0 | Repository, `hoursly-core`, validation, install guides |
+| 1 | `capture-time` (propose-only, this release), unbilled sweep, invoice draft and lock, month-end close |
 | 2 | Team digest, project status and burn, client updates (draft, then send on instruction) |
 | 3 | Charity pack: grant burn, role plan vs actual, official-hours effort evidence |
 | 4 | Board, trustee and leadership packs |

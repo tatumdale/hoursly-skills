@@ -1,0 +1,15 @@
+interface:
+  display_name: "Hoursly core"
+  short_description: "Orient, log and review time, and use Hoursly safely"
+  default_prompt: "Use Hoursly to help me with my time tracking"
+
+policy:
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hoursly"
+      description: "Hoursly MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.hoursly.app/mcp"

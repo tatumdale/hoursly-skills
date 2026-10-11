@@ -1,0 +1,17 @@
+{
+  "name": "hoursly-skills",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Installable agent skills for the Hoursly MCP server.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "check": "node tools/build.mjs --check",
+    "validate": "node tools/validate.mjs",
+    "test": "npm run check && npm run validate"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

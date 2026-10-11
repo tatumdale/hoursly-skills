@@ -2,11 +2,7 @@
 
 ## Reporting a vulnerability
 
-Use GitHub's **private vulnerability reporting** for this repository (Security tab, "Report a vulnerability") with a description and, if possible, a minimal reproduction. Please do not open a public issue for a vulnerability.
-
-<!-- TODO(owner): confirm the contact address and response-time commitment before the repository is made public. -->
-
-If you cannot use GitHub, contact Hoursly through the support details in the [Hoursly help centre](https://hoursly.app).
+Use GitHub's **private vulnerability reporting** for this repository (Security tab, "Report a vulnerability"), or email **tatum@hoursly.app**, with a description and, if possible, a minimal reproduction. Please do not open a public issue for a vulnerability.
 
 ## What counts
 

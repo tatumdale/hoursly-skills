@@ -21,6 +21,7 @@ A skill never replaces the connection. You connect the Hoursly MCP server in you
 |---|---|---|
 | [`hoursly-core`](skills/hoursly-core/SKILL.md) | Orients on your workspace and applies Hoursly's access, confirmation, money and disclosure rules. Load it before other Hoursly skills. | Any connection |
 | [`capture-time`](skills/capture-time/SKILL.md) | Reconstructs a day or week from calendar, email, chat, tickets and git, and proposes time entries for review. Writes only the rows you approve. | Any connection to propose; Standard access to commit |
+| [`log-last-week`](skills/log-last-week/SKILL.md) | The week-specific entry point: inventories the tools and AI assistants available, reads the ledger first, reconstructs only the gaps, and presents the whole week for approval. | Any connection to propose; Standard access to commit |
 
 ## Install
 
@@ -47,7 +48,7 @@ The shared rules are in [`shared/safety.md`](shared/safety.md).
 | Wave | Content |
 |---|---|
 | 0 | Repository, `hoursly-core`, validation, install guides |
-| 1 | `capture-time` (propose-only, this release), unbilled sweep, invoice draft and lock, month-end close |
+| 1 | `capture-time` and `log-last-week` (propose-only), unbilled sweep, invoice draft and lock, month-end close |
 | 2 | Team digest, project status and burn, client updates (draft, then send on instruction) |
 | 3 | Charity pack: grant burn, role plan vs actual, official-hours effort evidence |
 | 4 | Board, trustee and leadership packs |

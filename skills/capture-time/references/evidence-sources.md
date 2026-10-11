@@ -53,13 +53,18 @@ Edit history and comment activity give timing and outcome names. Prefer titles o
 
 Good for outcome language and attribution. Use only the summary or title unless the user asks for more.
 
-## Coding-agent sessions
+## AI assistants and coding agents
 
-Session logs show when an agent worked, not when the person did.
+The user's own AI tools (Claude Code, Codex, Cursor, Copilot, Gemini CLI) often hold the best record of what they worked on. Session logs show when an agent worked, not when the person did.
 
+- Where the host can read local history, take **metadata only**: first and last message timestamps, session title or first-prompt summary, working directory or repository, model. Never read or quote prompts, responses or tool output. Typical locations: `~/.claude/projects/<encoded path>/*.jsonl`, `~/.codex/sessions/`, `~/.cursor/`, `~/.copilot/`, `~/.gemini/tmp/`. Locations vary by version; look, and say what you could not reach.
+- Web chats (ChatGPT, Claude desktop or web) are not readable from the host; ask the user for a one-line summary per day.
 - Count the person's **attention** (prompting, reviewing, steering), not the agent's runtime.
 - If several sessions overlap, merge them into one interval; never add durations.
 - Use the first and last user message in a session as bounds, and mark the duration as estimated.
+- Attribute by repository or working directory to a project the user has already used for it; otherwise ask.
+- Entries already logged with an "Agent session" tag are the baseline; do not re-propose them.
+- These files are private data on the user's machine: read only with consent, only for the window, and never copy them anywhere.
 
 ## What is not evidence
 

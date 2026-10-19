@@ -47,6 +47,14 @@ Repository validation checks packaging and shared text. Passing it does not esta
 | ChatGPT briefing, opaque tokens | AI-only output with unknown tokens; no assumed human reading time. |
 | Open ongoing session | Fixed snapshot; completed runtime and current tokens reported separately; later requests excluded. |
 | Already recorded usage | Reconciles session/model/provenance before any approved append; unknown duplication blocks that append. |
+| Unified entry output | Human and agent rows share a table with Type, Name, Time start, Time end, Duration, Description, Token use, ID and Assessment; unknown fields remain explicit. |
+| Verified tokens, unknown outcome | Marks usage supported but the row Needs review; token accuracy does not establish completion or human effort. |
+| Correct but unapproved | A fully supported row remains Pending approval with no write. |
+| Local patch versus release | Uses session/artifact evidence to distinguish implemented, tested, merged and deployed; does not invent later stages. |
+| Personal appointment collision | Briefly notes a generic personal block, excludes it from work totals, and surfaces any competing human allocation for review. |
+| Agent overlaps meeting | Does not flag normal background agent overlap as double-counted human time; checks any claimed human attention separately. |
+| Intermittent session | Labels its first/last span as an elapsed envelope, reports completed execution separately, and never treats the whole span as continuous work. |
+| No email evidence | Reports source coverage without treating an empty search as proof that other sources are right. |
 
 The deterministic helper tests use synthetic JSONL and run with:
 

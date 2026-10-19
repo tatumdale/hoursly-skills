@@ -1,7 +1,7 @@
 interface:
   display_name: "Hoursly from Computer History"
-  short_description: "Review work, meetings and agent usage with rounding choices"
-  default_prompt: "Use $capture-computer-history to review today across Computer History, calendars, email, attachments and agent sessions, with Hoursly assignments, verified tokens and rounding choices; do not save any entries."
+  short_description: "Review human and agent entries, outcomes and conflicts"
+  default_prompt: "Use $capture-computer-history to deliver today's human and agent entry table with start/end times, durations, achieved outcomes, tokens, Hoursly assignments and evidence conflicts for my review; do not save entries."
 
 policy:
   allow_implicit_invocation: true

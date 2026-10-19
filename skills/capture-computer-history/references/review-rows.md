@@ -1,13 +1,13 @@
 # Complete entry review and rounding
 
-Return every supported work item as a numbered row, even when part of it is unresolved. Group by day and client/project, or chronological order when it makes overlaps clearer. Use stable H1/H2 IDs for human rows and A1/A2 for agent rows; link AI usage to related work without duplicating human time.
+Return every supported work item as a numbered row in one table containing both Human and Agent types, even when part of it is unresolved. Keep the required Type, Name, Time start, Time end, Duration, Description and Token use columns; add ID and Assessment. Personal items may use P1/P2 IDs and Human type with Personal / excluded assessment; their times are not working hours. Group by day and client/project, or chronological order when it makes overlaps clearer. Use stable H1/H2 IDs for human rows and A1/A2 for agent rows; link AI usage to related work without duplicating human time.
 
 For each row provide:
 
-- **Status:** proposed, needs duration, needs mapping, overlap, already logged, excluded/personal, or AI-only. Briefly list excluded personal items without private details.
+- **Assessment:** Supported, Conflict, Needs review, Already logged, or Personal / excluded, with a short reason or conflict ID. Keep approval separately as Pending, Approved or Skipped; evidence support is not user consent. The default is Pending. Keep save state separate too: draft, saved with confirmed ID, or uncertain outcome. Briefly note personal items without private details.
 - **Assignment:** Hoursly workspace/client/project IDs and verified names; deliverable and one primary Activity when exposed. If missing, supply a clearly labelled proposed output/Activity, not a fake link. Include tags, billability, role and usage cost source where applicable.
 - **Work:** concise outcome note, source references, known timestamps and duration basis. A session envelope is not a human-duration proposal. Split materially different work only when evidence supports the split.
-- **Time:** raw interval/duration, proposed interval/duration, adjustment in minutes, source confidence and unresolved conflicts. Show unknowns explicitly.
+- **Time:** raw interval/duration, proposed interval/duration, adjustment in minutes, source confidence and unresolved conflicts. Show Unknown rather than blank or zero. For confirmed continuous intervals, duration must equal end minus start before adjustments. An intermittent agent row may span an elapsed envelope, but label that duration and give completed execution separately. Split runs only if provenance and usage can be allocated without guessing; otherwise keep one session row. A single observation is not a zero-length completed run. Use Ongoing at the cutoff for an unfinished run, not an invented finish time. Human start/end remain unknown when only agent timestamps are available.
 - **Agent usage:** linked AI row/session, model, tier, input, cached-read, cached-write, output, total, snapshot cutoff and measured/unknown coverage. No inferred token precision or duplicated parent/child usage.
 - **Question/decision:** a concrete question or approve/adjust/skip choice. Do not ask the user to rediscover information already available from Hoursly or the evidence.
 

@@ -7,7 +7,7 @@ metadata:
   mcp-tools: "computer_history_status list_calendars search_events search_emails get_organisation get_my_access list_clients list_projects list_tags list_billing_roles list_time_entries create_time_entry"
   min-permission: read_only
   money-aware: "no"
-  version: "0.5.0"
+  version: "0.6.0"
 ---
 
 # Review work and prepare Hoursly entries
@@ -21,6 +21,8 @@ For a test, preview or "do not save", deliver the review and stop. No Hoursly mu
 ## 1. Establish the period and available sources
 
 Use the requested dates and the user's/workspace's timezone. For "last week", use the most recent complete Monday–Sunday unless the user has specified another convention. State the dates; do not re-ask settled scope or consent. Use only sources the user authorized, including permission already given in the conversation. If personal sources were not included, establish that scope before reading them.
+
+Fix a cutoff for an unfinished day and keep it throughout the review, including this review chat's usage. For each date, distinguish available coverage from the user's recollection that recording was enabled. Retained morning summaries do not establish an all-day trace. Describe the sources actually checked; "all apps and sessions" does not make inaccessible calendars, mailboxes or chats visible.
 
 Discover what the current host can actually read: Hoursly, calendars, email, documents, meeting notes, tickets/code, agent/chat sessions and Computer History. In ChatGPT use exposed apps and tools; do not assume terminal access, local logs, a complete chat archive, or a particular connector name. A listed tool is not proof that an account is readable. Briefly name useful sources and material gaps, rather than opening with a technical capability matrix.
 
@@ -63,7 +65,7 @@ For runs with long gaps, show completed active execution in the duration cell wh
 
 Follow [the review format](references/review-rows.md). For each day, write a short narrative grouped around the main client/project work: what the user worked on, what changed or was produced, what is already logged, and anything material that needs checking. Where history adds detail, weave that detail into the account. Where it is absent, use the same narrative style from the other evidence; do not replace the story with a list of missing fields.
 
-Then show a compact table with the requested **Type (Human/Agent), Name, Time start, Time end, Duration, Description and Token use** columns, plus a plain-language Review note. Put client/project in the name or description, or group by project. Include logged entries for context, proposed entries and meaningful unresolved work. Keep internal IDs out of the displayed table. Reference work by its name and day in questions and approvals.
+Then show a compact table with the requested **Type (Human/Agent), Name, Time start, Time end, Duration, Description and Token use** columns, plus a plain-language Review note. Put client/project in the name or description, or group by project. For a busy day, separate human and agent tables using the same columns. Include logged entries for context, proposed entries and meaningful unresolved work; distinguish additional time from a possible reallocation of existing time. Keep internal IDs out of the displayed table. Reference work by its name and day in questions and approvals.
 
 Explain discrepancies beside the named work: "The invite allowed 45 minutes, but the recording lasted 84 minutes. Shall I use the recorded duration?" Reserve questions for material unresolved decisions. Do not repeat one missing integration on every row or mark every otherwise useful proposal as unreliable because a global field cannot yet be saved.
 

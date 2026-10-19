@@ -67,28 +67,33 @@ def collect(paths, provider, start, until):
                     contexts[p.get('turn_id')] = (p.get('model', 'unknown'), p.get('service_tier') or p.get('serviceTier') or 'unknown')
                 if not ts or not owner:
                     continue
-                if kind == 'token_usage_record' and start <= ts < until:
+                # Reconcile all available pre-snapshot copies before selecting a day.
+                # Inherited records can be replayed with later timestamps.
+                if kind == 'token_usage_record' and ts < until:
                     rid, sid = p.get('response_id'), p.get('thread_id')
                     if not rid or not sid or not isinstance(p.get('usage'), dict):
                         warnings.add('Unidentifiable Codex usage record skipped')
                         continue
                     record = (ts, sid, p.get('turn_id'), p['usage'])
-                    if rid in requests and requests[rid][1:] != record[1:]:
+                    prior = requests.get(rid)
+                    if prior and prior[1:] != record[1:]:
                         raise ValueError('Conflicting duplicate response usage; reconcile before reporting')
-                    requests[rid] = record
-                if kind == 'event_msg' and start <= ts < until:
+                    if not prior or ts < prior[0]:
+                        requests[rid] = record
+                if kind == 'event_msg' and ts < until:
                     subtype = p.get('type')
-                    if subtype == 'user_message' and not parent:
+                    if subtype == 'user_message' and not parent and start <= ts:
                         session(owner)['user_timestamps'].add(ts)
                     if subtype == 'task_complete' and isinstance(p.get('duration_ms'), (int, float)):
                         key = p.get('turn_id')
                         if key and p['duration_ms'] >= 0:
-                            interval = (max(start, ts - timedelta(milliseconds=p['duration_ms'])), ts)
-                            if key in completions and completions[key][1:] != interval:
+                            duration = p['duration_ms']
+                            prior = completions.get(key)
+                            if prior and prior[2] != duration:
                                 raise ValueError('Conflicting execution duration for the same turn')
-                            owners = completions[key][0] if key in completions else set()
+                            owners = prior[0] if prior else set()
                             owners.add(owner)
-                            completions[key] = (owners, *interval)
+                            completions[key] = (owners, min(ts, prior[1]) if prior else ts, duration)
             else:
                 sid = event.get('sessionId')
                 if not sid or not ts:
@@ -119,15 +124,16 @@ def collect(paths, provider, start, until):
                         requests[rid] = rec
     turn_owners = {}
     for rid, (ts, sid, model_key, usage) in requests.items():
+        # A request before midnight can identify a turn completed after midnight.
+        if provider == 'codex' and model_key:
+            if model_key in turn_owners and turn_owners[model_key] != sid:
+                raise ValueError('Conflicting thread ownership for Codex turn')
+            turn_owners[model_key] = sid
         if not start <= ts < until:
             continue
         if provider == 'claude' and first_seen[rid] < start:
             warnings.add('Claude message crosses day boundary; its daily allocation is unverified')
             continue
-        if provider == 'codex':
-            if model_key in turn_owners and turn_owners[model_key] != sid:
-                raise ValueError('Conflicting thread ownership for Codex turn')
-            turn_owners[model_key] = sid
         model, tier = contexts.get(model_key, ('unknown', 'unknown')) if provider == 'codex' else model_key
         s = session(sid)
         s['request_timestamps'].add(ts)
@@ -135,7 +141,10 @@ def collect(paths, provider, start, until):
         for key, value in buckets(usage, provider).items():
             row[key] += value
         row['requests'] += 1
-    for turn, (owners, begin, end) in completions.items():
+    for turn, (owners, end, duration) in completions.items():
+        if not start <= end < until:
+            continue
+        begin = max(start, end - timedelta(milliseconds=duration))
         sid = turn_owners.get(turn)
         if not sid:
             if len(owners) != 1:
@@ -161,6 +170,7 @@ def collect(paths, provider, start, until):
     return dict(provider=provider, start=start.isoformat(), snapshot_at=until.isoformat(), sessions=result,
                 warnings=sorted(warnings), notes=['Agent runtime is not human time.',
                 'Codex token_count/thread totals are deliberately not added to per-response usage.',
+                'Codex copied records are deduplicated at their earliest observed timestamp before day filtering.',
                 'No duration is inferred from first/last observations or human message timestamps.',
                 'Legacy Codex logs without token_usage_record require separate verified counter-delta handling.',
                 'In-progress execution and tokens after the snapshot are excluded.'])

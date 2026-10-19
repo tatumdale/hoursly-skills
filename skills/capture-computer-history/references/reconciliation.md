@@ -35,4 +35,6 @@ Use a separate comparison table only if several competing versions would otherwi
 
 Keep coverage gaps distinct from disagreements. "There is no computer record for the morning" explains which source is absent, not whether the calendar or meeting notes are wrong. Do not ask the user to re-confirm evidence that is already adequate just because another source is unavailable.
 
+A broad existing timer may cover several outcomes, another separately logged task, and personal breaks. Describe its supported work more usefully and propose a split or project reallocation for review; do not add every reconstructed task on top. Work before the timer can be a missing-time candidate, but summary windows alone cannot establish its duration. If recorded intervals overlap, label the sum as recorded time rather than a verified non-overlapping total. Never automatically deduct personal time or reinterpret representative timestamps as measured attention.
+
 Mention personal time briefly where it explains a gap or overlap. Do not inflate the work table with incidental app switches, single video tabs or speculative human-supervision rows for every agent session. If a possible work item lacks substantive evidence, describe it in the short questions/uncertain-items section. Never use private appointment details in Hoursly work descriptions.

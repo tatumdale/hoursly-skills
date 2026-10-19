@@ -9,6 +9,7 @@ Use connected sources within the user's authorized scope. Discovery failures do 
 - Calendar events can identify offline meetings, site visits, training, conferences, filming and travel. An accepted invitation still supplies planned time rather than proof of attendance. Recording/notes metadata may corroborate a meeting, but verify discrepancies rather than silently changing its time.
 - Exclude private/personal events and non-work reminders. All-day, holiday, out-of-office, tentative and placeholder entries are not full-day work. A long event or a conference badge is not proof that all its hours were worked. Ask about actual attendance, breaks and work purpose when needed.
 - Read attached notes only where they resolve a material uncertainty and the connector grants access. Do not download recordings or full transcripts merely to infer duration.
+- When a transcript runs longer than the calendar slot, propose its recorded length provisionally and identify any assumed start. Check the resulting interval against other work and personal blocks. Recording length supports discussion duration, not necessarily the user's entire attendance; discussion of earlier work does not create another entry today.
 
 ## Connected email
 

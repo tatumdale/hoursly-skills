@@ -23,6 +23,14 @@ python3 scripts/session_usage.py --provider claude --root <authorized-project-se
 
 It supports Codex `token_usage_record` records and Claude assistant message usage; legacy Codex logs without these records need a separate verified counter-delta calculation. It scans older folders to catch resumed sessions. It reports completed agent execution separately from unknown human time. Review warnings and coverage; missing telemetry is not zero. Output is private and must never be committed to a public skills repository.
 
+For an unfinished day, pass `--until` with the review's fixed offset-aware cutoff. Re-running against a moving "now" would add the review's own later usage. A successful helper run verifies supported telemetry accounting, not complete source coverage, human attendance or an installed ChatGPT skill.
+
+### Copied and inherited Codex records
+
+Reconcile records across all authorized session files before selecting the requested day. Copies may carry later timestamps. For each response ID, require matching thread, turn and usage and retain the earliest available timestamp. Build turn ownership from those request records, including requests before the day boundary. For each completed turn, require a consistent duration, use its earliest available completion, then select the day and clip execution at midnight. This prevents yesterday's work from becoming today's work when inherited into a later session.
+
+Different timestamps alone are not a duration conflict. Different durations, usage counters or request owners still require reconciliation; do not silently choose one or drop the whole turn to make totals pass. Completion ownership without request telemetry remains limited: the helper skips copies associated with multiple file owners. With incomplete files, an earliest available record is not proof that the original survives. Inspect coverage before claiming exact attribution. Ongoing turns have no measured completed duration.
+
 ## Token invariants
 
 - Prefer per-response usage with unique response IDs. Deduplicate copied/forked records globally. Preserve the first session identity in a fork file; inherited parent metadata must not overwrite the child. Associate usage with that request's actual thread and model/turn, not every file mentioning a thread ID.
@@ -32,6 +40,7 @@ It supports Codex `token_usage_record` records and Claude assistant message usag
 - Record exact models and tiers when available, otherwise label unknown. Never infer token splits between models, clients, days or human subentries. One shared session usage row can reference several work phases until a verified allocation exists.
 - Show parent and child usage once, either separately with their relationship or in a clearly labelled rollup. Do not add the rollup to its components. Do not add child execution to parent human time.
 - Explain the snapshot boundary, especially for this ongoing review chat. Later requests and the final reply are outside that snapshot. Include no monetary estimates; resolve an existing cost source and let Hoursly calculate Materials costs.
+- Compare measured usage with existing Materials by request/session, model and period. A numerical difference is a reconciliation question, not automatically additional usage: earlier entries may already contain part of a resumed session or a parent/child rollup. Keep precise totals internally; show the two totals only where they explain a decision.
 
 ## ChatGPT and unsupported hosts
 

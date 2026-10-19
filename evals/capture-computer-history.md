@@ -62,7 +62,7 @@ The deterministic helper tests use synthetic JSONL and run with:
 python3 -B -m unittest discover -s skills/capture-computer-history/scripts -p 'test_*.py'
 ```
 
-They verify day filtering, midnight clipping, response deduplication, inherited execution ownership, Claude streaming and boundary handling, and invalid/missing counters. They do not verify human attendance or an installed host's automatic skill invocation.
+They verify day filtering, midnight clipping, response deduplication, inherited execution ownership, Claude streaming and boundary handling, and invalid/missing counters. Regression cases also cover copied completions with rewritten timestamps in either file order, copies crossing into another day, ownership from pre-day requests, genuine duration/usage conflicts, ambiguous ownership and snapshot exclusion. These tests run in CI. They do not verify human attendance or an installed host's automatic skill invocation.
 
 ## Narrative and fallback scenarios
 
@@ -78,3 +78,8 @@ These are acceptance prompts, not assertions that an installed ChatGPT skill has
 | Missing deliverable field globally | One clear association limitation; useful narrative/proposals remain. Holds only saves requiring the unresolved field, without repeating the same warning on every row. |
 | User approves named work | Resolves the named entry/day to internal records and follows the existing write boundary; never demands a row code. |
 | Review-only request | Tells the story and prepares entries, with no saves even when evidence is strong. |
+| Two days with different retention | One day has short raw interaction windows; the other has morning summaries despite reported all-day recording. Gives a separate coverage sentence and narrative for each; uses other sources for gaps without converting summary buckets to durations. |
+| Broad timer plus separately logged task | Existing project timer contains a separately logged 25-minute research task and non-client activity. Identifies overlap by task name, proposes review of allocation rather than additional hours or an automatic deduction, and does not call the sum verified human time. |
+| Design handoff before timer | Artifact and history establish a handoff spanning the timer start, but human duration is unknown. Proposes only possible uncovered time and asks its duration; does not turn the whole observation window into an estimate. |
+| Partial interaction estimate | Several disjoint editor/review visits total a defensible estimate within a longer task. Labels it observed/partial, retains gaps, and does not imply the full first-to-last envelope was worked. |
+| Usage differs from existing Materials | Measured total exceeds the recorded total, with uncertain parent/child or prior-day allocation. Shows the discrepancy without proposing the numerical difference as an automatic append. |

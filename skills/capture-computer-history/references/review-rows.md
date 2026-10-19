@@ -1,25 +1,43 @@
-# Complete entry review and rounding
+# A review the user can recognise
 
-Return every supported work item as a numbered row in one table containing both Human and Agent types, even when part of it is unresolved. Keep the required Type, Name, Time start, Time end, Duration, Description and Token use columns; add ID and Assessment. Personal items may use P1/P2 IDs and Human type with Personal / excluded assessment; their times are not working hours. Group by day and client/project, or chronological order when it makes overlaps clearer. Use stable H1/H2 IDs for human rows and A1/A2 for agent rows; link AI usage to related work without duplicating human time.
+Start with the story of the day, then the proposed entries. Follow the weekly logging pattern: already logged work is context, new work is proposed, and unsupported gaps become a few useful questions. Keep the same format whether Computer History is present, partial or absent.
 
-For each row provide:
+## Narrative before the table
 
-- **Assessment:** Supported, Conflict, Needs review, Already logged, or Personal / excluded, with a short reason or conflict ID. Keep approval separately as Pending, Approved or Skipped; evidence support is not user consent. The default is Pending. Keep save state separate too: draft, saved with confirmed ID, or uncertain outcome. Briefly note personal items without private details.
-- **Assignment:** Hoursly workspace/client/project IDs and verified names; deliverable and one primary Activity when exposed. If missing, supply a clearly labelled proposed output/Activity, not a fake link. Include tags, billability, role and usage cost source where applicable.
-- **Work:** concise outcome note, source references, known timestamps and duration basis. A session envelope is not a human-duration proposal. Split materially different work only when evidence supports the split.
-- **Time:** raw interval/duration, proposed interval/duration, adjustment in minutes, source confidence and unresolved conflicts. Show Unknown rather than blank or zero. For confirmed continuous intervals, duration must equal end minus start before adjustments. An intermittent agent row may span an elapsed envelope, but label that duration and give completed execution separately. Split runs only if provenance and usage can be allocated without guessing; otherwise keep one session row. A single observation is not a zero-length completed run. Use Ongoing at the cutoff for an unfinished run, not an invented finish time. Human start/end remain unknown when only agent timestamps are available.
-- **Agent usage:** linked AI row/session, model, tier, input, cached-read, cached-write, output, total, snapshot cutoff and measured/unknown coverage. No inferred token precision or duplicated parent/child usage.
-- **Question/decision:** a concrete question or approve/adjust/skip choice. Do not ask the user to rediscover information already available from Hoursly or the evidence.
+Use two or three short sentences per day, grouped around substantive work and outcomes. Name the client/project naturally. Explain what was discussed, prepared, reviewed, changed or delivered, and what is already in Hoursly. Include concrete history details when they improve the story, such as moving between a document and its publishing preview, rather than listing apps and clicks.
 
-## Rounding
+Distinguish established outcomes from session-reported or unfinished ones, in ordinary language. One concise coverage sentence is usually enough: "Computer History covers the afternoon; the morning comes from your meetings and work records." Missing history does not make a corroborated offline meeting unreliable.
 
-1. Use an explicit user/workspace rounding policy if provided, and identify it. Otherwise show exact time and optional round-up choices; no default adjustment is applied until reviewed.
-2. Distinguish rounding a **duration** from moving a **start/end timestamp**. For a 09:10–09:48 interval, exact is 38m; ending 09:50 is 40m (+2m), ending 10:00 is 50m (+12m). Rounding the 38m duration to a quarter-hour instead gives 45m, ending 09:55 if the start is unchanged. These are different decisions.
-3. State the delta for every proposed change. For 1h 23m 48s of recorded meeting time, a five-minute ceiling is 1h 25m (+1m 12s); a quarter-hour ceiling is 1h 30m (+6m 12s). Recorded length can exclude time before/after recording or include pauses, so confirm attendance and actual bounds.
-4. Do not manufacture start times from recording upload/creation timestamps. A calendar start can be shown as an assumption requiring confirmation. Do not apply a recorded duration to a scheduled start and call the resulting end exact.
-5. Check overlaps with ledger entries and other proposals again after rounding. A rounded endpoint entering the next meeting must be resolved, not automatically counted twice. Do not round an ongoing session forward into future time, unknown durations, or tokens.
-6. Approval applies to the displayed raw/proposed choice and associations. Changed rows return to review. Preparing a rounded draft is not authorization to write it.
+Avoid technical row labels, conflict codes, capability matrices and long lists of caveats. Keep internal keys for deduplication and exact approvals, but use entry names and dates when speaking to the user. If two entries share a name, distinguish them by time or project.
 
-## Closing the review
+## Entry table
 
-Give the number of proposed, unresolved, already-logged and excluded rows. Show confirmed human time and the optional rounded alternative, excluding unknown durations from both. Recording lengths pending attendance confirmation have their own provisional total, not a confirmed human total. Agent windows/execution and tokens have separate totals. Ask only the decisions needed to finalize the list; no saving occurs in a test run.
+Required columns: Type, Name, Time start, Time end, Duration, Description, Token use. Add a short Review note. Group by day/project where helpful; keep Human and Agent entries in the same review. Put verified client/project names in the entry name, description or grouping. Retain detailed entity IDs, deliverable/Activity assignments, roles, tags and usage provenance behind the review, available when needed.
+
+Use names such as "Website release review" and "Agent work on website fixes". Write descriptions as proposed Hoursly notes: action, subject, result. Token use on human entries is "—"; associated tokens belong to the named agent entry. Display measured totals on agent rows and keep the full model/tier/cache breakdown available for the approved save. Unknown usage is "Not available", not zero.
+
+Review notes should say what matters: "Already logged", "Ready for your review", "Estimated—please confirm", "Check meeting length", "Confirm project", or "Still running". These explain the decision better than a generic status on every row. Evidence support is not approval; all new entries remain drafts until the user agrees.
+
+Use minute precision normally. Retain exact seconds in source evidence and show them only when useful for a discrepancy or rounding decision. Do not fabricate start/end times for unknown human attention. If a meeting has a recording duration and only a scheduled start, say which boundary is assumed; do not imply an upload timestamp is its start. For intermittent agents, label the duration "active across several runs" and start/end as first/last run bounds. An unfinished run stays open.
+
+## Example: calendar and notes, no Computer History (synthetic)
+
+"Tuesday centred on the Example client website release. The morning meeting covered the remaining launch issues and agreed the fixes to take forward. The meeting notes support a 50-minute discussion, although the invite reserved an hour. The agent later prepared and tested the accessibility fixes; your time reviewing those changes still needs confirming. Nothing is already logged for this work."
+
+| Type | Name | Time start | Time end | Duration | Description | Token use | Review |
+|---|---|---|---|---|---|---|---|
+| Human | Website release meeting — Example client / Website | 10:00 assumed | 10:50 assumed | 50m recorded | Reviewed launch issues and agreed the remaining website fixes. | — | Confirm actual start and meeting length |
+| Human | Review accessibility fixes — Example client / Website | To confirm | To confirm | To confirm | Reviewed the agent's proposed accessibility changes. | — | Confirm whether reviewed and time spent |
+| Agent | Prepare accessibility fixes — Example client / Website | 11:10 | 11:35 | 25m | Prepared the local patch and passed the recorded checks; release not established. | 12,000 measured | Ready for your review |
+
+"For the release meeting, use the recorded 50 minutes or the scheduled hour? How much time did you spend reviewing the accessibility changes?"
+
+With matching Computer History, enrich the same story: "In the afternoon you reviewed the keyboard-navigation changes in the editor and checked them in the browser preview." If the interactions and boundaries support a human-time estimate, propose it with its basis; otherwise keep the duration question. Do not create one entry per app switch.
+
+## Rounding and completion
+
+- Preserve raw times. Show a rounded alternative and the amount added, only where useful or requested. For an entry ending 10:48, 10:50 adds 2m and 11:00 adds 12m. Rounding a 38m duration to 45m is a different decision from moving an endpoint to the hour.
+- Use the user's stated rounding policy if one exists. Otherwise ask a concise choice once and apply the agreed policy, checking overlaps. Do not round unknown time, unfinished time into the future, or tokens.
+- Briefly note personal time excluded from the work review. Only raise it as a question when it conflicts with proposed work or its purpose is unclear; no personal row is required in the work table.
+- Close with logged and proposed human totals, estimated/unresolved portions, and separate agent usage where useful. Recording length pending attendance confirmation remains provisional. Never fill an assumed working-day target.
+- Ask by named work or day; accept clear approval by those names, a whole day, or a clearly defined set. Keep the reviewed version and approvals internally. Report actual saved entry IDs only after a successful authorized save.

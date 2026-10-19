@@ -37,7 +37,7 @@ Repository validation checks packaging and shared text. Passing it does not esta
 
 | Scenario | Expected observable behavior |
 |---|---|
-| Full day, unknown attention | Includes all supported topics as numbered rows; unknown duration stays a question rather than disappearing. |
+| Full day, unknown attention | Describes substantive work in the daily narrative and named entries; asks focused questions about unsupported time without adding speculative human rows for every agent or tab. |
 | Meeting transcript longer than invite | Shows recording length separately from calendar schedule; asks about actual start and attendance; never anchors transcript end to document creation. |
 | Endpoint at 10:48 | Shows exact, 10:50 (+2m), and 11:00 (+12m) as choices; no silent ceiling or conflation with duration rounding. |
 | Missing deliverable schema | Resolves live client/project; marks output/Activity unlinked, checks authorized UI if available, and holds saves needing those links. |
@@ -47,13 +47,13 @@ Repository validation checks packaging and shared text. Passing it does not esta
 | ChatGPT briefing, opaque tokens | AI-only output with unknown tokens; no assumed human reading time. |
 | Open ongoing session | Fixed snapshot; completed runtime and current tokens reported separately; later requests excluded. |
 | Already recorded usage | Reconciles session/model/provenance before any approved append; unknown duplication blocks that append. |
-| Unified entry output | Human and agent rows share a table with Type, Name, Time start, Time end, Duration, Description, Token use, ID and Assessment; unknown fields remain explicit. |
+| Unified entry output | A daily narrative precedes Human and Agent rows with Type, Name, Time start, Time end, Duration, Description, Token use and readable review notes. Internal IDs are not displayed; unknown fields remain explicit. |
 | Verified tokens, unknown outcome | Marks usage supported but the row Needs review; token accuracy does not establish completion or human effort. |
 | Correct but unapproved | A fully supported row remains Pending approval with no write. |
 | Local patch versus release | Uses session/artifact evidence to distinguish implemented, tested, merged and deployed; does not invent later stages. |
 | Personal appointment collision | Briefly notes a generic personal block, excludes it from work totals, and surfaces any competing human allocation for review. |
 | Agent overlaps meeting | Does not flag normal background agent overlap as double-counted human time; checks any claimed human attention separately. |
-| Intermittent session | Labels its first/last span as an elapsed envelope, reports completed execution separately, and never treats the whole span as continuous work. |
+| Intermittent session | Labels first/last run bounds and reports measured active execution across runs; never presents gaps as continuous work. |
 | No email evidence | Reports source coverage without treating an empty search as proof that other sources are right. |
 
 The deterministic helper tests use synthetic JSONL and run with:
@@ -63,3 +63,18 @@ python3 -B -m unittest discover -s skills/capture-computer-history/scripts -p 't
 ```
 
 They verify day filtering, midnight clipping, response deduplication, inherited execution ownership, Claude streaming and boundary handling, and invalid/missing counters. They do not verify human attendance or an installed host's automatic skill invocation.
+
+## Narrative and fallback scenarios
+
+These are acceptance prompts, not assertions that an installed ChatGPT skill has passed them.
+
+| Scenario | Expected review |
+|---|---|
+| ChatGPT without files/terminal/history | Reads authorized connected calendar, email, documents and Hoursly; produces the same narrative and entry table. Never demands a Python script or desktop log to proceed. |
+| No history for requested week | One brief notice, then the ordinary weekly reconstruction: already logged, proposed, uncertain work. Does not stop at the notice or ask the user to re-enter available evidence. |
+| History begins mid-afternoon | Reconstructs the morning from other sources and enriches the afternoon with history. Identifies the coverage split once; does not reject the whole day. |
+| Editor and browser switches for one output | Describes reviewing/testing the output, not a list of clicks or duplicate human entries per app. |
+| Calendar versus recording | Explains the differing durations beside the named meeting and asks a natural-language question. No coded conflict register in the default response. |
+| Missing deliverable field globally | One clear association limitation; useful narrative/proposals remain. Holds only saves requiring the unresolved field, without repeating the same warning on every row. |
+| User approves named work | Resolves the named entry/day to internal records and follows the existing write boundary; never demands a row code. |
+| Review-only request | Tells the story and prepares entries, with no saves even when evidence is strong. |

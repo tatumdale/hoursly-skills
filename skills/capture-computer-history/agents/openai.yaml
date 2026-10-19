@@ -1,7 +1,7 @@
 interface:
-  display_name: "Hoursly from Computer History"
-  short_description: "Review human and agent entries, outcomes and conflicts"
-  default_prompt: "Use $capture-computer-history to deliver today's human and agent entry table with start/end times, durations, achieved outcomes, tokens, Hoursly assignments and evidence conflicts for my review; do not save entries."
+  display_name: "Hoursly work review"
+  short_description: "Turn your work history into a readable timesheet review"
+  default_prompt: "Use $capture-computer-history to reconstruct my day, explain what I achieved and propose human and agent entries for review. Use Computer History where available and other connected work records for the gaps. Do not save anything."
 
 policy:
   allow_implicit_invocation: true

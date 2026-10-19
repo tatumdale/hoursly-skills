@@ -11,7 +11,7 @@ Prefer source artifacts appropriate to the claim: actual document changes, a PR 
 3. Check schedule versus attendance/recording, email changes/cancellations, observed computer activity, locks/gaps and user-provided actual times. Sources support different facts; no blanket source hierarchy resolves every conflict. A calendar is strong evidence of a plan; a transcript may establish discussion and recorded length but not the user's full attendance. State both claims when unresolved.
 4. Check human intervals against each other, including proposed rounding and personal appointments. Human work during an unrelated meeting/travel interval may be the same activity, a changed plan or multitasking. Keep the competing allocations unresolved until explained. Agent/human or agent/agent overlap alone is expected and not a conflict; duplicated tokens or duplicated human minutes are conflicts.
 5. Verify client/project membership and required deliverable/Activity associations against live Hoursly. Keep assignment uncertainties separate from time/outcome evidence. Verify usage provenance, snapshot, model/tier and deduplication against existing Materials when accessible. Missing existing-usage provenance prevents a supported duplicate check.
-6. Assign the row assessment below and explain any unresolved field. Do not mark the whole row Supported merely because its token count or project name is verified. Retain the row with unknowns rather than suppressing it.
+6. Assess support internally using the distinctions below, then explain the actual decision in plain language beside the named work. A verified token count alone does not establish completion or human attention. A global missing field such as unavailable deliverable links should be disclosed once, without drowning otherwise useful proposals in repeated warnings; hold only the affected saves.
 
 | Assessment | Meaning and treatment |
 |---|---|
@@ -23,15 +23,16 @@ Prefer source artifacts appropriate to the claim: actual document changes, a PR 
 
 For rows with several issues, show Conflict first, then list the other blockers. No evidence is not contradictory evidence: missing computer observations during an offline meeting are a coverage gap, not proof of absence. Empty email results are not independent corroboration.
 
-## Conflict register and decisions
+## Explain discrepancies in the story
 
-Use a compact register keyed to the table:
+Refer to work by name and day, not internal row IDs or conflict codes. Usually one sentence beside the entry and a short question are enough:
 
-| Conflict | Rows | Evidence A | Evidence B | Consequence / question |
-|---|---|---|---|---|
-| C1 | H2 | Calendar 10:00–11:00 | Recording length 38m | Confirm actual start/end and attendance; do not assume 60m or anchor the recording to upload time. |
-| C2 | H3 | Hoursly records 09:00–10:00 for the same artifact | Candidate 09:30–10:30 | Confirm whether this extends the same work; only an established uncovered portion can become new time. |
+- "The release meeting was scheduled for an hour, but the recording runs for 38 minutes. Which duration should I use, and did it start at the scheduled time?"
+- "You've already logged an hour against this website work. The later edits may be additional work; should I include them or are they covered by that entry?"
+- "The proposed meeting overlaps a personal appointment. Did the appointment move, or should I shorten the meeting?"
 
-Reference source IDs/titles and timestamps privately in the review; do not reproduce raw transcripts or personal correspondence. If the user resolves a discrepancy, retain the original evidence, record the resolution as user-provided, recalculate overlap/rounding and update the row assessment. Approval then applies to that concrete version. A supported row is never automatically approved.
+Use a separate comparison table only if several competing versions would otherwise be hard to understand. Use meaningful entry names and readable source references. Preserve exact source IDs and raw/proposed values internally; do not expose raw transcripts or private correspondence. When the user resolves a discrepancy, retain the original evidence, record the resolution as user-provided, recalculate overlap/rounding and update the proposal. Evidence support never grants permission to save.
 
-Summarize coverage gaps separately from conflicts, and include a short personal/excluded list so the user can see why those periods are absent. Do not treat incidental app switches, a single video tab, or a personal event as substantive work without supporting context. Never use personal labels or private appointment details in Hoursly work descriptions.
+Keep coverage gaps distinct from disagreements. "There is no computer record for the morning" explains which source is absent, not whether the calendar or meeting notes are wrong. Do not ask the user to re-confirm evidence that is already adequate just because another source is unavailable.
+
+Mention personal time briefly where it explains a gap or overlap. Do not inflate the work table with incidental app switches, single video tabs or speculative human-supervision rows for every agent session. If a possible work item lacks substantive evidence, describe it in the short questions/uncertain-items section. Never use private appointment details in Hoursly work descriptions.

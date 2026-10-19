@@ -41,4 +41,17 @@ Later on 2026-10-19, an explicitly authorized live read-only trial in Codex desk
 | Layered review | Scheduled/logged discrepancies, unknown-duration topics and potential overlap surfaced for review. Personal/non-work events were excluded. No additional time invented to fill gaps. |
 | Side effects | No Hoursly writes, messages, calendar changes or recorder changes. |
 
-This validates the available-source read-only path, not full host acceptance. ChatGPT installation/automatic skill discovery, enabled raw-history reconstruction, successful travel-attachment extraction, restricted Hoursly permissions, adversarial-content behavior and approved-entry persistence remain untested. Do not infer Computer History availability in CLI, IDE or other hosts from this desktop trial. Synthetic acceptance scenarios are listed in [the evaluation guide](../evals/capture-computer-history.md).
+This validates the available-source read-only path, not full host acceptance. Do not infer Computer History availability in CLI, IDE or other hosts from this desktop trial. Synthetic acceptance scenarios are listed in [the evaluation guide](../evals/capture-computer-history.md).
+
+### Today-only entry and usage trial
+
+The later 2026-10-19 trial used the local ChatGPT desktop host, version `26.1013.40934` (build `20770`), with Codex task tools, Standard Hoursly access, and Europe/London day boundaries. The user requested all accessible sources and explicitly prohibited saving entries. The authored skill was read and exercised directly; automatic installed-skill discovery was not tested.
+
+- Recorder status changed from stopped to running during the trial. The assistant made no recorder changes. Timestamped raw records covered only a short late-day interval, followed by a lock event. App/window and interaction evidence identified additional work; the locked period and gaps did not become human hours.
+- Primary-calendar events and linked meeting documents were successfully read. Transcript lengths differed from scheduled slots and were presented for attendance/start-time confirmation. A bounded email search completed with no relevant messages; travel-attachment extraction was not exercised.
+- Hoursly client/project identities and the complete today ledger were read; the preceding day was checked for crossing/open entries. The exposed connector omitted deliverable/Activity associations and AI-only entry creation, so these remained unresolved rather than being simulated through human entries. Read-only UI fallback was unavailable because the computer was locked.
+- Local Codex and Claude telemetry supplied date-filtered request/message usage, including a resumed older thread and child session. ChatGPT output was reviewed with unknown token counts. Token buckets and completed agent execution remained separate from human attention. All private rows, titles, IDs and counts stayed outside this repository.
+- Nine synthetic Python helper tests passed, covering duplicate/cumulative records, local-day filtering, midnight execution clipping, inherited session/turn ownership, Claude streaming and cross-midnight snapshots, and missing/invalid counters. Repository build and validation also passed. These are deterministic accounting checks, not proof of human attendance.
+- Zero Hoursly mutations, outgoing messages, calendar changes or recorder changes were made in the trial.
+
+Still unverified: automatic host installation/discovery, complete-day computer coverage, successful travel-attachment extraction, restricted-access and adversarial-content behavioral cases, approved persistence of human/AI entries, and deliverable/Activity writes. Missing fields and unknown human durations prevent describing the trial as a complete, save-ready timesheet.

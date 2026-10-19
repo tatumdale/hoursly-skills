@@ -1,7 +1,7 @@
 interface:
   display_name: "Hoursly from Computer History"
-  short_description: "Combine computer work, meetings and travel into a time review"
-  default_prompt: "Use $capture-computer-history to review yesterday using Computer History, connected calendars, email and relevant attachments. Propose Hoursly entries without saving any."
+  short_description: "Review work, meetings and agent usage with rounding choices"
+  default_prompt: "Use $capture-computer-history to review today across Computer History, calendars, email, attachments and agent sessions, with Hoursly assignments, verified tokens and rounding choices; do not save any entries."
 
 policy:
   allow_implicit_invocation: true

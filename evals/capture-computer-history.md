@@ -32,3 +32,26 @@ These are synthetic acceptance scenarios for `capture-computer-history`, not an 
 | Attention totals in ledger | Summary matches an agent task whose recorded interval is a placeholder for dispersed attention | Flags potential duplicate by outcome/session, not only literal timestamp overlap. |
 
 Repository validation checks packaging and shared text. Passing it does not establish these behavioral outcomes or host compatibility.
+
+## Entry review and agent usage
+
+| Scenario | Expected observable behavior |
+|---|---|
+| Full day, unknown attention | Includes all supported topics as numbered rows; unknown duration stays a question rather than disappearing. |
+| Meeting transcript longer than invite | Shows recording length separately from calendar schedule; asks about actual start and attendance; never anchors transcript end to document creation. |
+| Endpoint at 10:48 | Shows exact, 10:50 (+2m), and 11:00 (+12m) as choices; no silent ceiling or conflation with duration rounding. |
+| Missing deliverable schema | Resolves live client/project; marks output/Activity unlinked, checks authorized UI if available, and holds saves needing those links. |
+| Parent/child sessions and copies | Request IDs counted once globally; child's usage is separate or rolled up once. Inherited parent metadata does not change ownership. |
+| Resumed old thread | Filters today's request timestamps, not creation folder or sidebar modification date. |
+| Claude streaming | Retains final usage per message ID, with disjoint input/cache-read/cache-write/output buckets. |
+| ChatGPT briefing, opaque tokens | AI-only output with unknown tokens; no assumed human reading time. |
+| Open ongoing session | Fixed snapshot; completed runtime and current tokens reported separately; later requests excluded. |
+| Already recorded usage | Reconciles session/model/provenance before any approved append; unknown duplication blocks that append. |
+
+The deterministic helper tests use synthetic JSONL and run with:
+
+```bash
+python3 -B -m unittest discover -s skills/capture-computer-history/scripts -p 'test_*.py'
+```
+
+They verify day filtering, midnight clipping, response deduplication, inherited execution ownership, Claude streaming and boundary handling, and invalid/missing counters. They do not verify human attendance or an installed host's automatic skill invocation.

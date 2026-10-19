@@ -1,0 +1,15 @@
+interface:
+  display_name: "Hoursly from Computer History"
+  short_description: "Review computer activity as proposed Hoursly time entries"
+  default_prompt: "Use $capture-computer-history to review yesterday's recorded work and propose Hoursly time entries for my approval."
+
+policy:
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hoursly"
+      description: "Hoursly MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.hoursly.app/mcp"

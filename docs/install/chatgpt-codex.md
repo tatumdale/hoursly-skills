@@ -41,3 +41,17 @@ For one repository, use `.agents/skills` at the repository root instead. Restart
 ## Optional metadata
 
 `agents/openai.yaml` in each skill sets the display name, a default prompt, whether the skill may be invoked implicitly, and the MCP dependency. Remove or edit it if your workspace should not auto-invoke the skill.
+
+## Capture time from Computer History
+
+Install `skills/capture-computer-history` using the same folder/upload method above. In Codex, for example:
+
+```bash
+cp -R skills/capture-computer-history ~/.agents/skills/
+```
+
+**Computer History needs to be enabled and recording before the work takes place.** This skill does not enable it, install a recorder or recover previously unrecorded work. The host must expose `computer_history_status` and provide access to the recorded evidence; installing a skill in a host that only understands `SKILL.md` is insufficient. Use the Computer History controls available in your host to enable it. Availability and control labels must be checked in that host; no universal settings path is assumed.
+
+Try: **"Use capture-computer-history to review yesterday's work and propose Hoursly entries."** The skill checks recording status and actual coverage, reads the existing Hoursly ledger, and presents a review. It saves only explicitly approved rows through a connection with write access. Paused or stopped recording can still leave usable older records, but cannot supply fresh activity. Enabling recording now only helps future work.
+
+The Hoursly dependency in `agents/openai.yaml` connects Hoursly only. Computer History availability is checked at runtime; no external Computer History server URL is declared. See [host verification](../hosts.md#computer-history-workflow) for the current test boundary.

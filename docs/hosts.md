@@ -22,3 +22,11 @@ All hosts below read the same `SKILL.md` format. What differs is where skills ar
 ## Updating this table
 
 Change a cell to ✅ only after you have installed the skills in that host, connected the Hoursly MCP, and exercised at least: a read, a refused write on a read-only connection, and a case where access is limited. Record the host version, date and what you tested in your pull request.
+
+## Computer History workflow
+
+`capture-computer-history` has an additional host requirement: the Computer History status tool and readable recorded evidence. Agent Skills format support or an Hoursly connection alone does not satisfy it. Computer History must have been enabled for the work being reconstructed. A paused/stopped recorder may retain older evidence, so the skill checks coverage separately from current recording state.
+
+On 2026-10-19, authoring in Codex desktop confirmed that `computer_history_status` is exposed and returns a recorder state and evidence-root path. The observed state was `stopped`. No recording settings were changed and no activity records were read. The installed Computer History skill's documented states and evidence layout informed the workflow. This was a read-only prerequisite check, not an installed-skill or end-to-end test; the desktop version was not recorded.
+
+ChatGPT installation, enabled-history reconstruction, restricted Hoursly access, adversarial recorded content, and approved-entry creation have **not** been exercised end to end. Do not infer Computer History availability in CLI, IDE or other hosts from the desktop prerequisite check. Synthetic acceptance scenarios are listed in [the evaluation guide](../evals/capture-computer-history.md).

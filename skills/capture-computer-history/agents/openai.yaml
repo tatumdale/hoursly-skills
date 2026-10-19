@@ -1,7 +1,7 @@
 interface:
   display_name: "Hoursly from Computer History"
-  short_description: "Review computer activity as proposed Hoursly time entries"
-  default_prompt: "Use $capture-computer-history to review yesterday's recorded work and propose Hoursly time entries for my approval."
+  short_description: "Combine computer work, meetings and travel into a time review"
+  default_prompt: "Use $capture-computer-history to review yesterday using Computer History, connected calendars, email and relevant attachments. Propose Hoursly entries without saving any."
 
 policy:
   allow_implicit_invocation: true

@@ -46,7 +46,13 @@ Repository validation checks packaging and shared text. Passing it does not esta
 | Six-minute rounding | 1h55m becomes 2h (+5m), the next six-minute boundary; neither 1h54m nor 1h56m is the correct upward result. |
 | Hourly rounding | 1h55m becomes 2h (+5m); 1h20m becomes 2h (+40m). |
 | Fifteen-minute boundaries | 09:07 becomes 09:15; 09:15 stays 09:15; 09:16 becomes 09:30; 09:55 becomes 10:00. |
-| Short positive duration | A two-minute task rounds up to five minutes with a five-minute interval. Zero remains zero. |
+| Short item cannot round into eligibility | A 23-minute fragment with 15-minute rounding remains below the entry minimum and is not proposed as a standalone 30-minute row. It must be grouped with compatible evidence or kept in the narrative. |
+| Compatible short fragments | Human fragments of 12m, 11m and 9m for the same client, project, role and outcome are grouped to raw 32m, then rounded once to 45m at 15-minute ceiling rounding. |
+| Incompatible short fragments | Two 20-minute fragments for different clients are not combined. Each remains narrative or unresolved evidence unless more compatible time exists. |
+| Short agent runs | Several autonomous runs for one project/outcome may form one Agent entry when their summed supported execution reaches 30m. Their tokens are deduplicated and summed once; agent runtime is not Human time. |
+| AI-assisted Human work | A sustained interactive prompt/read/edit/test loop is a Human entry with supported attention and uniquely attributable tokens. No duplicate Agent row is created for that usage. |
+| Autonomous Agent work | A delegated tool run continues while the user works elsewhere. Execution and tokens stay on an Agent entry; brief status checks do not create a Human row. |
+| Mixed AI session | Interactive and autonomous phases are split only when timestamps and usage support the boundary. Otherwise the dominant supported type is used or the row is held for review; tokens are never repeated across both types. |
 | Explicit endpoint rounding | If specifically requested, an end at 10:48 becomes 10:50 at five minutes or 11:00 at fifteen minutes. Preserves observed endpoints and checks overlaps; does not also independently round duration. |
 | Missing deliverable schema | Resolves live client/project; marks output/Activity unlinked, checks authorized UI if available, and holds saves needing those links. |
 | Parent/child sessions and copies | Request IDs counted once globally; child's usage is separate or rolled up once. Inherited parent metadata does not change ownership. |

@@ -12,6 +12,17 @@ Keep technical session identifiers and cache arithmetic out of the default narra
 - **Agent clock time:** actual session/run windows, plus completed active execution where measured. Distinguish elapsed envelope, sum of active intervals and still-running turns. AI-only time contributes zero human hours or time-based labour/revenue. Parent and child windows may overlap.
 - **Usage:** verified request/message tokens, grouped by session, model and tier. Keep opaque ChatGPT token counts unknown; do not estimate them from answer length or account limits.
 
+## Decide whether AI use belongs on a Human or Agent entry
+
+Classify the working relationship, not the provider or application:
+
+- **Human, AI-assisted:** the user remains continuously engaged in a prompt/read/decide/edit/test loop and the AI is a tool within their work. The Hoursly duration is supported human attention. Uniquely attributable tokens belong on the same Human entry.
+- **Agent:** the user delegates an outcome and the system executes independently, often through tools or background work while the user does something else. The Agent entry carries execution and tokens. Brief launch, status and acceptance checks do not create extra human time. Substantive review or editing is separate Human attention.
+
+Use timestamped interaction cadence, foreground activity, tool execution, concurrent activity and artifacts as evidence. A session title, model name or use of Codex/Claude/ChatGPT does not decide the type. Split a mixed session only at supported boundaries and only when its usage can also be allocated without duplication. Otherwise choose the dominant supported mode or leave the classification for review.
+
+Apply the entry minimum after classification. Group short compatible fragments only within the same type and Hoursly association. Do not relabel a short autonomous run as AI-assisted Human work or attach its tokens to a Human row to make either row large enough. If usage spans multiple phases and cannot be separated, label it shared and hold the Materials allocation for review.
+
 ## Read-only local helper
 
 When Python and authorized local logs are available, use `scripts/session_usage.py` (relative to the skill folder). It reads only metadata/usage into its output, never prompts/responses. Supply the actual session root and explicit local date/timezone:

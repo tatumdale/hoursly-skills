@@ -7,7 +7,7 @@ metadata:
   mcp-tools: "computer_history_status list_calendars search_events search_emails get_organisation get_my_access list_clients list_projects list_tags list_billing_roles list_time_entries create_time_entry"
   min-permission: read_only
   money-aware: "no"
-  version: "0.6.3"
+  version: "0.6.4"
 ---
 
 # Review work and prepare Hoursly entries
@@ -57,11 +57,20 @@ Offer a reasonable time proposal where evidence supports one. Label scheduled ti
 
 Keep personal items out of work totals and entry descriptions. Mention them briefly where they explain a gap or possible overlap, without unnecessary private detail. Missing computer events during an offline meeting are not evidence that the meeting did not happen.
 
-## 4. Include agent work without inflating human time
+Build evidence fragments before building Hoursly rows. **Do not propose a Human or Agent row with less than 30 minutes of supported time.** A short fragment cannot become a standalone row merely because rounding would lift it to 30 minutes. Combine short fragments before rounding only when they have the same entry type, client, project, deliverable/Activity, role and coherent outcome. Prefer adjacent fragments or a defensible continuous work block. Non-adjacent fragments may be summarized together for review, but do not invent a continuous start/end interval; obtain an agreed consolidated interval before saving if the available Hoursly tool requires one. Never combine unrelated work, different clients/projects, personal time or uncertain scheduled time just to reach the minimum. If compatible fragments still total less than 30 minutes, keep them in the narrative or unresolved evidence rather than proposing an entry. Existing shorter ledger rows remain context and are not automatically changed.
 
-Create separate Agent entries for identifiable AI work, alongside the related Human entries. Use readable task names and describe what the agent produced. Distinguish the user's prompting/review from agent execution. Parallel agents add no human hours. Consolidate related agent work for readability when attribution is clear; preserve request provenance and count parent/child usage once.
+## 4. Classify AI-assisted and agentic work
 
-Include measured token totals when available, otherwise "Not available". Do not estimate tokens from text length or account limits. Keep model/tier and disjoint token buckets available for Materials, but do not crowd the review with that breakdown unless requested or needed to explain a discrepancy. Read [agent sessions](references/agent-sessions.md) for accounting. Its local Python helper is optional: unavailable filesystem/script access must not block ChatGPT from reviewing other sources or producing agent entries with unknown usage.
+Classify how the AI was used from the evidence; the product name alone is not decisive. Codex, ChatGPT, Claude or another tool can be either mode.
+
+- **Human, AI-assisted:** the user stays in the working loop by prompting, reading, deciding, editing or testing while the AI responds. Use supported human-attention time. Put uniquely attributable measured tokens on that Human row and identify it as AI-assisted in the description. Do not create a second Agent row for the same usage.
+- **Agent:** the user delegates an outcome and the run continues independently or in the background. Use the Agent row for execution and tokens. Brief dispatch, status and acceptance checks are evidence for the Agent run, not automatic Human entries. Substantive later review or editing is Human work, but it must be combined with compatible Human fragments if it is under 30 minutes.
+
+Use interaction cadence, foreground activity, tool execution, gaps, concurrent work and the resulting artifact to make this distinction. A rapid prompt/read/edit loop supports AI-assisted Human work; an autonomous tool run while the user works elsewhere supports Agent work. If a session changes mode, split it only where the evidence supports the boundary and usage attribution. Otherwise use the dominant supported mode or mark it for review. Never move tokens between Human and Agent rows merely to satisfy the 30-minute minimum.
+
+Use readable task names and describe what the AI helped the user achieve or what the agent produced. Parallel agents add no human hours. Consolidate related runs for readability when their type and attribution are clear; preserve request provenance and count parent/child usage once. Apply the 30-minute minimum to the consolidated supported duration. A shorter agent run may contribute tokens to a compatible grouped Agent entry, but it does not become Human work.
+
+Include measured token totals on either AI-assisted Human rows or Agent rows when uniquely attributable; otherwise use "Not available" or "Shared usage—needs allocation". Do not estimate tokens from text length or account limits, and never repeat one token total across both types. Keep model/tier and disjoint token buckets available for Materials, but do not crowd the review with that breakdown unless requested or needed to explain a discrepancy. Read [agent sessions](references/agent-sessions.md) for classification and accounting. Its local Python helper is optional: unavailable filesystem/script access must not block ChatGPT from reviewing other sources or producing entries with unknown usage.
 
 For runs with long gaps, show completed active execution in the duration cell when measured, labelled "active across several runs"; describe the start/end as first/last run bounds rather than implying continuous execution. Leave an ongoing finish open. Tokens and agent clock time never become human labour hours or time-based revenue.
 
@@ -73,7 +82,7 @@ Then show a compact table with the requested **Type (Human/Agent), Name, Time st
 
 Explain discrepancies beside the named work: "The invite allowed 45 minutes, but the recording lasted 84 minutes. Shall I use the recorded duration?" Reserve questions for material unresolved decisions. Do not repeat one missing integration on every row or mark every otherwise useful proposal as unreliable because a global field cannot yet be saved.
 
-Show human time separately from agent execution and usage. Separate logged, proposed/estimated and unresolved time, and avoid a full-day total when gaps remain. Round human durations **up to the next selected 5, 6, 10, 15, 30 or 60 minute boundary**, leaving exact multiples unchanged. This is the nearest increase (ceiling), never a decrease and never adding a whole interval to every value. Show the added time where useful. Preserve original evidence, never silently move observed endpoints or round tokens, and recheck overlaps after a user adjustment. See the review format for duration and clock-time examples.
+Show human time separately from agent execution and usage. Separate logged, proposed/estimated and unresolved time, and avoid a full-day total when gaps remain. First classify and group compatible evidence until each proposed row has at least 30 minutes of supported time; then round each consolidated Human duration **up to the next selected 5, 6, 10, 15, 30 or 60 minute boundary**, leaving exact multiples unchanged. This is the nearest increase (ceiling), never a decrease and never adding a whole interval to every value. Show the raw grouped duration and added time where useful. Preserve original evidence, never silently move observed endpoints or round tokens, and recheck overlaps after a user adjustment. See the review format for duration and clock-time examples.
 
 ## 6. Save only the agreed entries
 

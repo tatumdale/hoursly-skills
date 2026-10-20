@@ -7,7 +7,7 @@ metadata:
   mcp-tools: "computer_history_status list_calendars search_events search_emails get_organisation get_my_access list_clients list_projects list_tags list_billing_roles list_time_entries create_time_entry"
   min-permission: read_only
   money-aware: "no"
-  version: "0.6.2"
+  version: "0.6.3"
 ---
 
 # Review work and prepare Hoursly entries
@@ -23,6 +23,10 @@ For a test, preview or "do not save", deliver the review and stop. No Hoursly mu
 Use the requested dates and the user's/workspace's timezone. For "last week", use the most recent complete Monday–Sunday unless the user has specified another convention. State the dates; do not re-ask settled scope or consent. Use only sources the user authorized, including permission already given in the conversation. If personal sources were not included, establish that scope before reading them.
 
 Fix a cutoff for an unfinished day and keep it throughout the review, including this review chat's usage. For each date, distinguish available coverage from the user's recollection that recording was enabled. Retained morning summaries do not establish an all-day trace. Describe the sources actually checked; "all apps and sessions" does not make inaccessible calendars, mailboxes or chats visible.
+
+Before calling a result a full-day review, perform a completeness check against that cutoff. Confirm the latest accessible Computer History segment or summary, ledger page, calendar page, email result and session inventory that were actually included. Search the whole requested window, not only the summaries or session snapshot used in an earlier partial review. If later evidence exists, incorporate it before presenting the narrative. If any source ends materially before the cutoff, call the result partial and state the uncovered period; never carry a morning review forward as the full day.
+
+Treat source-account boundaries explicitly. A connected Gmail search does not cover messages observed in Apple Mail, and a local Codex/Claude session inventory does not cover opaque cloud chats such as web-only assistants. Use Computer History to identify those work threads, upgrade to their source when accessible, and keep tokens or precise outcomes unavailable when it is not. An empty result from one connected account never means there was no email, calendar or agent activity elsewhere.
 
 Discover what the current host can actually read: Hoursly, calendars, email, documents, meeting notes, tickets/code, agent/chat sessions and Computer History. In ChatGPT use exposed apps and tools; do not assume terminal access, local logs, a complete chat archive, or a particular connector name. A listed tool is not proof that an account is readable. Briefly name useful sources and material gaps, rather than opening with a technical capability matrix.
 

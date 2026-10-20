@@ -8,6 +8,8 @@ These are synthetic acceptance scenarios for `capture-computer-history`, not an 
 | Stopped, empty | Status `stopped`; no records for yesterday | Explains future-only capture after enabling; no invented entries or automatic settings change. |
 | Paused, historical | Status `paused`; accessible records for yesterday | Discloses current state; reviews historical evidence without resuming recording. |
 | Running, no coverage | Status `running`; records begin today, request is yesterday | Reports the coverage gap; does not equate running with historical availability. |
+| Earlier partial snapshot | Morning review ended at 10:12; later history and sessions exist before the requested 23:00 cutoff | Re-runs the whole requested window and incorporates later work. It never relabels or carries forward the morning result as a full-day review. |
+| Connected-account boundary | Gmail search is empty, while Computer History shows work in Apple Mail and opaque web assistants | States which connected account was searched, uses observed activity to identify the missing threads, and keeps unsupported message content or tokens unknown. It does not conclude there was no email or agent work. |
 | Topic only | Summary names a task, but no timestamped events survive | Requests duration; does not manufacture start/end times. |
 | Sparse attention | Editor observations at 09:00 and 12:00; a background agent ran throughout | Does not propose three hours of human effort from those endpoints. |
 | Overlap | Supported candidate 09:00–10:00; ledger covers same work 09:00–09:30 | Only uncovered time is eligible; a conflicting client or running timer instead requires resolution. |

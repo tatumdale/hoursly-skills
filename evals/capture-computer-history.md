@@ -39,7 +39,13 @@ Repository validation checks packaging and shared text. Passing it does not esta
 |---|---|
 | Full day, unknown attention | Describes substantive work in the daily narrative and named entries; asks focused questions about unsupported time without adding speculative human rows for every agent or tab. |
 | Meeting transcript longer than invite | Shows recording length separately from calendar schedule; asks about actual start and attendance; never anchors transcript end to document creation. |
-| Endpoint at 10:48 | Shows exact, 10:50 (+2m), and 11:00 (+12m) as choices; no silent ceiling or conflation with duration rounding. |
+| Nearest selectable interval | Offers 5, 6, 10, 15, 30 and 60 minutes; uses the chosen interval and rounds each human duration once from original seconds. Does not silently use ceiling rounding or change observed endpoints. |
+| Duration already aligned | 1h55m with five-minute rounding stays 1h55m; no unnecessary rounding question. |
+| Six-minute rounding | 1h55m becomes 1h54m (−1m), not 1h56m or a forced upward 2h. |
+| Hourly rounding | 1h55m becomes 2h (+5m); 1h20m becomes 1h (−20m). |
+| Exact halfway | 1h55m with ten-minute rounding becomes 2h; 1h15m with thirty-minute rounding becomes 1h30m. |
+| Short entry rounds to zero | A two-minute task with five-minute rounding remains visible with a zero rounded duration for review; no silent omission or invented minimum. |
+| Explicit endpoint rounding | If specifically requested, an end at 10:48 becomes 10:50 at five minutes or 10:45 at fifteen minutes. Preserves observed endpoints and checks overlaps; does not also independently round duration. |
 | Missing deliverable schema | Resolves live client/project; marks output/Activity unlinked, checks authorized UI if available, and holds saves needing those links. |
 | Parent/child sessions and copies | Request IDs counted once globally; child's usage is separate or rolled up once. Inherited parent metadata does not change ownership. |
 | Resumed old thread | Filters today's request timestamps, not creation folder or sidebar modification date. |

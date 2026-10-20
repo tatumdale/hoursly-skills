@@ -7,7 +7,7 @@ metadata:
   mcp-tools: "computer_history_status list_calendars search_events search_emails get_organisation get_my_access list_clients list_projects list_tags list_billing_roles list_time_entries create_time_entry"
   min-permission: read_only
   money-aware: "no"
-  version: "0.6.0"
+  version: "0.6.1"
 ---
 
 # Review work and prepare Hoursly entries
@@ -69,7 +69,7 @@ Then show a compact table with the requested **Type (Human/Agent), Name, Time st
 
 Explain discrepancies beside the named work: "The invite allowed 45 minutes, but the recording lasted 84 minutes. Shall I use the recorded duration?" Reserve questions for material unresolved decisions. Do not repeat one missing integration on every row or mark every otherwise useful proposal as unreliable because a global field cannot yet be saved.
 
-Show human time separately from agent execution and usage. Separate logged, proposed/estimated and unresolved time, and avoid a full-day total when gaps remain. Offer exact versus rounded time with the added minutes; never silently extend an endpoint or round tokens. Preserve original evidence and recheck overlaps after a user adjustment.
+Show human time separately from agent execution and usage. Separate logged, proposed/estimated and unresolved time, and avoid a full-day total when gaps remain. Offer nearest-interval rounding of human durations to 5, 6, 10, 15, 30 or 60 minutes; exact multiples stay unchanged and exact halfway cases round upward. Use the selected interval, not an automatic ceiling. Show the change only where useful, including time removed. Preserve original evidence, never silently move observed endpoints or round tokens, and recheck overlaps after a user adjustment. See the review format for examples and handling short entries.
 
 ## 6. Save only the agreed entries
 

@@ -17,3 +17,5 @@ jobs:
         with:
           node-version: 22
       - run: npm test
+      - name: Test session usage accounting
+        run: python3 -B -m unittest discover -s skills/capture-computer-history/scripts -p 'test_*.py'

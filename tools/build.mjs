@@ -68,12 +68,15 @@ for (const name of skills) {
 }
 
 // The OpenAI plugin is directly installable from the repository. Keep its
-// bundled skill byte-for-byte aligned with the canonical source skill so the
-// marketplace package cannot silently drift from the separately installable
-// skill.
-const pluginSkillName = "log-my-week";
-const pluginSkillSource = join(skillsDir, pluginSkillName);
-const pluginSkillTarget = join(root, "plugins", "hoursly", "skills", pluginSkillName);
+// selected skills byte-for-byte aligned with their canonical source folders so
+// the marketplace package cannot silently drift or acquire legacy workflows.
+const pluginSkillNames = [
+  "hoursly-core",
+  "log-my-week",
+  "effort-allocation",
+  "grant-report",
+];
+const pluginSkillsDir = join(root, "plugins", "hoursly", "skills");
 
 function packageFiles(dir) {
   if (!existsSync(dir)) return [];
@@ -87,7 +90,9 @@ function packageFiles(dir) {
   return files;
 }
 
-function skillTreesMatch() {
+function skillTreesMatch(name) {
+  const pluginSkillSource = join(skillsDir, name);
+  const pluginSkillTarget = join(pluginSkillsDir, name);
   const sourceFiles = packageFiles(pluginSkillSource)
     .map((path) => relative(pluginSkillSource, path))
     .sort();
@@ -101,18 +106,41 @@ function skillTreesMatch() {
 }
 
 if (check) {
-  if (!skillTreesMatch()) {
-    console.error(`${pluginSkillName}: OpenAI plugin copy is out of date (run npm run build)`);
+  const packagedNames = existsSync(pluginSkillsDir)
+    ? readdirSync(pluginSkillsDir, { withFileTypes: true })
+        .filter((entry) => entry.isDirectory())
+        .map((entry) => entry.name)
+        .sort()
+    : [];
+  const expectedNames = [...pluginSkillNames].sort();
+  if (JSON.stringify(packagedNames) !== JSON.stringify(expectedNames)) {
+    console.error(`OpenAI plugin skills must be exactly: ${expectedNames.join(", ")} (run npm run build)`);
     stale++;
   }
+  for (const name of pluginSkillNames) {
+    if (!skillTreesMatch(name)) {
+      console.error(`${name}: OpenAI plugin copy is out of date (run npm run build)`);
+      stale++;
+    }
+  }
 } else {
-  rmSync(pluginSkillTarget, { recursive: true, force: true });
-  mkdirSync(dirname(pluginSkillTarget), { recursive: true });
-  cpSync(pluginSkillSource, pluginSkillTarget, {
-    recursive: true,
-    filter: (path) => !path.includes("__pycache__") && !path.endsWith(".DS_Store"),
-  });
-  console.log(`updated OpenAI plugin skill ${pluginSkillName}`);
+  mkdirSync(pluginSkillsDir, { recursive: true });
+  for (const entry of readdirSync(pluginSkillsDir, { withFileTypes: true })) {
+    if (entry.isDirectory() && !pluginSkillNames.includes(entry.name)) {
+      rmSync(join(pluginSkillsDir, entry.name), { recursive: true, force: true });
+      console.log(`removed unselected OpenAI plugin skill ${entry.name}`);
+    }
+  }
+  for (const name of pluginSkillNames) {
+    const pluginSkillSource = join(skillsDir, name);
+    const pluginSkillTarget = join(pluginSkillsDir, name);
+    rmSync(pluginSkillTarget, { recursive: true, force: true });
+    cpSync(pluginSkillSource, pluginSkillTarget, {
+      recursive: true,
+      filter: (path) => !path.includes("__pycache__") && !path.endsWith(".DS_Store"),
+    });
+    console.log(`updated OpenAI plugin skill ${name}`);
+  }
 }
 
 if (check && stale > 0) process.exit(1);

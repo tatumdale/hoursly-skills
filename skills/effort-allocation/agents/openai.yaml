@@ -1,0 +1,15 @@
+interface:
+  display_name: "Effort allocation"
+  short_description: "Analyse effort, plans and workload"
+  default_prompt: "Use $effort-allocation to show where our effort went and compare it with available plans."
+
+policy:
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hoursly"
+      description: "Hoursly MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.hoursly.app/mcp"

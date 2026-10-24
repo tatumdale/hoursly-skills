@@ -19,7 +19,6 @@ A skill must be **self-contained**. Hosts load one folder; do not link outside i
 name: my-skill                       # equals the folder name
 description: What it does and when to use it, trigger words first.
 license: MIT
-compatibility: Requires the Hoursly MCP server connected in the host.
 metadata:
   mcp-tools: "get_organisation get_my_access list_time_entries"
   min-permission: read_only          # read_only | standard | full
@@ -66,4 +65,4 @@ Until the evaluation harness lands, test by hand and record: host, connection pr
 
 ## OpenAI plugin package
 
-The canonical skill remains under `skills/`. `npm run build` also copies `log-my-week` into `plugins/hoursly/skills/` so the portable ChatGPT/Codex package is directly installable. Never edit the packaged copy by hand. `npm run check` fails when the two trees differ, and `npm run validate` checks the portable manifests, public HTTPS MCP transport, marketplace metadata and absence of lifecycle hooks.
+Canonical skills remain under `skills/`. `npm run build` copies exactly `hoursly-core`, `log-my-week`, `effort-allocation` and `grant-report` into `plugins/hoursly/skills/` so the portable ChatGPT/Codex package is directly installable. Never edit packaged copies by hand. `npm run check` fails when a selected tree differs or an unexpected skill is packaged, and `npm run validate` checks the portable manifests, public HTTPS MCP transport, marketplace metadata and absence of lifecycle hooks.

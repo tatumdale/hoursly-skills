@@ -2,7 +2,6 @@
 name: log-last-week
 description: Log last week in Hoursly. Use for "log last week", "do my timesheet for last week", "catch up on last week" or "what did I miss last week". Inventories the tools, connectors and AI assistants available, reads the ledger first, reconstructs only the gaps from calendar, email, chat, tickets, git and agent sessions, and presents the whole week for approval before anything is written.
 license: MIT
-compatibility: Requires the Hoursly MCP server. Works best with calendar, email, chat, ticket or git tools connected in the host; works read-only to propose, needs Standard access to commit.
 metadata:
   mcp-tools: "get_organisation get_my_access list_clients list_projects list_tags list_billing_roles list_time_entries create_time_entry"
   min-permission: read_only

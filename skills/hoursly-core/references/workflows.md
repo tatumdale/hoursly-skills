@@ -4,11 +4,25 @@ These are the baseline flows other skills build on. Always orient first (see `SK
 
 ## Log time
 
-1. Resolve client, project and tags with `list_clients`, `list_projects`, `list_tags` (or pass names directly).
+1. Resolve client, project, deliverable, Activity Code and tags with the live list tools (or pass supported names directly). Setting an Activity Code requires `rates.view`.
 2. Work out `start_time` and `end_time` (or duration) from the description. State the date you assumed.
 3. Confirm billable status if it is not clear. Check whether a Billing Role is needed (`list_billing_roles`).
-4. Show the entry and ask for confirmation unless every field was given explicitly.
+4. Show the Human entry and ask for confirmation unless every field was given explicitly and approved.
 5. Call `create_time_entry`. Report the entry id, duration, client and project.
+
+## Log autonomous AI work
+
+1. Confirm the run was delegated execution rather than Human AI-assisted attention.
+2. Resolve its client, project, deliverable and `work_category`, and check the same clock window against existing Human and Agent records with `list_time_entries` and `list_ai_entries`.
+3. Show the Agent record with first/last execution bounds, measured active duration, outcome and uniquely attributable usage. Agent runtime never becomes Human labour.
+4. After approval, use `record_ai_session` for the AI-only entry, including its deliverable and evidenced usage when the current contract accepts them. Use `set_ai_entry_deliverable` for a later approved association change and `record_usage` only for separately anchored usage. Record each quantity once.
+5. If native AI-only tools are unavailable, keep the proposal for review; never emulate the run with a Human time entry.
+
+When the user spends substantive Human time reviewing one or more AI-only entries, `create_ai_review_entry` can create the linked Human review entry after its actual review window is approved. This does not approve the AI work; brief dispatch or status checks are not automatically Human entries.
+
+## Record AI usage on Human work
+
+Use `record_usage` only for measured usage uniquely attributable to the Human entry or approved project/date. Keep token or credit units separate and use a live tool source. Missing rates remain unpriced rather than zero-cost. Do not also attach the same usage to an Agent entry.
 
 ## Build a timesheet
 

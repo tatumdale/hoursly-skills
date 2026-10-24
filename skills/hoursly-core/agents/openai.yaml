@@ -1,7 +1,7 @@
 interface:
   display_name: "Hoursly core"
-  short_description: "Orient, log and review time, and use Hoursly safely"
-  default_prompt: "Use Hoursly to help me with my time tracking"
+  short_description: "Use Hoursly records and controls safely"
+  default_prompt: "Use $hoursly-core to orient on my Hoursly workspace and handle this request safely."
 
 policy:
   allow_implicit_invocation: true

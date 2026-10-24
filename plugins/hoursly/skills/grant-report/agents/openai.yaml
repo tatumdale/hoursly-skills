@@ -1,0 +1,15 @@
+interface:
+  display_name: "Grant report"
+  short_description: "Review grant burn, effort and funding"
+  default_prompt: "Use $grant-report to review how this grant is tracking and draft a funder-ready summary without sending it."
+
+policy:
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hoursly"
+      description: "Hoursly MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.hoursly.app/mcp"

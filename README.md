@@ -2,6 +2,8 @@
 
 Installable agent skills for the [Hoursly](https://hoursly.app) MCP server. They give your AI assistant tested, repeatable workflows on top of your Hoursly data: logging and reviewing time, billing readiness, team and project reports, and charity grant reporting.
 
+The repository also contains an early portable [Hoursly plugin package](plugins/hoursly/) for ChatGPT and Codex. It bundles the work-review skill with the Hoursly MCP connection; see the [plugin build and release notes](docs/openai-plugin.md). It is a local test package, not a marketplace publication.
+
 The skills use the open [Agent Skills](https://agentskills.io) format. Host-specific evidence tools determine which sources are available: the computer-history layer needs host access to recorded evidence; connected calendars and email can supply additional online and offline context.
 
 > **Status: early.** This repository currently ships `hoursly-core`, `capture-time`, `capture-computer-history`, `log-last-week`, `effort-allocation`, `grant-report` and the tooling around them. See [packs](packs/) for grouped install guides. More skills are being added in waves. See [Roadmap](#roadmap). Nothing here has been verified in every host yet; see [docs/hosts.md](docs/hosts.md) for exactly what has and has not been tested.
@@ -72,6 +74,7 @@ evals/, fixtures/           evaluation harness and synthetic data (planned)
 ```bash
 npm run build      # copy shared text into skills
 npm test           # check shared text is current, then validate every skill
+npm run package:openai  # build the local ChatGPT/Codex plugin zip
 ```
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/authoring.md](docs/authoring.md).

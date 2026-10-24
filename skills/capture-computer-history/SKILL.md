@@ -2,7 +2,6 @@
 name: capture-computer-history
 description: Reconstruct a day or week in Hoursly and tell the story of what was achieved, then propose human and agent entries for review. Use Computer History where available and fall back to calendar, email, documents and sessions where it is missing. Check existing logs, explain discrepancies in plain language, and save only approved work.
 license: MIT
-compatibility: Works with the evidence tools available in ChatGPT or another host. Hoursly MCP provides ledger and project lookups. Computer History and local session scripts are optional enhancements; missing access never prevents a review from other authorized sources.
 metadata:
   mcp-tools: "computer_history_status list_calendars search_events search_emails get_organisation get_my_access list_clients list_projects list_tags list_billing_roles list_time_entries create_time_entry"
   min-permission: read_only

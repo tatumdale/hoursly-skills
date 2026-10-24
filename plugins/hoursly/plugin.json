@@ -1,0 +1,45 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hoursly",
+  "version": "0.1.0",
+  "description": "Reconstruct work from available evidence, review human and agent effort, and prepare approved entries in Hoursly.",
+  "author": {
+    "name": "Tatumdale Ltd",
+    "email": "support@hoursly.app",
+    "url": "https://www.hoursly.app"
+  },
+  "homepage": "https://www.hoursly.app",
+  "repository": "https://github.com/tatumdale/hoursly-skills",
+  "license": "MIT",
+  "keywords": [
+    "time-tracking",
+    "productivity",
+    "computer-history",
+    "agent-usage",
+    "timesheets"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Hoursly",
+        "shortDescription": "Turn work evidence into reviewed human and agent entries",
+        "longDescription": "Hoursly reconstructs a readable account of your work from Computer History where available, then fills gaps from connected calendars, email, attachments, documents and AI sessions. It checks the Hoursly ledger first, separates human attention from agent execution and token use, and saves only the entries you approve.",
+        "developerName": "Tatumdale Ltd",
+        "category": "Productivity",
+        "capabilities": [
+          "Read",
+          "Write"
+        ],
+        "websiteURL": "https://www.hoursly.app",
+        "privacyPolicyURL": "https://www.hoursly.app/privacy-policy",
+        "termsOfServiceURL": "https://www.hoursly.app/terms-of-service",
+        "defaultPrompt": [
+          "Review my work today and propose Hoursly entries without saving anything.",
+          "Use Computer History where available and my connected calendar and email for gaps.",
+          "Show human and agent entries separately, including measured token use, and wait for my approval before saving."
+        ],
+        "brandColor": "#D92576"
+      }
+    }
+  }
+}

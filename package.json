@@ -9,7 +9,8 @@
     "build": "node tools/build.mjs",
     "check": "node tools/build.mjs --check",
     "validate": "node tools/validate.mjs",
-    "test": "npm run check && npm run validate"
+    "test": "npm run check && npm run validate",
+    "package:openai": "npm run build && node tools/package-openai.mjs"
   },
   "engines": {
     "node": ">=20"

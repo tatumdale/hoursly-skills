@@ -10,6 +10,7 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const skillsDir = join(root, "skills");
+const pluginsDir = join(root, "plugins");
 
 const errors = [];
 const warnings = [];
@@ -181,8 +182,91 @@ for (const name of skillNames) {
   }
 }
 
+if (existsSync(pluginsDir)) {
+  for (const entry of readdirSync(pluginsDir, { withFileTypes: true }).filter((item) => item.isDirectory())) {
+    const name = entry.name;
+    const dir = join(pluginsDir, name);
+    const manifestPath = join(dir, "plugin.json");
+    const mcpPath = join(dir, "mcp.json");
+
+    if (!existsSync(manifestPath)) {
+      err(`plugin/${name}`, "plugin.json missing");
+      continue;
+    }
+
+    let manifest;
+    try {
+      manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+    } catch (error) {
+      err(`plugin/${name}`, `plugin.json is invalid JSON: ${error.message}`);
+      continue;
+    }
+
+    if (manifest.$schema !== "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json") {
+      err(`plugin/${name}`, "plugin.json must use the Agent Plugins 1.0.0 schema");
+    }
+    if (manifest.name !== name) err(`plugin/${name}`, `manifest name must equal folder name "${name}"`);
+    if (!manifest.version || !/^\d+\.\d+\.\d+$/.test(manifest.version)) {
+      err(`plugin/${name}`, "manifest version must be semantic x.y.z");
+    }
+    if (!manifest.description) err(`plugin/${name}`, "manifest description missing");
+    if (existsSync(join(dir, "hooks"))) {
+      err(`plugin/${name}`, "public-directory packages must not include lifecycle hooks");
+    }
+
+    const openai = manifest.extensions?.["com.openai"];
+    const ui = openai?.interface;
+    for (const key of ["displayName", "shortDescription", "developerName", "websiteURL", "privacyPolicyURL"]) {
+      if (!ui?.[key]) err(`plugin/${name}`, `extensions.com.openai.interface.${key} missing`);
+    }
+    for (const key of ["websiteURL", "privacyPolicyURL", "termsOfServiceURL"]) {
+      if (ui?.[key] && !/^https:\/\//.test(ui[key])) {
+        err(`plugin/${name}`, `${key} must be an HTTPS URL`);
+      }
+    }
+
+    if (!existsSync(mcpPath)) {
+      err(`plugin/${name}`, "mcp.json missing");
+    } else {
+      let mcp;
+      try {
+        mcp = JSON.parse(readFileSync(mcpPath, "utf8"));
+      } catch (error) {
+        err(`plugin/${name}`, `mcp.json is invalid JSON: ${error.message}`);
+      }
+      if (mcp) {
+        if (mcp.$schema !== "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json") {
+          err(`plugin/${name}`, "mcp.json must use the Agent Plugins 1.0.0 schema");
+        }
+        const servers = mcp.mcpServers ?? {};
+        if (Object.keys(servers).length === 0) err(`plugin/${name}`, "mcp.json has no servers");
+        for (const [serverName, server] of Object.entries(servers)) {
+          if (server.type !== "streamable-http") {
+            err(`plugin/${name}`, `${serverName} must use streamable-http for public distribution`);
+          }
+          if (!/^https:\/\//.test(server.url ?? "")) {
+            err(`plugin/${name}`, `${serverName} must use a public HTTPS URL`);
+          }
+        }
+      }
+    }
+
+    if (!existsSync(join(dir, "skills", "capture-computer-history", "SKILL.md"))) {
+      err(`plugin/${name}`, "packaged capture-computer-history skill missing");
+    }
+
+    for (const file of walk(dir)) {
+      if (!/\.(md|yaml|yml|json|txt|mjs|js)$/.test(file)) continue;
+      const content = readFileSync(file, "utf8");
+      for (const [re, label] of SECRET_PATTERNS) {
+        if (re.test(content)) err(`plugin/${name}`, `${relative(root, file)} contains a ${label}`);
+      }
+    }
+  }
+}
+
 for (const w of warnings) console.warn(`warning: ${w}`);
 for (const e of errors) console.error(`error: ${e}`);
 
-console.log(`${skillNames.length} skill(s) checked, ${errors.length} error(s), ${warnings.length} warning(s)`);
+console.log(`${skillNames.length} skill(s) and plugin packages checked, ${errors.length} error(s), ${warnings.length} warning(s)`);
 if (errors.length > 0) process.exit(1);

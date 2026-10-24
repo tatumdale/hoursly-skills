@@ -70,3 +70,11 @@ That run exposed inherited Codex completion records with identical durations but
 The corrected helper was replayed locally against both original fixed windows. Token totals and completed execution matched the independently reconciled private baselines, with no warnings. Sixteen synthetic regression tests passed and are included in CI. Live evidence and baselines remain outside this public repository. This validates the corrected local accounting path; it does not establish automatic ChatGPT installation/invocation, full-day history, attendance, approved persistence or the unsupported associations listed above.
 
 The v0.6.1 nearest-duration interpretation was superseded by the user's clarification in v0.6.2: round upward to the next selected 5, 6, 10, 15, 30 or 60 minute boundary, leaving exact multiples unchanged. Checked synthetic examples cover short positive durations, exact boundaries, hour rollover and six-minute intervals. This is a review-policy correction, not a new live host or Hoursly write test; observed timestamps and agent telemetry remain exact.
+
+### OpenAI plugin package audit
+
+On 2026-10-24, the first portable Hoursly plugin package was built from the canonical `capture-computer-history` skill. The root `plugin.json` and `mcp.json` passed the Agent Plugins 1.0.0 schemas; the packaged skill passed the OpenAI skill validator; repository validation and all 16 synthetic session-parser tests passed. The resulting ZIP has both manifests at its root and contains no hooks, credentials, bytecode or private evidence.
+
+The public MCP endpoint returned the expected unauthenticated `401` challenge with OAuth protected-resource metadata, and that metadata returned `200` with the Hoursly resource and authorization server. The website, privacy policy, terms and repository URLs returned `200` after redirects. No authenticated MCP action or Hoursly mutation was performed.
+
+Automatic local plugin discovery and invocation were not verified. The installed `codex` command could not run because its Homebrew Node executable referenced a missing `libsimdutf` library; validation instead used the bundled Codex Node runtime. ChatGPT/Codex installation, OAuth completion through the packaged plugin, fallback evidence access and approved writes therefore remain host acceptance work rather than verified behavior.

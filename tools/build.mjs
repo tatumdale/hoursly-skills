@@ -71,7 +71,7 @@ for (const name of skills) {
 // bundled skill byte-for-byte aligned with the canonical source skill so the
 // marketplace package cannot silently drift from the separately installable
 // skill.
-const pluginSkillName = "capture-computer-history";
+const pluginSkillName = "log-my-week";
 const pluginSkillSource = join(skillsDir, pluginSkillName);
 const pluginSkillTarget = join(root, "plugins", "hoursly", "skills", pluginSkillName);
 

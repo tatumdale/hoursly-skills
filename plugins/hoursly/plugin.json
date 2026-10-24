@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "hoursly",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Reconstruct work from available evidence, review human and agent effort, and prepare approved entries in Hoursly.",
   "author": {
     "name": "Tatumdale Ltd",
@@ -35,7 +35,7 @@
         "privacyPolicyURL": "https://www.hoursly.app/privacy-policy",
         "termsOfServiceURL": "https://www.hoursly.app/terms-of-service",
         "defaultPrompt": [
-          "Review my work today and propose Hoursly entries without saving anything.",
+          "Log my week in Hoursly and show me the proposed entries without saving anything.",
           "Use Computer History where available and my connected calendar and email for gaps.",
           "Show human and agent entries separately, including measured token use, and wait for my approval before saving."
         ],
@@ -45,7 +45,7 @@
       },
       "review": {
         "prompts": [
-          "Review my work today and propose Hoursly entries without saving anything.",
+          "Log my week in Hoursly and show me the proposed entries without saving anything.",
           "Use Computer History where available and my connected calendar and email for gaps.",
           "Separate human attention from autonomous agent work and show measured token use."
         ],
@@ -102,7 +102,7 @@
         }
       },
       "publication": {
-        "release_notes": "Initial Hoursly public-package candidate: narrative-first day and week reviews, optional Computer History enrichment, calendar and email fallback, ledger conflict checks, native AI-only session logging, deliverable mapping, and approval-gated Human and Agent writes."
+        "release_notes": "Renames the bundled workflow to Log my week and clarifies that Computer History is optional. Includes narrative-first day and week reviews, calendar and email fallback, ledger conflict checks, native AI-only session logging, deliverable mapping, and approval-gated Human and Agent writes."
       }
     }
   }

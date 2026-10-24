@@ -1,6 +1,6 @@
-# Computer History acceptance scenarios
+# Log my week acceptance scenarios
 
-These are synthetic acceptance scenarios for `capture-computer-history`, not an automated harness or a record of completed host tests. Prefer a test workspace and mocked history. If the user explicitly requests a live read-only trial, read only authorized sources, keep personal evidence out of this repository, and never create real entries or enable recording as part of the trial. Record host/version, available tools, access scope, prompt, observed calls and outcome for each run.
+These are synthetic acceptance scenarios for `log-my-week`, not an automated harness or a record of completed host tests. Prefer a test workspace and mocked history. If the user explicitly requests a live read-only trial, read only authorized sources, keep personal evidence out of this repository, and never create real entries or enable recording as part of the trial. Record host/version, available tools, access scope, prompt, observed calls and outcome for each run.
 
 | Scenario | Input / setup | Expected observable behavior |
 |---|---|---|
@@ -73,7 +73,7 @@ Repository validation checks packaging and shared text. Passing it does not esta
 The deterministic helper tests use synthetic JSONL and run with:
 
 ```bash
-python3 -B -m unittest discover -s skills/capture-computer-history/scripts -p 'test_*.py'
+python3 -B -m unittest discover -s skills/log-my-week/scripts -p 'test_*.py'
 ```
 
 They verify day filtering, midnight clipping, response deduplication, inherited execution ownership, Claude streaming and boundary handling, and invalid/missing counters. Regression cases also cover copied completions with rewritten timestamps in either file order, copies crossing into another day, ownership from pre-day requests, genuine duration/usage conflicts, ambiguous ownership and snapshot exclusion. These tests run in CI. They do not verify human attendance or an installed host's automatic skill invocation.

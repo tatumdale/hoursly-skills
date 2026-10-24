@@ -6,7 +6,7 @@ The repository also contains an early portable [Hoursly plugin package](plugins/
 
 The skills use the open [Agent Skills](https://agentskills.io) format. Host-specific evidence tools determine which sources are available: the computer-history layer needs host access to recorded evidence; connected calendars and email can supply additional online and offline context.
 
-> **Status: early.** This repository currently ships `hoursly-core`, `capture-time`, `capture-computer-history`, `log-last-week`, `effort-allocation`, `grant-report` and the tooling around them. See [packs](packs/) for grouped install guides. More skills are being added in waves. See [Roadmap](#roadmap). Nothing here has been verified in every host yet; see [docs/hosts.md](docs/hosts.md) for exactly what has and has not been tested.
+> **Status: early.** This repository currently ships `hoursly-core`, `capture-time`, `log-my-week`, `log-last-week`, `effort-allocation`, `grant-report` and the tooling around them. See [packs](packs/) for grouped install guides. More skills are being added in waves. See [Roadmap](#roadmap). Nothing here has been verified in every host yet; see [docs/hosts.md](docs/hosts.md) for exactly what has and has not been tested.
 
 ## What a skill is, and what it is not
 
@@ -23,7 +23,7 @@ A skill never replaces the connection. You connect the Hoursly MCP server in you
 |---|---|---|
 | [`hoursly-core`](skills/hoursly-core/SKILL.md) | Orients on your workspace and applies Hoursly's access, confirmation, money and disclosure rules. Load it before other Hoursly skills. | Any connection |
 | [`capture-time`](skills/capture-time/SKILL.md) | Reconstructs a day or week from calendar, email, chat, tickets and git, and proposes time entries for review. Writes only the rows you approve. | Any connection to propose; Standard access to commit |
-| [`capture-computer-history`](skills/capture-computer-history/SKILL.md) | Tells the story of a day or week, then proposes human/agent entries with times, outcomes and tokens. Adds Computer History detail when available and falls back to connected work records where it is missing. Checks existing logs before human approval. | Authorized evidence sources; recorded Computer History for computer evidence; Hoursly read access; Python 3.9+ for optional local token helper |
+| [`log-my-week`](skills/log-my-week/SKILL.md) | Tells the story of a day or week, then proposes human/agent entries with times, outcomes and tokens. Adds Computer History detail when available and falls back to connected work records where it is missing. Checks existing logs before human approval. | Authorized evidence sources; Computer History is optional; Hoursly read access; Python 3.9+ for optional local token helper |
 | [`log-last-week`](skills/log-last-week/SKILL.md) | The week-specific entry point: inventories the tools and AI assistants available, reads the ledger first, reconstructs only the gaps, and presents the whole week for approval. | Any connection to propose; Standard access to commit |
 | [`effort-allocation`](skills/effort-allocation/SKILL.md) | Where effort went by programme, project, role, person and tag; Actual vs Official hours; a funder-ready Level of Effort table; workload signals. | Any connection; team pivots need `entries.view_all` |
 | [`grant-report`](skills/grant-report/SKILL.md) | Grant award, received, burn, pace, remaining, planned vs actual by role, and a funder update draft. Respects withheld figures. | `reports.grant_costs` and the grant read tools (see [charity pack](packs/charity.md)) |

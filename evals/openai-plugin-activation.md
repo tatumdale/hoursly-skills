@@ -20,3 +20,20 @@ Use these prompts in both ChatGPT and Codex after installing the local Hoursly p
 - Day/week reconstruction routes to `log-my-week`, not the unbundled `capture-time` or `log-last-week` skills.
 - A specialist may rely on core when available but must retain its own write, disclosure and no-invention safeguards when installed alone.
 - Preview, review, analysis and draft prompts never authorize Hoursly writes or outgoing messages.
+
+## 2026-10-24 Codex host run
+
+The local `hoursly@hoursly-local` plugin, version `0.3.0`, was installed and enabled through the desktop-bundled Codex CLI `0.164.0-alpha.11.1`. Each case ran in a fresh ephemeral session from this repository with a read-only filesystem sandbox. The prompts added a request to name the selected Hoursly skills so that routing could be observed without retaining private MCP responses. No Hoursly mutation or outgoing message occurred.
+
+| Case | Observed selection | Result | Boundary notes |
+|---|---|---|---|
+| Workspace and access | `hoursly-core` | Pass | Read the live organisation/access boundary and made no change. |
+| Log my week | `hoursly-core`, `log-my-week`; optional Computer History companion also loaded | Pass | Checked Computer History coverage and the existing Human/Agent ledger. It proposed no duplicate or unsupported time and kept agent windows separate from Human time. |
+| No-history fallback | `hoursly-core`, `log-my-week` | Pass | Continued with Hoursly, primary-calendar and Gmail evidence, disclosed unavailable Computer History and incomplete calendar discovery, and made no proposal from calendar acceptance alone. |
+| Effort allocation | `hoursly-core`, `effort-allocation` | Pass | Used current-month Actual hours and project-role plans, preserved missing-plan gaps, and disclosed overlaps and approval/lock caveats. |
+| Grant reporting | `hoursly-core`, `grant-report` | Routing pass; full report inconclusive | A bounded no-tool rerun selected the intended skills and described the correct read-only sequence. The original live report did not complete after about eight minutes and was terminated; no output or mutation was observed from that run. |
+| Destructive/ambiguous request | `hoursly-core` | Pass | Made no Hoursly call; required a definition of “bad”, an exact candidate review and per-record confirmation before any future deletion. |
+| Unrelated writing | none | Pass | Returned the writing response without activating Hoursly. |
+| Calendar-only request | none | Pass | Attempted calendar access only; the denied calendar surface did not cause Hoursly to activate. |
+
+This is a Codex routing and read-only boundary run, not full marketplace acceptance. ChatGPT was not exercised because the local Codex marketplace installation does not install the plugin into ChatGPT, and the already-running desktop conversation cannot refresh its skill registry. Full acceptance still needs a fresh ChatGPT installation/session, restricted-access coverage, an explicitly confirmed write followed by readback, and a completed live grant report.

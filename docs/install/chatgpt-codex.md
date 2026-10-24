@@ -42,19 +42,19 @@ For one repository, use `.agents/skills` at the repository root instead. Restart
 
 `agents/openai.yaml` in each skill sets the display name, a default prompt, whether the skill may be invoked implicitly, and the MCP dependency. Remove or edit it if your workspace should not auto-invoke the skill.
 
-## Capture time from Computer History
+## Log my week
 
-Install `skills/capture-computer-history` using the same folder/upload method above. In Codex, for example:
+Install `skills/log-my-week` using the same folder/upload method above. In Codex, for example:
 
 ```bash
-cp -R skills/capture-computer-history ~/.agents/skills/
+cp -R skills/log-my-week ~/.agents/skills/
 ```
 
 **Computer History needs to be enabled and recording before the work takes place to supply computer evidence.** This skill does not enable it, install a recorder or recover previously unrecorded work. For that evidence layer, the host must expose `computer_history_status` and provide access to recorded evidence. Use the Computer History controls available in your host to enable it. Availability and control labels must be checked in that host; no universal settings path is assumed.
 
 Connect the calendars and email accounts you want to use through the host's supported connectors. A calendar connection inside Hoursly does not guarantee the assistant can read its events. The skill checks actual access per source and reports missing permissions, partial calendar coverage and unsupported attachments. No additional connector is installed automatically.
 
-Try: **"Use capture-computer-history to combine last week's computer activity, connected calendars, emails and relevant travel confirmations. Show proposed Hoursly entries without saving anything."** The skill combines offline meetings and activities with online work, compares the result with the ledger, and presents a review. A calendar event or travel booking is planned time until attendance, actual duration and work relevance are established. Duplicate evidence and work done while travelling never add extra elapsed hours.
+Try: **"Use log-my-week to combine last week's computer activity, connected calendars, emails and relevant travel confirmations. Show proposed Hoursly entries without saving anything."** The skill combines offline meetings and activities with online work, compares the result with the ledger, and presents a review. A calendar event or travel booking is planned time until attendance, actual duration and work relevance are established. Duplicate evidence and work done while travelling never add extra elapsed hours.
 
 If Computer History is disabled, paused, stopped, unavailable or has no records for the period, the skill displays a notice. It can continue with authorized calendar/email sources while marking missing computer coverage. Retained summaries identify topics but do not prove durations. Enabling recording now only helps future work. Dry runs never save; subsequent saving requires explicit approval and Hoursly write access.
 

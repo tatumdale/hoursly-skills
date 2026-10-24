@@ -66,4 +66,4 @@ Until the evaluation harness lands, test by hand and record: host, connection pr
 
 ## OpenAI plugin package
 
-The canonical skill remains under `skills/`. `npm run build` also copies `capture-computer-history` into `plugins/hoursly/skills/` so the portable ChatGPT/Codex package is directly installable. Never edit the packaged copy by hand. `npm run check` fails when the two trees differ, and `npm run validate` checks the portable manifests, public HTTPS MCP transport, marketplace metadata and absence of lifecycle hooks.
+The canonical skill remains under `skills/`. `npm run build` also copies `log-my-week` into `plugins/hoursly/skills/` so the portable ChatGPT/Codex package is directly installable. Never edit the packaged copy by hand. `npm run check` fails when the two trees differ, and `npm run validate` checks the portable manifests, public HTTPS MCP transport, marketplace metadata and absence of lifecycle hooks.

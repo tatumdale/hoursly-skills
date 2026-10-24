@@ -389,8 +389,8 @@ if (existsSync(pluginsDir)) {
       }
     }
 
-    if (!existsSync(join(dir, "skills", "capture-computer-history", "SKILL.md"))) {
-      err(`plugin/${name}`, "packaged capture-computer-history skill missing");
+    if (!existsSync(join(dir, "skills", "log-my-week", "SKILL.md"))) {
+      err(`plugin/${name}`, "packaged log-my-week skill missing");
     }
 
     for (const file of walk(dir)) {

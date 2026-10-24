@@ -25,7 +25,7 @@ Change a cell to ✅ only after you have installed the skills in that host, conn
 
 ## Computer History workflow
 
-`capture-computer-history` combines independent evidence layers. Its computer layer needs the Computer History status tool and readable recorded evidence; its calendar/email layers need their own connected tools. Agent Skills format support or an Hoursly connection alone does not provide those sources. Computer History must have been enabled for the computer work being reconstructed. A paused/stopped recorder may retain older evidence, so the skill checks coverage separately from current state. Missing history produces a notice and does not block authorized calendar/email review.
+`log-my-week` combines independent evidence layers. Its optional computer layer needs the Computer History status tool and readable recorded evidence; its calendar/email layers need their own connected tools. Agent Skills format support or an Hoursly connection alone does not provide those sources. Computer History must have been enabled for the computer work being reconstructed. A paused/stopped recorder may retain older evidence, so the skill checks coverage separately from current state. Missing history produces a notice and does not block authorized calendar/email review.
 
 On 2026-10-19, authoring in Codex desktop confirmed that `computer_history_status` is exposed and returns a recorder state and evidence-root path. The observed state was `stopped`. No recording settings were changed and no activity records were read. The installed Computer History skill's documented states and evidence layout informed the workflow. This was a read-only prerequisite check, not an installed-skill or end-to-end test; the desktop version was not recorded.
 
@@ -41,7 +41,7 @@ Later on 2026-10-19, an explicitly authorized live read-only trial in Codex desk
 | Layered review | Scheduled/logged discrepancies, unknown-duration topics and potential overlap surfaced for review. Personal/non-work events were excluded. No additional time invented to fill gaps. |
 | Side effects | No Hoursly writes, messages, calendar changes or recorder changes. |
 
-This validates the available-source read-only path, not full host acceptance. Do not infer Computer History availability in CLI, IDE or other hosts from this desktop trial. Synthetic acceptance scenarios are listed in [the evaluation guide](../evals/capture-computer-history.md).
+This validates the available-source read-only path, not full host acceptance. Do not infer Computer History availability in CLI, IDE or other hosts from this desktop trial. Synthetic acceptance scenarios are listed in [the evaluation guide](../evals/log-my-week.md).
 
 ### Today-only entry and usage trial
 
@@ -73,7 +73,7 @@ The v0.6.1 nearest-duration interpretation was superseded by the user's clarific
 
 ### OpenAI plugin package audit
 
-On 2026-10-24, the first portable Hoursly plugin package was built from the canonical `capture-computer-history` skill. The root manifest and MCP transport passed the Agent Plugins 1.0.0 checks; OpenAI-specific listing, review and OAuth/DCR extensions passed the official Plugin Creator component rules; the packaged skill passed the OpenAI skill validator; repository validation and all 16 synthetic session-parser tests passed. The resulting ZIP has both manifests at its root and contains no hooks, credentials, bytecode or private evidence.
+On 2026-10-24, the first portable Hoursly plugin package was built from the canonical skill now named `log-my-week`. The root manifest and MCP transport passed the Agent Plugins 1.0.0 checks; OpenAI-specific listing, review and OAuth/DCR extensions passed the official Plugin Creator component rules; the packaged skill passed the OpenAI skill validator; repository validation and all 16 synthetic session-parser tests passed. The resulting ZIP has both manifests at its root and contains no hooks, credentials, bytecode or private evidence.
 
 The public MCP endpoint returned the expected unauthenticated `401` challenge with OAuth protected-resource metadata, and that metadata returned `200` with the Hoursly resource and authorization server. The website, privacy policy, terms and repository URLs returned `200` after redirects. No authenticated MCP action or Hoursly mutation was performed.
 

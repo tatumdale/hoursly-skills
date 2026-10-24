@@ -1,15 +1,15 @@
 ---
-name: capture-computer-history
-description: Reconstruct a day or week in Hoursly and tell the story of what was achieved, then propose human and agent entries for review. Use Computer History where available and fall back to calendar, email, documents and sessions where it is missing. Check existing logs, explain discrepancies in plain language, and save only approved work.
+name: log-my-week
+description: Log a day or week in Hoursly by reconstructing what was achieved and proposing human and agent entries for review. Use for "log my week", timesheet catch-up, or reviewing recent work. Computer History is optional; use it where available and fall back to calendar, email, documents and sessions. Check existing logs and save only approved work.
 license: MIT
 metadata:
   mcp-tools: "computer_history_status list_calendars search_events search_emails get_organisation get_my_access list_clients list_projects list_deliverables list_tags list_billing_roles list_time_entries list_tool_sources create_time_entry record_usage record_ai_session set_ai_entry_deliverable"
   min-permission: read_only
   money-aware: "no"
-  version: "0.7.0"
+  version: "0.8.0"
 ---
 
-# Review work and prepare Hoursly entries
+# Log my week
 
 Help the user recognise their day or week and approve a useful timesheet. Follow the same shape as the weekly logging workflow: understand available sources, read Hoursly first, reconstruct the gaps, tell the story of the work, and present logged, proposed and uncertain work together. This skill stands alone; the weekly skill need not be installed.
 

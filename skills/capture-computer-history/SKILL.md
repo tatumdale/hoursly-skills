@@ -3,10 +3,10 @@ name: capture-computer-history
 description: Reconstruct a day or week in Hoursly and tell the story of what was achieved, then propose human and agent entries for review. Use Computer History where available and fall back to calendar, email, documents and sessions where it is missing. Check existing logs, explain discrepancies in plain language, and save only approved work.
 license: MIT
 metadata:
-  mcp-tools: "computer_history_status list_calendars search_events search_emails get_organisation get_my_access list_clients list_projects list_tags list_billing_roles list_time_entries create_time_entry"
+  mcp-tools: "computer_history_status list_calendars search_events search_emails get_organisation get_my_access list_clients list_projects list_deliverables list_tags list_billing_roles list_time_entries list_tool_sources create_time_entry record_usage record_ai_session set_ai_entry_deliverable"
   min-permission: read_only
   money-aware: "no"
-  version: "0.6.4"
+  version: "0.7.0"
 ---
 
 # Review work and prepare Hoursly entries
@@ -42,7 +42,7 @@ Never start recording or change observation settings as part of capture. A separ
 
 Read organisation/access, clients, projects, tags and applicable roles, then the period's complete paginated ledger including crossing/open entries. Use existing descriptions and project associations to recognise work already logged. Reconstruct missing work rather than proposing the whole day again. An incomplete ledger means the duplicate check is incomplete; say so and keep the review provisional.
 
-Resolve real client/project identities and any exposed deliverable/Activity links. Prefer the user's mappings and established repository/project associations, then clear source context; ask when multiple assignments are plausible. Do not invent entity IDs or substitute tags for deliverable links. If a required field is unavailable, explain that limitation once, keep the narrative and proposed entries useful, and hold saving that association until resolved. Use an authorized read-only UI/export if accessible; no host-specific workaround is required to continue drafting.
+Resolve real client/project identities and any exposed deliverable/Activity links. Use `list_deliverables` when available and preserve the chosen deliverable on the proposed row. Prefer the user's mappings and established repository/project associations, then clear source context; ask when multiple assignments are plausible. Do not invent entity IDs or substitute tags for deliverable or Activity links. If a required field is unavailable in the connected MCP version, explain that limitation once, keep the narrative and proposed entries useful, and hold saving that association until resolved. Use an authorized read-only UI/export if accessible; no host-specific workaround is required to continue drafting.
 
 ## 3. Reconstruct what happened and what was achieved
 
@@ -87,7 +87,11 @@ Show human time separately from agent execution and usage. Separate logged, prop
 
 A clear approval of the displayed work, a day, or a named set is sufficient; do not demand technical row IDs or repeated confirmation. Approval of a review is not a reason to override an explicit "do not save". Resolve any actual ambiguity before writing.
 
-Recheck affected ledger entries and usage provenance immediately before saving; hold changed/conflicting entries for review. Use only exposed tools that preserve the approved Human/Agent type, required associations and Materials. Never emulate an Agent entry with a human-time record. Add tokens only when included in the approved set, using existing cost sources and server cost calculations.
+Recheck affected ledger entries, selectable deliverables and usage provenance immediately before saving; hold changed/conflicting entries for review. Use only exposed tools that preserve the approved Human/Agent type, required associations and Materials. Never emulate an Agent entry with a human-time record. If the connected server has not yet exposed `record_ai_session`, keep Agent rows proposed and say that its MCP deployment or connection needs refreshing.
+
+Save approved Human work with `create_time_entry`, including the reviewed `deliverable_id` or `deliverable_title` when one applies. Attach its uniquely attributable AI usage with `record_usage`, resolved against the actual source returned by `list_tool_sources`; never use a deprecated alias when the current tool is available.
+
+Save each approved Agent entry with `record_ai_session`: pass a stable source session identifier, explicit client/project IDs, business date, reviewed clock bounds, readable title and narrative, and only the verified usage lines funded by the resolved source. This creates AI-only work and must not add human hours. If a deliverable was approved, follow the returned entry ID with `set_ai_entry_deliverable`. Do not create or edit tool sources, invent usage, or close a Materials period as part of logging reviewed work.
 
 Create approved entries sequentially, without editing/deleting existing records, stopping timers or changing locks. Stop on permission/systematic failures; reconcile an uncertain write before retrying. Report what was actually saved, with confirmed IDs/links as receipts, plus what remains unresolved. A read-only review is still a useful completed deliverable when saving or source access is unavailable.
 

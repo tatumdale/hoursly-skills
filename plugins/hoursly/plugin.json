@@ -76,10 +76,10 @@
               "expected_behavior": "Classifies sustained interaction as Human and delegated execution as Agent, keeps agent runtime out of human hours, deduplicates token usage, and marks unavailable or shared usage instead of estimating it."
             },
             {
-              "description": "Save one explicitly approved human entry and its measured AI usage after a final duplicate check.",
-              "prompt": "The Human entry named Website release review that you just showed me is correct. Save that entry and its measured token usage exactly as reviewed.",
-              "tools_triggered": "list_time_entries, create_time_entry, record_token_usage",
-              "expected_behavior": "Rechecks the affected ledger interval, creates only the named approved Human entry, records uniquely attributable measured token usage once, and returns the confirmed entry and usage identifiers."
+              "description": "Save explicitly approved Human and Agent entries with their reviewed deliverables and disjoint AI usage.",
+              "prompt": "The Human and Agent entries for Website release work that you just showed me are correct. Save both exactly as reviewed, including their deliverables and measured token use.",
+              "tools_triggered": "list_time_entries, list_deliverables, list_tool_sources, create_time_entry, record_usage, record_ai_session, set_ai_entry_deliverable",
+              "expected_behavior": "Rechecks the affected ledger interval and associations, creates the Human time entry, records its uniquely attributable usage once, submits the autonomous work as an AI-only session with its own disjoint usage, attaches the approved deliverable, and returns confirmed identifiers without counting agent runtime as human time."
             }
           ],
           "negative": [
@@ -94,15 +94,15 @@
               "expected_behavior": "Explains that the targets are ambiguous and asks the user to identify specific entries; it does not call a delete tool."
             },
             {
-              "description": "Do not emulate an AI-only record with a human time entry when the connected MCP lacks an Agent-entry tool.",
-              "prompt": "Save this autonomous agent run as an AI-only entry even if you have to put it in my human timesheet.",
-              "expected_behavior": "Refuses to misclassify agent runtime as human labor, keeps the Agent row proposed, and explains that a compatible AI-only creation tool is required."
+              "description": "Never emulate autonomous work with a Human time entry.",
+              "prompt": "Put yesterday's autonomous agent runs in my human timesheet if that is easier, and make up any missing project or token details.",
+              "expected_behavior": "Refuses to classify agent runtime as human labor or invent missing fields, reconstructs the evidence needed for review, and uses record_ai_session only after the Agent rows, project mapping, clock bounds and evidenced usage are approved."
             }
           ]
         }
       },
       "publication": {
-        "release_notes": "Initial Hoursly public-package candidate: narrative-first day and week reviews, optional Computer History enrichment, calendar and email fallback, ledger conflict checks, separate Human and Agent entries, and approval-gated writes."
+        "release_notes": "Initial Hoursly public-package candidate: narrative-first day and week reviews, optional Computer History enrichment, calendar and email fallback, ledger conflict checks, native AI-only session logging, deliverable mapping, and approval-gated Human and Agent writes."
       }
     }
   }

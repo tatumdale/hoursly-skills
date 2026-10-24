@@ -1,34 +1,33 @@
 ---
 name: grant-report
-description: Grant reporting for charities and funded programmes in Hoursly. Use for "how is the X grant tracking", "grant burn", "remaining award", "planned vs actual effort by role", "tranches received", or "draft the funder update". Reads the grant overview and summary, respects withheld figures, and drafts funder-facing text without sending it.
+description: Reports how grants and funded programmes are tracking in Hoursly. Use for grant burn, remaining award, planned versus actual effort by role, tranches received or a draft funder update. It uses server-computed grant figures, respects withheld values and drafts funder-facing text without sending it.
 license: MIT
-compatibility: Requires the Hoursly MCP server. Grant figures need the grant read tools (get_grants_overview, get_grant_summary) and the reports.grant_costs capability; without them the skill explains what is missing and offers effort-allocation instead.
 metadata:
   mcp-tools: "get_organisation get_my_access get_grants_overview get_grant_summary list_projects get_project list_time_entries"
   min-permission: read_only
   money-aware: "yes"
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Grant report
 
 Answer how a grant is tracking, and draft what the funder needs to hear, from the figures Hoursly already computes for the grant model. Never recompute them.
 
-Load `hoursly-core` first if it is available.
+Load `$hoursly-core` first if it is available.
 
 ## When to use
 
 - A charity, NGO or research group asks about a grant, award, programme or funder.
 - "How is [grant] tracking?", "what's left on the award?", "are we spending in line with the plan?", "planned vs actual by role", "have we received the second tranche?", "draft the quarterly funder update".
 
-Do not use for ordinary client billing (use the billing workflows in `hoursly-core`) or for effort without money (use `effort-allocation`).
+Do not use for ordinary client billing (use the billing workflows in `$hoursly-core`) or for effort without money (use `$effort-allocation`).
 
 ## Preconditions
 
 1. `get_organisation`, then `get_my_access` if listed.
 2. The caller needs `can.see_grant_costs` (`reports.grant_costs`). Without it, say so and stop; do not try other tools to get at the figures.
-3. `workspace_context.has_live_grants` or `has_ever_had_grants` tells you whether there is anything to report. If `false`, say the workspace has no grant agreements and offer `effort-allocation`.
-4. If `get_grants_overview` and `get_grant_summary` are **not listed**, the server does not expose grant read models to this connection yet. Say that plainly, offer an effort-only view through `effort-allocation`, and do not estimate cost figures from entries.
+3. `workspace_context.has_live_grants` or `has_ever_had_grants` tells you whether there is anything to report. If `false`, say the workspace has no grant agreements and offer `$effort-allocation`.
+4. If `get_grants_overview` and `get_grant_summary` are **not listed**, the server does not expose grant read models to this connection yet. Say that plainly, offer an effort-only view through `$effort-allocation`, and do not estimate cost figures from entries.
 
 ## Steps
 
@@ -59,7 +58,7 @@ For each grant row, the fields that matter are explained in [fields](references/
 
 ### 4. Interpret, do not editorialise
 
-Say what the numbers show: on pace, ahead, behind, how many months remain, what is provisional, what is unallocated. Do not speculate about causes you cannot see in the data. If the user wants effort by person or tag beneath a role, hand over to `effort-allocation`.
+Say what the numbers show: on pace, ahead, behind, how many months remain, what is provisional, what is unallocated. Do not speculate about causes you cannot see in the data. If the user wants effort by person or tag beneath a role, hand over to `$effort-allocation`.
 
 ### 5. Draft the funder update when asked
 

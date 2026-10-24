@@ -1,13 +1,12 @@
 ---
 name: effort-allocation
-description: Effort allocation and Level of Effort from Hoursly. Use for "where did our effort go", "hours by programme or project", "LoE by role", "time on grant X by person", "effort evidence for the funder", "planned vs actual effort", or "who is over the daily limit". Builds pivots from entries, labels Actual vs Official hours, and produces a funder-ready LoE table.
+description: Analyses effort allocation and Level of Effort from Hoursly. Use for "where did our effort go", hours by programme or project, LoE by role, planned versus actual effort, funder evidence or workload limits. It builds access-aware pivots, labels Actual versus Official hours and can produce a funder-ready LoE table.
 license: MIT
-compatibility: Requires the Hoursly MCP server. Works from time entries today; uses role plans, official hours and workload tools when the server exposes them.
 metadata:
-  mcp-tools: "get_organisation get_my_access list_clients list_projects list_billing_roles list_time_entries get_billing_summary get_grant_summary get_workload_summary get_my_workload_summary"
+  mcp-tools: "get_organisation get_my_access list_clients list_projects list_billing_roles list_time_entries get_billing_summary get_grant_summary get_project_role_plans get_workload_summary get_my_workload_summary"
   min-permission: read_only
   money-aware: optional
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Effort allocation
@@ -20,7 +19,7 @@ Load `hoursly-core` first if it is available.
 
 - "Where did our effort go in Q3?", "hours by programme", "LoE by role on the youth grant", "how much of Priya's time was on programme A" (owner or admin), "effort evidence for the funder", "who is over the daily limit this month".
 
-For grant money, burn and pace use `grant-report`. For reconstructing unlogged time use `capture-time`.
+For grant money, burn and pace use `$grant-report`. For reconstructing unlogged time use `$log-my-week`.
 
 ## Steps
 
@@ -52,7 +51,8 @@ Rules in [pivots](references/pivots.md). In short:
 ### 5. Planned vs actual, when a plan exists
 
 - If `get_grant_summary` is listed and the project is a grant, its `roles[]` carries `planned_percent`, `planned_to_date` and `actual_to_date`. Use those for the comparison; restricted rows stay withheld.
-- Otherwise there is no plan available through MCP; say so rather than inventing one.
+- For a non-grant project, use `get_project_role_plans` when it is listed. Compare each returned `planned_percent` with that role's actual percentage of scoped entry hours for the requested period. Show the actual hours beside the percentage and keep unassigned hours visible.
+- If the relevant plan tool is unavailable or no plan is returned, say so rather than inventing one.
 
 ### 6. Workload section, when asked
 

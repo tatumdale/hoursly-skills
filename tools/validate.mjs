@@ -11,6 +11,12 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const skillsDir = join(root, "skills");
 const pluginsDir = join(root, "plugins");
+const OPENAI_PLUGIN_SKILLS = new Set([
+  "hoursly-core",
+  "log-my-week",
+  "effort-allocation",
+  "grant-report",
+]);
 
 const errors = [];
 const warnings = [];
@@ -389,8 +395,19 @@ if (existsSync(pluginsDir)) {
       }
     }
 
-    if (!existsSync(join(dir, "skills", "log-my-week", "SKILL.md"))) {
-      err(`plugin/${name}`, "packaged log-my-week skill missing");
+    const packagedSkillsDir = join(dir, "skills");
+    const packagedSkillNames = existsSync(packagedSkillsDir)
+      ? readdirSync(packagedSkillsDir, { withFileTypes: true })
+          .filter((item) => item.isDirectory())
+          .map((item) => item.name)
+      : [];
+    for (const expected of OPENAI_PLUGIN_SKILLS) {
+      if (!packagedSkillNames.includes(expected) || !existsSync(join(packagedSkillsDir, expected, "SKILL.md"))) {
+        err(`plugin/${name}`, `packaged ${expected} skill missing`);
+      }
+    }
+    for (const unexpected of packagedSkillNames.filter((item) => !OPENAI_PLUGIN_SKILLS.has(item))) {
+      err(`plugin/${name}`, `unexpected packaged skill: ${unexpected}`);
     }
 
     for (const file of walk(dir)) {

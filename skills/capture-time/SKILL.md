@@ -2,7 +2,6 @@
 name: capture-time
 description: Reconstruct a day or week of work from calendar, email, chat, tickets and git, then propose Hoursly time entries for review. Use for "capture my week", "fill in my timesheet", "what did I forget to log", or catching up after missed days. Proposes first; writes only the rows you approve.
 license: MIT
-compatibility: Requires the Hoursly MCP server. Works best with at least one evidence source connected (calendar, email, chat, tickets, git).
 metadata:
   mcp-tools: "get_organisation get_my_access list_clients list_projects list_tags list_billing_roles list_time_entries create_time_entry"
   min-permission: read_only
@@ -62,6 +61,8 @@ Present a table the user can approve row by row, with uncertain rows first and a
 ### 7. Commit approved rows only
 
 Tell the user how many entries you are about to create, then `create_time_entry` once per approved row and report each result. Never create clients, projects or tags without confirmation. Never commit a row the user has not approved. Details in [review table](references/review-table.md).
+
+For a synthetic end-to-end illustration, read [the worked example](references/example.md).
 
 ## What this skill never does
 

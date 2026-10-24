@@ -1,5 +1,8 @@
 {
   "name": "hoursly-local",
+  "interface": {
+    "displayName": "Hoursly local"
+  },
   "plugins": [
     {
       "name": "hoursly",

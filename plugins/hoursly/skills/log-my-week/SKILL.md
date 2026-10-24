@@ -1,17 +1,17 @@
 ---
 name: log-my-week
-description: Log a day or week in Hoursly by reconstructing what was achieved and proposing human and agent entries for review. Use for "log my week", timesheet catch-up, or reviewing recent work. Computer History is optional; use it where available and fall back to calendar, email, documents and sessions. Check existing logs and save only approved work.
+description: Reconstructs a day or week and proposes Human and Agent entries for Hoursly review. Use for "log my week", timesheet catch-up or reviewing recent work. Computer History is optional; it falls back to calendars, email, attachments, documents and sessions, checks existing logs, and saves only approved work.
 license: MIT
 metadata:
-  mcp-tools: "computer_history_status list_calendars search_events search_emails get_organisation get_my_access list_clients list_projects list_deliverables list_tags list_billing_roles list_time_entries list_tool_sources create_time_entry record_usage record_ai_session set_ai_entry_deliverable"
+  mcp-tools: "computer_history_status list_calendars search_events search_emails get_organisation get_my_access list_clients list_projects list_deliverables list_activity_codes list_tags list_billing_roles list_time_entries list_ai_entries get_ai_entry list_tool_sources create_time_entry record_usage record_ai_session create_ai_review_entry set_ai_entry_deliverable"
   min-permission: read_only
   money-aware: "no"
-  version: "0.8.0"
+  version: "0.9.0"
 ---
 
 # Log my week
 
-Help the user recognise their day or week and approve a useful timesheet. Follow the same shape as the weekly logging workflow: understand available sources, read Hoursly first, reconstruct the gaps, tell the story of the work, and present logged, proposed and uncertain work together. This skill stands alone; the weekly skill need not be installed.
+Help the user recognise their day or week and approve a useful timesheet. Load `$hoursly-core` first when it is available for workspace, access, money and error semantics. The workflow below repeats its essential safety invariants so it still degrades safely when installed alone. Understand available sources, read Hoursly first, reconstruct the gaps, tell the story of the work, and present logged, proposed and uncertain work together.
 
 Lead with meaningful work names and outcomes. Write for someone reviewing their own work, not auditing telemetry. Keep source IDs, session IDs, token arithmetic and internal row keys behind the scenes. Never ask the user to interpret labels such as H1, A3 or C2. Refer to "the deletion-policy meeting" or "Tuesday's website work" instead.
 
@@ -40,9 +40,9 @@ Never start recording or change observation settings as part of capture. A separ
 
 ## 2. Read Hoursly before reconstructing work
 
-Read organisation/access, clients, projects, tags and applicable roles, then the period's complete paginated ledger including crossing/open entries. Use existing descriptions and project associations to recognise work already logged. Reconstruct missing work rather than proposing the whole day again. An incomplete ledger means the duplicate check is incomplete; say so and keep the review provisional.
+Read organisation/access, clients, projects, tags and applicable roles, then the period's complete paginated Human ledger including crossing/open entries. When `list_ai_entries` is exposed, read the AI-only ledger for the same business dates too and use `get_ai_entry` only for relevant detail. Use existing descriptions, outcomes and project associations to recognise work already logged. Reconstruct missing work rather than proposing the whole day again. An incomplete Human or Agent ledger means the duplicate check is incomplete; say so and keep the review provisional.
 
-Resolve real client/project identities and any exposed deliverable/Activity links. Use `list_deliverables` when available and preserve the chosen deliverable on the proposed row. Prefer the user's mappings and established repository/project associations, then clear source context; ask when multiple assignments are plausible. Do not invent entity IDs or substitute tags for deliverable or Activity links. If a required field is unavailable in the connected MCP version, explain that limitation once, keep the narrative and proposed entries useful, and hold saving that association until resolved. Use an authorized read-only UI/export if accessible; no host-specific workaround is required to continue drafting.
+Resolve real client/project identities and any exposed deliverable/Activity links. Use `list_deliverables` and `list_activity_codes` when available. Preserve the chosen deliverable and, for Human rows, Activity Code; Agent rows use the AI entry's `work_category` rather than pretending an Activity Code applies. Apply the ordered, evidence-led mapping rules in [attribution](references/attribution.md): explicit user mappings and established Hoursly/project associations outrank inferred keywords or time adjacency. Ask when multiple assignments are plausible. Do not invent entity IDs or substitute tags for deliverable, Activity Code, work category or Billing Role. If a required field is unavailable in the connected MCP version, explain that limitation once, keep the narrative and proposed entries useful, and hold saving that association until resolved. Use an authorized read-only UI/export if accessible; no host-specific workaround is required to continue drafting.
 
 ## 3. Reconstruct what happened and what was achieved
 
@@ -87,11 +87,13 @@ Show human time separately from agent execution and usage. Separate logged, prop
 
 A clear approval of the displayed work, a day, or a named set is sufficient; do not demand technical row IDs or repeated confirmation. Approval of a review is not a reason to override an explicit "do not save". Resolve any actual ambiguity before writing.
 
-Recheck affected ledger entries, selectable deliverables and usage provenance immediately before saving; hold changed/conflicting entries for review. Use only exposed tools that preserve the approved Human/Agent type, required associations and Materials. Never emulate an Agent entry with a human-time record. If the connected server has not yet exposed `record_ai_session`, keep Agent rows proposed and say that its MCP deployment or connection needs refreshing.
+Recheck affected Human and AI-only ledger entries, selectable deliverables, Activity Codes and usage provenance immediately before saving; hold changed/conflicting entries for review. Use only exposed tools that preserve the approved Human/Agent type, required associations and Materials. Never emulate an Agent entry with a human-time record. If the connected server has not yet exposed `record_ai_session`, keep Agent rows proposed and say that its MCP deployment or connection needs refreshing.
 
-Save approved Human work with `create_time_entry`, including the reviewed `deliverable_id` or `deliverable_title` when one applies. Attach its uniquely attributable AI usage with `record_usage`, resolved against the actual source returned by `list_tool_sources`; never use a deprecated alias when the current tool is available.
+Save approved Human work with `create_time_entry`, including the reviewed deliverable and `activity_code` or `activity_code_id` when they apply. Attach its uniquely attributable AI usage with `record_usage`, resolved against the actual source returned by `list_tool_sources`; never use a deprecated alias when the current tool is available.
 
-Save each approved Agent entry with `record_ai_session`: pass a stable source session identifier, explicit client/project IDs, business date, reviewed clock bounds, readable title and narrative, and only the verified usage lines funded by the resolved source. This creates AI-only work and must not add human hours. If a deliverable was approved, follow the returned entry ID with `set_ai_entry_deliverable`. Do not create or edit tool sources, invent usage, or close a Materials period as part of logging reviewed work.
+Save each approved Agent entry with `record_ai_session`: pass a stable source session identifier, explicit client/project IDs, business date, reviewed clock bounds, readable title and narrative, approved deliverable, `work_category`, billable state, models/outcomes/outputs where evidenced, and only the verified usage lines funded by the resolved source. This creates AI-only work and must not add human hours. Read back the returned status; it follows the supervisor's review rule and the tool does not approve or lock it. Use `set_ai_entry_deliverable` only for a later approved association change. Do not create or edit tool sources, invent usage, or close a Materials period as part of logging reviewed work.
+
+When an approved Human row is substantive review of one or more existing AI-only entries, prefer `create_ai_review_entry` so the Human review time is linked to those entries and remains distinct from their execution. It does not approve the Agent work. Apply the same 30-minute raw minimum and compatible-fragment grouping rules before proposing that Human row.
 
 Create approved entries sequentially, without editing/deleting existing records, stopping timers or changing locks. Stop on permission/systematic failures; reconcile an uncertain write before retrying. Report what was actually saved, with confirmed IDs/links as receipts, plus what remains unresolved. A read-only review is still a useful completed deliverable when saving or source access is unavailable.
 

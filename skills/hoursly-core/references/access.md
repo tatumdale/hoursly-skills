@@ -23,11 +23,16 @@ Roles are labels; capabilities decide. The ones that matter to reports:
 | `reports.margin` | Cost, margin, per-person grant detail |
 | `reports.grant_costs` | Grant cost read models (with disclosure controls) |
 | `reports.workload` | Team workload views |
+| `reports.view` | Workspace delivery-status reporting |
 | `planning.manage` | Write role plans |
+| `commercials.manage` | Create, update, reorder and delete deliverables |
+| `tool_costs.manage` | Manage AI/tool sources, rates, usage and period closes |
 | `entries.lock` | Lock entries |
 | `mcp.use`, `mcp.write` | Use the MCP, and write through it |
 
 These are independent switches. Holding one does not imply another. A person can see grant costs without seeing any individual's cost.
+
+`mcp.write` is checked live on every request. A connection becomes effectively read-only when the caller loses that capability even if its original OAuth preset allowed writes; use `get_my_access.denied_with_reason` rather than assuming the preset still governs the result.
 
 ## 3. Scope and masking
 

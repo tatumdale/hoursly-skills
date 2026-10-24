@@ -1,0 +1,15 @@
+interface:
+  display_name: "Hoursly core"
+  short_description: "Use Hoursly records and controls safely"
+  default_prompt: "Use $hoursly-core to orient on my Hoursly workspace and handle this request safely."
+
+policy:
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hoursly"
+      description: "Hoursly MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.hoursly.app/mcp"

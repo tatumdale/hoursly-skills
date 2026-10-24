@@ -2,7 +2,7 @@
 
 ## Scope of the first package
 
-The first public-package candidate focuses on one recognizable outcome: review a day or week, explain what was achieved, and prepare Hoursly entries for human approval. It combines the existing Hoursly MCP server with the `capture-computer-history` skill.
+The first public-package candidate focuses on one recognizable outcome: review a day or week, explain what was achieved, and prepare Hoursly entries for human approval. It combines the existing Hoursly MCP server with the `capture-computer-history` skill. The package follows the official OpenAI Plugin Creator requirements for listing metadata, remote-MCP authentication, review cases and archive layout.
 
 The package deliberately has no custom UI or lifecycle hooks. Computer History, calendar and email remain host-provided evidence sources rather than being copied into Hoursly. Only the user's approved, derived entries and approved AI usage are sent to Hoursly.
 
@@ -48,9 +48,9 @@ Then test an approved write in a disposable workspace. Re-read the ledger immedi
 - The currently visible Hoursly tool inventory in this audit can create ordinary time entries and attach token usage, but it does not expose a distinct AI-only entry creation tool. Agent rows must remain proposed until the installed MCP version can preserve the Agent type without pretending it is human time.
 - The visible time-entry tools do not expose deliverable/Activity assignment. The skill keeps those mappings explicit and unresolved rather than silently dropping or inventing them.
 - The checked-out MCP implementation marks `delete_time_entry` as destructive, but `delete_payment_term` currently performs an immediate delete without advertising `destructiveHint: true`. Correct and deploy that annotation before a public tool scan, then verify every scanned read/write/destructive/idempotent annotation against the live behavior.
-- Marketplace icons and screenshots are not included yet. Add reviewed Hoursly brand assets before submission.
+- A reviewed Hoursly icon is included for the listing and composer. A demo recording is still required before initial public review; screenshots are not required because this version has no custom UI.
 - Automatic installed-plugin invocation in both ChatGPT and Codex, restricted-access behavior, adversarial evidence, and approved Agent persistence still need end-to-end testing.
-- Submission still needs verified business details, reviewer instructions/test credentials, MCP tool review, privacy/support checks and confirmation that the target OpenAI project is eligible.
+- Submission still needs the intended supported countries and commerce declaration, a reviewer-accessible demo workspace/account and recording, verified business details, MCP tool review, and confirmation that the target OpenAI project is eligible.
 
 ## Submission boundary
 

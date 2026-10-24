@@ -14,7 +14,7 @@ rmSync(output, { force: true });
 
 execFileSync(
   "zip",
-  ["-qr", output, ".", "-x", "*/__pycache__/*", "*.DS_Store"],
+  ["-qr", output, ".", "-x", "README.md", "*/__pycache__/*", "*.DS_Store"],
   { cwd: pluginRoot, stdio: "inherit" },
 );
 

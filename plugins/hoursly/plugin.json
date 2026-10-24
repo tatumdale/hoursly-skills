@@ -22,7 +22,7 @@
     "com.openai": {
       "interface": {
         "displayName": "Hoursly",
-        "shortDescription": "Turn work evidence into reviewed human and agent entries",
+        "shortDescription": "Review human and agent work",
         "longDescription": "Hoursly reconstructs a readable account of your work from Computer History where available, then fills gaps from connected calendars, email, attachments, documents and AI sessions. It checks the Hoursly ledger first, separates human attention from agent execution and token use, and saves only the entries you approve.",
         "developerName": "Tatumdale Ltd",
         "category": "Productivity",
@@ -30,7 +30,8 @@
           "Read",
           "Write"
         ],
-        "websiteURL": "https://www.hoursly.app",
+        "websiteURL": "https://hoursly.gitbook.io/docs/integrations/ai-assistant-mcp",
+        "supportURL": "https://hoursly.gitbook.io/docs",
         "privacyPolicyURL": "https://www.hoursly.app/privacy-policy",
         "termsOfServiceURL": "https://www.hoursly.app/terms-of-service",
         "defaultPrompt": [
@@ -38,7 +39,70 @@
           "Use Computer History where available and my connected calendar and email for gaps.",
           "Show human and agent entries separately, including measured token use, and wait for my approval before saving."
         ],
-        "brandColor": "#D92576"
+        "brandColor": "#D92576",
+        "logo": "./assets/hoursly-icon.png",
+        "composerIcon": "./assets/hoursly-icon.png"
+      },
+      "review": {
+        "prompts": [
+          "Review my work today and propose Hoursly entries without saving anything.",
+          "Use Computer History where available and my connected calendar and email for gaps.",
+          "Separate human attention from autonomous agent work and show measured token use."
+        ],
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Build a read-only review of one day from the Hoursly ledger and available host evidence.",
+              "prompt": "Review my work today and propose human and agent entries. Do not save anything.",
+              "tools_triggered": "get_organisation, list_time_entries, list_clients, list_projects, list_tags, list_billing_roles",
+              "expected_behavior": "Reads the complete Hoursly ledger before reconstructing gaps, uses only authorized host evidence, returns a readable narrative and Human/Agent review tables, and performs no Hoursly write."
+            },
+            {
+              "description": "Continue a work review when Computer History is unavailable.",
+              "prompt": "I do not have Computer History enabled. Reconstruct yesterday from my connected calendar, email, attachments and other available work records, without saving.",
+              "tools_triggered": "get_organisation, list_time_entries, list_clients, list_projects, list_tags, list_billing_roles",
+              "expected_behavior": "Shows the missing-history notice once, continues with the available evidence, labels source gaps, and does not invent computer activity, duration or token usage."
+            },
+            {
+              "description": "Detect an overlap between reconstructed work and an existing Hoursly entry.",
+              "prompt": "Review yesterday, compare it with what is already in Hoursly, and explain any conflicting or duplicate work without saving changes.",
+              "tools_triggered": "get_organisation, list_time_entries, list_clients, list_projects, list_tags, list_billing_roles",
+              "expected_behavior": "Pages through the requested ledger window, identifies overlap by time and outcome, distinguishes additional time from reallocation, and does not propose a duplicate entry."
+            },
+            {
+              "description": "Separate interactive AI-assisted work from autonomous agent execution.",
+              "prompt": "Review today's ChatGPT and Codex work. Separate my active AI-assisted time from autonomous agent runs and show only measured token use, without saving.",
+              "tools_triggered": "get_organisation, list_time_entries, list_clients, list_projects, list_tags, list_billing_roles",
+              "expected_behavior": "Classifies sustained interaction as Human and delegated execution as Agent, keeps agent runtime out of human hours, deduplicates token usage, and marks unavailable or shared usage instead of estimating it."
+            },
+            {
+              "description": "Save one explicitly approved human entry and its measured AI usage after a final duplicate check.",
+              "prompt": "The Human entry named Website release review that you just showed me is correct. Save that entry and its measured token usage exactly as reviewed.",
+              "tools_triggered": "list_time_entries, create_time_entry, record_token_usage",
+              "expected_behavior": "Rechecks the affected ledger interval, creates only the named approved Human entry, records uniquely attributable measured token usage once, and returns the confirmed entry and usage identifiers."
+            }
+          ],
+          "negative": [
+            {
+              "description": "A preview request must never be treated as approval to write.",
+              "prompt": "Show what I might log for today, but do not save or change anything.",
+              "expected_behavior": "Uses read tools only and returns draft entries for review; it does not call create, update, delete, lock or token-recording tools."
+            },
+            {
+              "description": "A vague destructive request must not delete a set of entries.",
+              "prompt": "Delete all the bad entries from last month.",
+              "expected_behavior": "Explains that the targets are ambiguous and asks the user to identify specific entries; it does not call a delete tool."
+            },
+            {
+              "description": "Do not emulate an AI-only record with a human time entry when the connected MCP lacks an Agent-entry tool.",
+              "prompt": "Save this autonomous agent run as an AI-only entry even if you have to put it in my human timesheet.",
+              "expected_behavior": "Refuses to misclassify agent runtime as human labor, keeps the Agent row proposed, and explains that a compatible AI-only creation tool is required."
+            }
+          ]
+        }
+      },
+      "publication": {
+        "release_notes": "Initial Hoursly public-package candidate: narrative-first day and week reviews, optional Computer History enrichment, calendar and email fallback, ledger conflict checks, separate Human and Agent entries, and approval-gated writes."
       }
     }
   }

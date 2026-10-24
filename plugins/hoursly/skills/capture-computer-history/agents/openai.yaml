@@ -1,6 +1,6 @@
 interface:
   display_name: "Hoursly work review"
-  short_description: "Turn your work history into a readable timesheet review"
+  short_description: "Review human and agent work"
   default_prompt: "Use $capture-computer-history to reconstruct my day, explain what I achieved and propose human and agent entries for review. Use Computer History where available and other connected work records for the gaps. Do not save anything."
 
 policy:

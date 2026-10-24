@@ -73,7 +73,7 @@ The v0.6.1 nearest-duration interpretation was superseded by the user's clarific
 
 ### OpenAI plugin package audit
 
-On 2026-10-24, the first portable Hoursly plugin package was built from the canonical `capture-computer-history` skill. The root `plugin.json` and `mcp.json` passed the Agent Plugins 1.0.0 schemas; the packaged skill passed the OpenAI skill validator; repository validation and all 16 synthetic session-parser tests passed. The resulting ZIP has both manifests at its root and contains no hooks, credentials, bytecode or private evidence.
+On 2026-10-24, the first portable Hoursly plugin package was built from the canonical `capture-computer-history` skill. The root manifest and MCP transport passed the Agent Plugins 1.0.0 checks; OpenAI-specific listing, review and OAuth/DCR extensions passed the official Plugin Creator component rules; the packaged skill passed the OpenAI skill validator; repository validation and all 16 synthetic session-parser tests passed. The resulting ZIP has both manifests at its root and contains no hooks, credentials, bytecode or private evidence.
 
 The public MCP endpoint returned the expected unauthenticated `401` challenge with OAuth protected-resource metadata, and that metadata returned `200` with the Hoursly resource and authorization server. The website, privacy policy, terms and repository URLs returned `200` after redirects. No authenticated MCP action or Hoursly mutation was performed.
 

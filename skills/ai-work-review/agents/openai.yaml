@@ -1,0 +1,13 @@
+interface:
+  display_name: "AI work review"
+  short_description: "Review Agent results and Human attention"
+  default_prompt: "Use $ai-work-review to review this in Hoursly and show the evidence and next steps."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hoursly"
+      description: "Hoursly MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.hoursly.app/mcp"

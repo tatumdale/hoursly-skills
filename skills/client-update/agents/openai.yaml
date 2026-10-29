@@ -1,0 +1,13 @@
+interface:
+  display_name: "Client update"
+  short_description: "Draft a client progress update"
+  default_prompt: "Use $client-update to draft a client update from my Hoursly records without sending it."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hoursly"
+      description: "Hoursly MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.hoursly.app/mcp"

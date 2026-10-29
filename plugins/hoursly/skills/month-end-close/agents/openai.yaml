@@ -1,0 +1,13 @@
+interface:
+  display_name: "Month-end close"
+  short_description: "Review and close a timesheet period"
+  default_prompt: "Use $month-end-close to show what blocks this Hoursly period from closing."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hoursly"
+      description: "Hoursly MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.hoursly.app/mcp"

@@ -23,6 +23,7 @@ import {
 } from "node:fs";
 import { join, dirname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
+import { OPENAI_PLUGIN_SKILLS as pluginSkillNames } from "./plugin-skills.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const check = process.argv.includes("--check");
@@ -70,12 +71,6 @@ for (const name of skills) {
 // The OpenAI plugin is directly installable from the repository. Keep its
 // selected skills byte-for-byte aligned with their canonical source folders so
 // the marketplace package cannot silently drift or acquire legacy workflows.
-const pluginSkillNames = [
-  "hoursly-core",
-  "log-my-week",
-  "effort-allocation",
-  "grant-report",
-];
 const pluginSkillsDir = join(root, "plugins", "hoursly", "skills");
 
 function packageFiles(dir) {

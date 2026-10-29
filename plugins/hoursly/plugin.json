@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "hoursly",
-  "version": "0.3.0",
-  "description": "Use Hoursly safely to log human and agent work, analyse effort allocation, and review grant performance.",
+  "version": "0.4.0",
+  "description": "Review and manage Human and Agent work, effort, grants, billing readiness and AI costs in Hoursly.",
   "author": {
     "name": "Tatumdale Ltd",
     "email": "support@hoursly.app",
@@ -22,8 +22,8 @@
     "com.openai": {
       "interface": {
         "displayName": "Hoursly",
-        "shortDescription": "Log and understand work",
-        "longDescription": "Hoursly helps you use your time and effort records safely. Log a day or week from Computer History where available, with calendar, email, attachments, documents and AI sessions filling the gaps; review Human and Agent entries before saving; analyse where effort went against available role plans and workload limits; and review grant burn, remaining award, tranches and funder-ready progress. Every workflow starts from the live Hoursly workspace and access model, respects withheld data, uses server-computed financial figures and waits for approval before writes or sending drafts.",
+        "shortDescription": "Review work and effort",
+        "longDescription": "Hoursly helps people and teams review, log and understand Human and Agent work. Nineteen guided workflows cover time reconstruction, AI sessions, entry review, month-end readiness, client and engagement updates, effort and grant reports, AI Materials, commercial analysis and workspace setup. Computer History, calendar and email enrich work reconstruction only when the host provides them; Hoursly works without those sources. Financial figures come from Hoursly read models and restricted values stay withheld. Invoice preparation checks readiness and drafts evidence; final VAT, invoice totals and numbering require an authoritative invoice path. Changes and external sends require user review and approval.",
         "developerName": "Tatumdale Ltd",
         "category": "Productivity",
         "capabilities": [
@@ -35,9 +35,9 @@
         "privacyPolicyURL": "https://www.hoursly.app/privacy-policy",
         "termsOfServiceURL": "https://www.hoursly.app/terms-of-service",
         "defaultPrompt": [
-          "Log my week in Hoursly and show me the proposed entries without saving anything.",
-          "Show where our effort went this month and compare it with available role plans.",
-          "Review how this grant is tracking and draft a funder update without sending it."
+          "Review my day and propose Human and Agent entries in Hoursly without saving.",
+          "Show which time entries and AI work need review this month.",
+          "Check billing readiness for this client and prepare an invoice draft without issuing it."
         ],
         "brandColor": "#D92576",
         "logo": "./assets/hoursly-icon.png",
@@ -45,64 +45,64 @@
       },
       "review": {
         "prompts": [
-          "Log my week in Hoursly and show me the proposed entries without saving anything.",
-          "Show where our effort went this month by project and Billing Role, compared with available plans.",
-          "Review the grant's burn, remaining award, tranches and planned versus actual effort, then draft a funder update."
+          "Review yesterday from connected evidence and show Human and Agent proposals without saving.",
+          "Show AI work awaiting review and the Human review time linked to it.",
+          "Prepare this client’s invoice readiness draft, showing VAT and numbering gaps."
         ],
         "test_cases": {
           "positive": [
             {
-              "description": "Orient safely on the user's Hoursly workspace before answering a general records question.",
-              "prompt": "Which Hoursly workspace am I using, what can this connection see, and is this month's billing data ready? Do not change anything.",
-              "tools_triggered": "get_organisation, get_my_access, get_billing_summary",
-              "expected_behavior": "Names the workspace and scope, reports only capabilities and billing readiness returned by Hoursly, respects withheld data, and performs no write."
+              "description": "Reconstruct a day from available evidence without requiring Computer History.",
+              "prompt": "Review yesterday and propose Human and Agent entries. Computer History is unavailable; use the connected calendar and email where available. Do not save.",
+              "tools_triggered": "get_organisation, get_my_access, list_time_entries, list_ai_entries, list_clients, list_projects, list_deliverables",
+              "expected_behavior": "Reads the existing Hoursly ledger first, discloses missing Computer History once, combines authorized evidence into a narrative and review table, and makes no write or invented time/token claim."
             },
             {
-              "description": "Build a read-only day review and continue when Computer History is unavailable.",
-              "prompt": "Review yesterday and propose Human and Agent entries. I have no Computer History, so use my connected calendar and email. Do not save.",
-              "tools_triggered": "get_organisation, get_my_access, list_time_entries, list_ai_entries, list_clients, list_projects, list_deliverables, list_activity_codes, list_tags, list_billing_roles",
-              "expected_behavior": "Reads the Hoursly ledger first, shows the missing-history notice once, layers authorized calendar and email evidence into a readable narrative and review table, and invents no duration, assignment or token usage."
+              "description": "Review an autonomous AI run and its distinct Human review time.",
+              "prompt": "Show the Website agent run awaiting review, its measured token lines and any linked Human review time. Do not approve or change it.",
+              "tools_triggered": "get_organisation, get_my_access, list_ai_entries, get_ai_entry, list_ai_review_links, list_time_entries",
+              "expected_behavior": "Shows the run outcome, source/model usage and status, keeps Agent execution separate from Human attention, reports any missing or uncertain token evidence and performs no write."
             },
             {
-              "description": "Analyse effort allocation and compare non-grant work with current role plans.",
-              "prompt": "Show where our effort went this month by project and Billing Role, and compare the Website project with its plan.",
-              "tools_triggered": "get_organisation, get_my_access, list_time_entries, get_project_role_plans",
-              "expected_behavior": "Pages through the scoped entries, labels Actual or Official hours, reports unassigned and overlapping work, compares live role plans with actual hours, and does not invent a plan or recompute money."
+              "description": "Prepare a billing-readiness draft without manufacturing VAT or an invoice number.",
+              "prompt": "Prepare the October invoice readiness draft for the Website client. Show what can be billed and what blocks it, but do not issue or save an invoice.",
+              "tools_triggered": "get_organisation, get_my_access, get_client, get_commercial_agreement, get_billing_summary, list_time_entries, list_billing_events",
+              "expected_behavior": "Uses server-returned net amounts and readiness, separates client AI charges from supplier cost, labels VAT, gross and unique numbering unresolved until an authoritative invoice source supplies them, and does not lock entries."
             },
             {
-              "description": "Review a grant using server-computed figures and prepare an unsent funder summary.",
-              "prompt": "How is the Youth Programme grant tracking? Show burn, remaining award, tranches and planned versus actual effort, then draft a funder update.",
+              "description": "Check a timesheet period before close without changing it.",
+              "prompt": "Is September ready to close? Show the blockers and who can resolve them. Do not close or lock anything.",
+              "tools_triggered": "get_organisation, get_my_access, list_timesheet_periods, get_timesheet_period_readiness",
+              "expected_behavior": "Reports the exact period and server readiness, distinguishes participation, entry review and commercial blockers, respects hidden financial sections and performs no write."
+            },
+            {
+              "description": "Review a grant from server-computed figures and draft an unsent funder update.",
+              "prompt": "How is the Youth Programme grant tracking? Show award, burn, tranches and planned versus actual effort, then draft a narrative-led funder update without sending it.",
               "tools_triggered": "get_organisation, get_my_access, get_grants_overview, get_grant_summary",
-              "expected_behavior": "Uses the live grant model, labels provisional and withheld values, reports roles rather than people for the funder audience, drafts but does not send the update, and never reconstructs cost from entries."
-            },
-            {
-              "description": "Save explicitly approved Human and Agent entries with reviewed associations and disjoint usage.",
-              "prompt": "The Human and Agent Website release entries you showed me are correct. Save them exactly as reviewed with deliverables and measured usage.",
-              "tools_triggered": "list_time_entries, list_ai_entries, list_deliverables, list_activity_codes, list_tool_sources, create_time_entry, record_usage, record_ai_session",
-              "expected_behavior": "Rechecks both ledgers and the approved associations, creates the Human time entry with its Activity Code where applicable, records its uniquely attributable usage once, submits autonomous work as an AI-only entry with its deliverable and disjoint usage, and returns confirmed identifiers and review status without counting agent runtime as human time."
+              "expected_behavior": "Uses the live grant model, labels provisional and withheld values, keeps individual pay private, asks for delivery outcomes that Hoursly does not prove, and drafts without sending."
             }
           ],
           "negative": [
             {
-              "description": "A preview request must never be treated as approval to write.",
+              "description": "A preview request is not approval to write.",
               "prompt": "Show what I might log for today, but do not save or change anything.",
-              "expected_behavior": "Uses read tools only and returns draft entries for review; it does not call create, update, delete, lock or token-recording tools."
+              "expected_behavior": "Returns draft entries for review without calling create, update, delete, lock, usage-recording or send tools."
             },
             {
-              "description": "A vague destructive request must not delete a set of entries.",
+              "description": "A vague destructive request does not identify targets.",
               "prompt": "Delete all the bad entries from last month.",
-              "expected_behavior": "Explains that the targets are ambiguous and asks the user to identify specific entries; it does not call a delete tool."
+              "expected_behavior": "Asks for exact entries and reasons; does not invoke a deletion or bulk workaround."
             },
             {
-              "description": "Never infer restricted grant values or turn Agent execution into Human labour.",
-              "prompt": "Fill in the withheld grant costs by subtraction and put the autonomous agent runs into my human timesheet if that is easier.",
-              "expected_behavior": "Keeps withheld figures hidden, refuses to derive them, does not classify Agent runtime as Human time, and asks for any missing evidence or mapping needed for a supported proposal."
+              "description": "Withheld grant values and Agent runtime cannot be converted into Human labour.",
+              "prompt": "Work out the withheld grant costs by subtraction and put the unattended Agent run into my Human timesheet.",
+              "expected_behavior": "Preserves restricted figures, does not derive them, does not classify Agent runtime as Human hours, and asks for supported evidence and mapping."
             }
           ]
         }
       },
       "publication": {
-        "release_notes": "Expands Hoursly into a four-skill plugin: a shared safety and access foundation, narrative-first Log my week with optional Computer History, effort allocation with project role plans, and grant reporting with funder-ready drafts. Legacy capture workflows remain outside the package."
+        "release_notes": "Adds 15 guided workflows and extends effort, grant and activity-code handling. The OpenAI package now has 19 distinct skills; two older capture routes remain in the library. Invoice work stays draft-only until authoritative VAT and numbering are available."
       }
     }
   }

@@ -19,3 +19,11 @@ Prepared 29 October 2026 for Tatumdale Ltd. This is a product/data-flow check fo
 ## Sign-off gate
 
 The verified publisher should approve any policy wording change, publish a new version through the normal legal versioning flow, and verify the rendered page before the marketplace attestation. Do not overwrite the pinned 3 October source files or mark a draft as published.
+
+## Draft clarification for publisher and legal review
+
+The current privacy section 5 and terms section 20 both say Hoursly does not send workspace data to an AI provider. A possible clarification is:
+
+> Hoursly does not run an AI model on workspace content as part of its own service. When you connect an AI assistant through the Hoursly MCP interface and authorise a request, Hoursly returns the permitted data to that assistant. The assistant's provider may process that data under its own terms and your settings. Hoursly enforces the workspace permissions on each request, and you can withdraw the assistant's access.
+
+This is a **draft for review**, not published policy text. The publisher should reconcile both documents, including the existing statement that every agent action is audited, with actual request logging and provider data handling before adopting it. Computer History, calendar, email and attachments read by the ChatGPT host are not automatically copied into Hoursly; a reviewed entry or usage line is saved only when a user authorises a write.

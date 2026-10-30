@@ -3,10 +3,10 @@ name: capture-time
 description: Reconstruct a day or week of work from calendar, email, chat, tickets and git, then propose Hoursly time entries for review. Use for "capture my week", "fill in my timesheet", "what did I forget to log", or catching up after missed days. Proposes first; writes only the rows you approve.
 license: MIT
 metadata:
-  mcp-tools: "get_organisation get_my_access list_clients list_projects list_tags list_billing_roles list_time_entries create_time_entry"
+  mcp-tools: "get_organisation get_my_access list_clients list_projects list_tags list_billing_roles list_activity_codes list_time_entries create_time_entry"
   min-permission: read_only
   money-aware: "no"
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 # Capture time
@@ -39,7 +39,7 @@ Confirm the window (exact dates, time zone, working days) and which sources you 
 ### 2. Orient on Hoursly
 
 1. `get_organisation` for currency and plan; `get_my_access` when listed.
-2. `list_clients`, `list_projects`, `list_tags`, and `list_billing_roles` where roles apply.
+2. `list_clients`, `list_projects`, `list_tags`, `list_billing_roles` and `list_activity_codes` where available.
 3. `list_time_entries` for the window, paged until complete: these are **already-logged** entries to avoid duplicating.
 
 ### 3. Gather evidence
@@ -52,7 +52,7 @@ Map each atom to a client and project with the ordered rules in [attribution](re
 
 ### 5. Build candidate entries
 
-Cluster atoms into entries, assign start and end times, set billable and tags from the user's existing patterns, and remove overlaps with entries already logged. See [pipeline](references/pipeline.md).
+Cluster atoms into entries, assign start and end times, set billable and tags from the user's existing patterns, and remove overlaps with entries already logged. Where the workspace has Activity Codes, propose a code from its own list on each Human row. Saving a code needs `rates.view`; if the caller lacks it, leave the code unset and report the gap. Charity Grant Activity Codes come from the same catalogue, never from invented labels. See [pipeline](references/pipeline.md).
 
 ### 6. Review
 

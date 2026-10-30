@@ -1,0 +1,13 @@
+interface:
+  display_name: "AI cost close"
+  short_description: "Review and close AI cost periods"
+  default_prompt: "Use $ai-cost-close to review this in Hoursly and show the evidence and next steps."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hoursly"
+      description: "Hoursly MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.hoursly.app/mcp"

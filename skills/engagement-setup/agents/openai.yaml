@@ -1,0 +1,13 @@
+interface:
+  display_name: "Engagement setup"
+  short_description: "Set up reviewed client and project terms"
+  default_prompt: "Use $engagement-setup to prepare a Hoursly setup sheet from this agreement."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hoursly"
+      description: "Hoursly MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.hoursly.app/mcp"

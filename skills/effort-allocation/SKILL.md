@@ -3,10 +3,10 @@ name: effort-allocation
 description: Analyses effort allocation and Level of Effort from Hoursly. Use for "where did our effort go", hours by programme or project, LoE by role, planned versus actual effort, funder evidence or workload limits. It builds access-aware pivots, labels Actual versus Official hours and can produce a funder-ready LoE table.
 license: MIT
 metadata:
-  mcp-tools: "get_organisation get_my_access list_clients list_projects list_billing_roles list_time_entries get_billing_summary get_grant_summary get_project_role_plans get_workload_summary get_my_workload_summary"
+  mcp-tools: "get_organisation get_my_access list_clients list_projects list_billing_roles list_time_entries get_billing_summary get_grant_summary get_project_role_plans get_role_plan_capacity get_workload_summary get_my_workload_summary"
   min-permission: read_only
   money-aware: optional
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # Effort allocation
@@ -57,6 +57,12 @@ Rules in [pivots](references/pivots.md). In short:
 ### 6. Workload section, when asked
 
 Rules in [workload](references/workload.md). Use `get_workload_summary` (team) or `get_my_workload_summary` (self) when listed: `recorded_seconds`, `official_seconds`, `over_limit_seconds` per person per day. If not listed, compute recorded hours per person per day from entries and label it clearly as recorded, not official. Aggregate by default; never rank people.
+
+### 6a. Capacity and donor split, when asked
+
+- Read `get_role_plan_capacity` for the exact date range before comparing a `get_project_role_plans` percentage with hours. The plan is by Billing Role, not by named person. Do not call a person over-committed from a role plan. If the server does not expose that person's planned shares across projects, show their actual shares only and say the planned personal allocation is unavailable.
+- A scoped manager's view of one person's hours omits work outside that manager's reach. Do not calculate whole-person utilisation or cross-grant load from it.
+- For shared work across donor projects, ask the user for the agreed split. Filter the same activity or programme tag and period on each donor project, total **Actual hours** only, then compare the observed share with the stated target. Label the denominator, untagged hours, overlap and any project outside scope. This is an effort check, not a payroll or money calculation.
 
 ### 7. Present
 

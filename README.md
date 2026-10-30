@@ -2,11 +2,11 @@
 
 Installable agent skills for the [Hoursly](https://hoursly.app) MCP server. They give your AI assistant tested, repeatable workflows on top of your Hoursly data: logging and reviewing time, billing readiness, team and project reports, and charity grant reporting.
 
-The repository also contains an early portable [Hoursly plugin package](plugins/hoursly/) for ChatGPT and Codex. It bundles `hoursly-core`, `log-my-week`, `effort-allocation` and `grant-report` with the Hoursly MCP connection; see the [plugin build and release notes](docs/openai-plugin.md). It is a local test package, not a marketplace publication.
+The repository also contains an early portable [Hoursly plugin package](plugins/hoursly/) for ChatGPT and Codex. It bundles 19 distinct workflows and the Hoursly MCP connection; see the [plugin build and release notes](docs/openai-plugin.md). It is a local test package, not a marketplace publication.
 
 The skills use the open [Agent Skills](https://agentskills.io) format. Host-specific evidence tools determine which sources are available: the computer-history layer needs host access to recorded evidence; connected calendars and email can supply additional online and offline context.
 
-> **Status: early.** This repository currently ships `hoursly-core`, `capture-time`, `log-my-week`, `log-last-week`, `effort-allocation`, `grant-report` and the tooling around them. See [packs](packs/) for grouped install guides. More skills are being added in waves. See [Roadmap](#roadmap). Nothing here has been verified in every host yet; see [docs/hosts.md](docs/hosts.md) for exactly what has and has not been tested.
+> **Status: candidate.** This repository contains 21 skill folders, including two older capture workflows retained for other hosts. The OpenAI package selects 19 distinct workflows. Structural validation has passed, while new host activation and end-to-end acceptance remain to be completed. See [docs/hosts.md](docs/hosts.md) for verified host behavior.
 
 ## What a skill is, and what it is not
 
@@ -27,6 +27,21 @@ A skill never replaces the connection. You connect the Hoursly MCP server in you
 | [`log-last-week`](skills/log-last-week/SKILL.md) | The week-specific entry point: inventories the tools and AI assistants available, reads the ledger first, reconstructs only the gaps, and presents the whole week for approval. | Any connection to propose; Standard access to commit |
 | [`effort-allocation`](skills/effort-allocation/SKILL.md) | Where effort went by programme, project, role, person and tag; Actual vs Official hours; a funder-ready Level of Effort table; workload signals. | Any connection; team pivots need `entries.view_all` |
 | [`grant-report`](skills/grant-report/SKILL.md) | Grant award, received, burn, pace, remaining, planned vs actual by role, and a funder update draft. Respects withheld figures. | `reports.grant_costs` and the grant read tools (see [charity pack](packs/charity.md)) |
+| [`log-ai-session`](skills/log-ai-session/SKILL.md) | Records one attended AI session or autonomous run with measured usage and separate Human review. | Hoursly read to propose; write access to save |
+| [`client-update`](skills/client-update/SKILL.md) | Drafts an evidence-backed client update. | Client/project read access; connected delivery evidence |
+| [`approve-and-review`](skills/approve-and-review/SKILL.md) | Reviews a time-entry queue and prepares scoped approval decisions. | Entry review access for actions |
+| [`month-end-close`](skills/month-end-close/SKILL.md) | Checks readiness and closes a timesheet period after reviewed confirmation. | Reporting and period-management access |
+| [`timesheet-chase`](skills/timesheet-chase/SKILL.md) | Identifies follow-up candidates without inventing missing work days. | Team/period reporting access |
+| [`engagement-setup`](skills/engagement-setup/SKILL.md) | Sets up or closes a client engagement with agreements, roles and deliverables. | Relevant commercial and project management access |
+| [`invoice-prep`](skills/invoice-prep/SKILL.md) | Reviews billing readiness and prepares a draft; final VAT and numbering require an authoritative invoice path. | `rates.view` for figures; final invoice path pending |
+| [`engagement-health`](skills/engagement-health/SKILL.md) | Compares effort, allowance, delivery and permitted commercial figures. | Relevant report access |
+| [`ai-work-review`](skills/ai-work-review/SKILL.md) | Reviews Agent work and links actual Human review minutes. | AI entry read access; write access for links |
+| [`ai-cost-close`](skills/ai-cost-close/SKILL.md) | Reviews AI purchases, usage, running costs and close evidence. | AI Materials and relevant financial access |
+| [`commercial-review`](skills/commercial-review/SKILL.md) | Reviews revenue, margin and AI economics for closed periods. | `rates.view`; `reports.margin` for margin |
+| [`estimate-from-actuals`](skills/estimate-from-actuals/SKILL.md) | Estimates time by role from user-selected comparable projects. | Effort report access |
+| [`payables-prep`](skills/payables-prep/SKILL.md) | Prepares a contractor payable evidence schedule. | Team and billing access |
+| [`audit-evidence`](skills/audit-evidence/SKILL.md) | Drafts a source-linked control and effort evidence pack. | Relevant report access |
+| [`workspace-setup`](skills/workspace-setup/SKILL.md) | Reviews or applies workspace billing, role and time settings. | Relevant settings capabilities |
 
 ## Install
 
@@ -48,15 +63,15 @@ Pick your host. Each guide also covers connecting the MCP server.
 
 The shared rules are in [`shared/safety.md`](shared/safety.md).
 
-## Roadmap
+## Release phases
 
-| Wave | Content |
+| Phase | Content |
 |---|---|
-| 0 | Repository, `hoursly-core`, validation, install guides |
-| 1 | `capture-time` and `log-last-week` (propose-only), unbilled sweep, invoice draft and lock, month-end close |
-| 2 | Team digest, project status and burn, client updates (draft, then send on instruction) |
-| 3 | Charity pack: `effort-allocation` and `grant-report` (this release; grant figures need the server's grant read tools, TAT-435) |
-| 4 | Board, trustee and leadership packs |
+| 1 | Logging, client updates, approval, period close, chase, engagement setup and invoice readiness |
+| 2 | Engagement health, AI review and AI costs; effort and grant extensions |
+| 3 | Commercial review, estimates, payables, audit and workspace setup |
+
+The source for all three phases is drafted. Release requires the acceptance gates in [the marketplace plan](docs/marketplace-release-plan.md), including VAT/invoice authority, legal URLs and fresh ChatGPT tests.
 
 ## Repository layout
 

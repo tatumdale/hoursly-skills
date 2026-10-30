@@ -7,16 +7,12 @@
 import { readFileSync, readdirSync, existsSync, statSync } from "node:fs";
 import { join, dirname, relative, resolve, sep, extname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { OPENAI_PLUGIN_SKILLS as packagedSkillNamesExpected } from "./plugin-skills.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const skillsDir = join(root, "skills");
 const pluginsDir = join(root, "plugins");
-const OPENAI_PLUGIN_SKILLS = new Set([
-  "hoursly-core",
-  "log-my-week",
-  "effort-allocation",
-  "grant-report",
-]);
+const OPENAI_PLUGIN_SKILLS = new Set(packagedSkillNamesExpected);
 
 const errors = [];
 const warnings = [];

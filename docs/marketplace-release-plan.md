@@ -55,7 +55,7 @@ The line “answers from approved records” needs qualification: grant reads in
 ### 3. Public listing and reviewer fixtures
 
 - Verify the public privacy and terms destinations in a rendered browser and in the submission scanner. Both legal pages render the published Tatumdale Ltd documents after JavaScript loads, although the initial HTML still says “Back soon”; improve crawler access if the scanner cannot read them. Check that their current text covers the plugin's actual data flow.
-- Confirm the verified publisher, countries, commerce declaration and actual support route. Prepare an isolated synthetic reviewer workspace, login and permissions; keep credentials in the portal only.
+- Tatumdale Ltd is the verified publisher. The publisher chose all supported countries and confirmed the plugin does not support purchases or payments. Verify the actual support route. Prepare an isolated synthetic reviewer workspace, login and permissions; keep credentials in the portal only.
 - Record a real ChatGPT demo with the submitted build, working OAuth and a negative/permission boundary. Host it at a reviewer-accessible URL. Keep private data and secrets off screen.
 - Maintain five distinct positive and three negative MCP review cases with observed pass conditions and actual run outcomes.
 
@@ -72,7 +72,7 @@ The line “answers from approved records” needs qualification: grant reads in
 ## Current blockers
 
 1. Public legal pages render after JavaScript but return a “Back soon” initial shell; scanner compatibility and policy coverage need validation.
-2. Tatumdale Ltd is the confirmed publisher; country targeting and commerce declaration need confirmation.
+2. Tatumdale Ltd, all-country availability and no-commerce behavior are recorded in the package. Portal import must confirm these exact values; the support route still needs reviewer verification.
 3. No reviewer workspace, credentials or demo recording has been verified.
 4. Four fresh Codex 0.4.0 routing smoke cases passed; ChatGPT installation/activation, bundled MCP connection, restricted access, approved write/readback and completed live grant report remain unverified. Codex CLI 0.165.0-alpha.1.2 rejects the portable MCP OAuth `extensions` field despite the published OpenAI package guide permitting it.
 5. The invoice VAT/numbering contract is unresolved. Cross-grant planned capacity for named people is not represented by the current role-plan model; the skill reports actual shares only.

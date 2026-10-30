@@ -44,6 +44,8 @@
         "composerIcon": "./assets/hoursly-icon.png"
       },
       "review": {
+        "commerce": false,
+        "commerce_description": "The plugin does not support purchases or payments. Hoursly subscriptions are managed outside the plugin.",
         "prompts": [
           "Review yesterday from connected evidence and show Human and Agent proposals without saving.",
           "Show AI work awaiting review and the Human review time linked to it.",
@@ -102,6 +104,7 @@
         }
       },
       "publication": {
+        "countries": [],
         "release_notes": "Adds 15 guided workflows and extends effort, grant and activity-code handling. The OpenAI package now has 19 distinct skills; two older capture routes remain in the library. Invoice work stays draft-only until authoritative VAT and numbering are available."
       }
     }

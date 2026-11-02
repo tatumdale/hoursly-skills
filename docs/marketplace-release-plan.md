@@ -71,7 +71,7 @@ The line “answers from approved records” needs qualification: grant reads in
 
 ## Current blockers
 
-1. Public legal pages render after JavaScript but return a “Back soon” initial shell; scanner compatibility and policy coverage need validation.
+1. [Marketing PR #4](https://github.com/tatumdale/Hourly-Marketing/pull/4) renders the published legal text as static HTML. Its protected Vercel preview returned the correct policy and terms titles and text from raw HTTP; the live URLs still return the “Back soon” shell until the PR is reviewed and released. Policy data-flow wording still needs publisher review.
 2. Tatumdale Ltd, all-country availability and no-commerce behavior are recorded in the package. Portal import must confirm these exact values; the support route still needs reviewer verification.
 3. No reviewer workspace, credentials or demo recording has been verified.
 4. Four fresh Codex 0.4.0 routing smoke cases passed; ChatGPT installation/activation, bundled MCP connection, restricted access, approved write/readback and completed live grant report remain unverified. Codex CLI 0.165.0-alpha.1.2 rejects the portable MCP OAuth `extensions` field despite the published OpenAI package guide permitting it.

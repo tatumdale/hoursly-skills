@@ -1,12 +1,12 @@
 # Invoice authority decision for marketplace release
 
-Status: decision required before the plugin can claim to issue invoices. The 0.4.0 skill only prepares billing evidence.
+Status: first-release scope decided on 3 November 2026: **billing-readiness drafts only**. The 0.4.1 package prepares billing evidence and does not issue invoices. The issuer decision below applies only to a later final-issuance release.
 
 ## Current contract
 
 `get_billing_summary` supplies server-computed time revenue, AI client charges and readiness. It does not supply line VAT, VAT totals, gross totals or an issued invoice ID. `invoice_number_next` is an editable organisation setting, not an atomic reservation. A locked time entry means accounted for; it does not identify an invoice. The skill must leave these fields unresolved in a draft.
 
-## Choose one authoritative issuer
+## Later release: choose one authoritative issuer
 
 | Route | Required product contract | Plugin behavior |
 | --- | --- | --- |
@@ -25,4 +25,4 @@ Neither route may derive VAT from a generic treatment label or use a local `20%`
 6. Owner, scoped manager and read-only actors see only permitted clients and actions; no tool can bypass the server gate.
 7. The issued result can be read back with exact selected IDs, issuer/client details, tax point, line tax, totals, number and status. A draft is never presented as issued.
 
-The publisher must choose the issuer and intended countries before a route can be implemented and tested. Until then the public listing and `invoice-prep` accurately promise **billing readiness and a reviewed draft**, not final invoicing.
+The first OpenAI release may proceed without choosing an invoice issuer because it promises **billing readiness and a reviewed draft**, not final invoicing. Before any later issuance claim, the publisher must choose an issuer and test the applicable contract above.

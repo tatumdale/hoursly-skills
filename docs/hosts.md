@@ -7,14 +7,15 @@ All hosts below read the same `SKILL.md` format. What differs is where skills ar
 | Host | Skills | MCP connection | Verified with Hoursly |
 |---|---|---|---|
 | Claude (Claude Code, Claude apps) | 🟡 `.claude/skills`, `~/.claude/skills`, or zip upload | 🟡 custom connector `https://mcp.hoursly.app/mcp` (OAuth) | not yet |
-| ChatGPT | 🟡 Skills tab upload and plugin installation | 🟡 custom connector (OAuth); optional `agents/openai.yaml` dependency | not yet |
-| Codex | ✅ local marketplace plugin and `.agents/skills` | ✅ packaged MCP dependency resolved to the connected Hoursly server | 🟡 read-only activation matrix run; full acceptance pending |
+| ChatGPT | 🟡 Skills tab upload and plugin installation | 🟡 reviewer OAuth works for Review Lab; saved-draft package connection untested | partial connection check; full acceptance pending |
+| Codex | ✅ local marketplace plugin and `.agents/skills` | ⛔ CLI 0.166.0 rejects the portable MCP OAuth `extensions` field; separate Hoursly MCP connection is not package acceptance | 🟡 read-only activation matrix run; full acceptance pending |
 | Cursor | 🟡 `.cursor/skills`, `~/.cursor/skills`, also `.agents/skills` | 🟡 `mcp.json` URL, OAuth | not yet |
 | GitHub Copilot (VS Code, CLI, cloud agent) | 🟡 `.github/skills`, `.claude/skills`, `.agents/skills` | 🟡 MCP server configuration with OAuth | not yet |
 | Microsoft 365 Copilot | ❓ | ❓ may need admin setup through Copilot Studio | **not supported until verified** |
 
 ## Notes by host
 
+- **Codex package parser.** On 3 November 2026, a fresh ephemeral `codex exec` session in CLI 0.166.0 again logged `unknown field extensions, expected url or headers` while loading the installed Hoursly 0.4.0 `mcp.json`. The agent's text response succeeded, but the package's bundled MCP did not load. The portable `mcp.json` OAuth extension follows the current OpenAI Agent Plugins package guide. Keep the public package format intact; retest in a host that accepts it, or use a separately documented Codex compatibility build after proving that build's actual MCP connection.
 - **Plans and admin controls.** ChatGPT skills are documented for Business, Enterprise, Healthcare and Edu workspaces, and workspace admins can restrict who may create, upload, share or install them. Custom MCP connectors have their own plan and settings requirements. Check your plan and your administrator's settings.
 - **Description budgets.** Codex limits the space used by the initial skill list and shortens descriptions first when many skills are installed. Keep descriptions short and put trigger words first.
 - **Microsoft 365 Copilot is a different product from GitHub Copilot.** It is not covered by these skills until its handling of custom MCP servers and skills has been verified.

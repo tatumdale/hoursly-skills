@@ -20,7 +20,7 @@ The ignored output is `dist/hoursly-openai-plugin.zip`. The canonical skill copy
 
 ## Acceptance and submission
 
-Use [the release plan](marketplace-release-plan.md) and [activation matrix](../evals/openai-plugin-activation.md). A passing package validator proves structure only. The exact package still needs fresh ChatGPT activation, connected reviewer fixtures, role and scope tests, a confirmed write/readback, invoice VAT and numbering authority, legal-page scanner compatibility, a demo, and portal review.
+Use [the release plan](marketplace-release-plan.md) and [activation matrix](../evals/openai-plugin-activation.md). A passing package validator proves structure only. The reviewer OAuth connection and one approved synthetic MCP write/readback have been verified; the exact package still needs fresh ChatGPT activation, completed reviewer fixtures, role and scope tests, legal-page scanner compatibility, a demo, and portal review. First-release invoice work is billing-readiness drafts only; final VAT, totals and numbering are outside scope.
 
 The brochure's 21 skills are 21 source folders, of which 19 are distinct packaged workflows. Its tool count must be updated to the deployed tool scan and its financial claims narrowed until an authoritative invoice path is released. Source `main` MCP 1.11.0 has 148 registry tools; a live owner connection previously exposed 137. Neither count proves what a reviewer will see.
 

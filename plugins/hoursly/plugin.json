@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "hoursly",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Review and manage Human and Agent work, effort, grants, billing readiness and AI costs in Hoursly.",
   "author": {
     "name": "Tatumdale Ltd",
@@ -61,13 +61,13 @@
             },
             {
               "description": "Review an autonomous AI run and its distinct Human review time.",
-              "prompt": "Show the Website agent run awaiting review, its measured token lines and any linked Human review time. Do not approve or change it.",
+              "prompt": "Show the REVIEW TEST DATA - Agent drafted discovery findings run for Aster Studio, its measured token lines and linked Human review time. Do not approve or change it.",
               "tools_triggered": "get_organisation, get_my_access, list_ai_entries, get_ai_entry, list_ai_review_links, list_time_entries",
               "expected_behavior": "Shows the run outcome, source/model usage and status, keeps Agent execution separate from Human attention, reports any missing or uncertain token evidence and performs no write."
             },
             {
               "description": "Prepare a billing-readiness draft without manufacturing VAT or an invoice number.",
-              "prompt": "Prepare the October invoice readiness draft for the Website client. Show what can be billed and what blocks it, but do not issue or save an invoice.",
+              "prompt": "Prepare a November 2026 invoice readiness draft for REVIEW TEST DATA - Aster Studio. Show the server-computed net amount and blockers, but do not issue, save or lock anything.",
               "tools_triggered": "get_organisation, get_my_access, get_client, get_commercial_agreement, get_billing_summary, list_time_entries, list_billing_events",
               "expected_behavior": "Uses server-returned net amounts and readiness, separates client AI charges from supplier cost, labels VAT, gross and unique numbering unresolved until an authoritative invoice source supplies them, and does not lock entries."
             },
@@ -79,7 +79,7 @@
             },
             {
               "description": "Review a grant from server-computed figures and draft an unsent funder update.",
-              "prompt": "How is the Youth Programme grant tracking? Show award, burn, tranches and planned versus actual effort, then draft a narrative-led funder update without sending it.",
+              "prompt": "How is REVIEW TEST DATA - Northstar Trust's Community Research grant tracking? Show award, burn, recorded tranches and planned versus actual effort, then draft a narrative-led funder update without sending it.",
               "tools_triggered": "get_organisation, get_my_access, get_grants_overview, get_grant_summary",
               "expected_behavior": "Uses the live grant model, labels provisional and withheld values, keeps individual pay private, asks for delivery outcomes that Hoursly does not prove, and drafts without sending."
             }
@@ -105,7 +105,7 @@
       },
       "publication": {
         "countries": [],
-        "release_notes": "Adds 15 guided workflows and extends effort, grant and activity-code handling. The OpenAI package now has 19 distinct skills; two older capture routes remain in the library. Invoice work stays draft-only until authoritative VAT and numbering are available."
+        "release_notes": "Corrects the plugin icon to the official Hoursly app mark. Includes 19 guided workflows for effort, grants and AI work. Invoice work stays draft-only until authoritative VAT and numbering are available."
       }
     }
   }

@@ -20,7 +20,7 @@ The brochure says **21 ready-made skills**, **143 tools**, **13 work areas** and
 | Grants and funder reporting | `grant-report` | Completed live report, provisional/withheld disclosure and reviewed unsent funder draft. |
 | Record AI-only work | `log-my-week` and `record_ai_session` | Agent run/usage separate from Human effort, review link, no duplicated usage. |
 | AI tools and costs | MCP Materials tools, no packaged specialist | Metered and subscription examples with unknown cost preserved and correct charge/cost separation. |
-| Bill and recover costs | MCP billing tools, no packaged specialist | Server-authoritative net/VAT/gross and invoice numbering; locked means accounted for, not necessarily invoiced. |
+| Bill and recover costs | `invoice-prep` and MCP billing reads | Server-authoritative billing-readiness and net evidence; VAT, gross, unique numbering and final issue stay unresolved and outside this release. Locked means accounted for, not necessarily invoiced. |
 | Agreements and role plans | MCP commercial tools, no packaged specialist | Read, proposed edit, two-step save and scoped manager behavior. |
 | Deliverables | MCP deliverable tools, no packaged specialist | Lifecycle, entry links, scoped access and deletion constraints. |
 | Team and workload | `effort-allocation` partly | Daily-limit view and donor split of Actual hours. Current project plans are by Billing Role, not person, so a named person's planned cross-grant over-allocation cannot be claimed without a separate person-allocation model. No withheld-person inference. |
@@ -37,7 +37,7 @@ The line “answers from approved records” needs qualification: grant reads in
 ### 1. Contract and safety baseline
 
 - Record the deployed MCP server version and exact tool scan, separately from source `main`.
-- Test invoice VAT/tax inputs, client charge, line selection, totals, numbering and concurrency with synthetic data. Add a server-authoritative invoice preview/reservation path if the existing contract cannot produce a correct final invoice. The invoice skill must not manufacture tax or advance `invoice_number_next` as a non-atomic reservation.
+- Test billing-readiness drafts with synthetic data. Show server-returned net amounts and blockers; leave VAT, gross and a unique number unresolved. Final issuance, including tax and number reservation, is a later release requiring its own authoritative issuer contract.
 - Treat `lock_time_entries` as “accounted for”; reconcile actual invoice references through the existing invoice/external-reference model, not a second ledger.
 - Audit tool annotations and two-step behavior, including `delete_payment_term`. Record passed and failed cases by permission mode.
 
@@ -55,7 +55,7 @@ The line “answers from approved records” needs qualification: grant reads in
 ### 3. Public listing and reviewer fixtures
 
 - Verify the public privacy and terms destinations in a rendered browser and in the submission scanner. Both legal pages render the published Tatumdale Ltd documents after JavaScript loads, although the initial HTML still says “Back soon”; improve crawler access if the scanner cannot read them. Check that their current text covers the plugin's actual data flow.
-- Tatumdale Ltd is the verified publisher. The publisher chose all supported countries and confirmed the plugin does not support purchases or payments. Verify the actual support route. Prepare an isolated synthetic reviewer workspace, login and permissions; keep credentials in the portal only.
+- Tatumdale Ltd is the verified publisher. The publisher chose all supported countries and confirmed the plugin does not support purchases or payments. Verify the actual support route. Prepare an isolated synthetic reviewer workspace, login and permissions using the [reviewer fixture design](../evals/reviewer-workspace-fixture.md); keep credentials in the portal only.
 - Record a real ChatGPT demo with the submitted build, working OAuth and a negative/permission boundary. Host it at a reviewer-accessible URL. Keep private data and secrets off screen.
 - Maintain five distinct positive and three negative MCP review cases with observed pass conditions and actual run outcomes.
 
@@ -73,9 +73,10 @@ The line “answers from approved records” needs qualification: grant reads in
 
 1. [Marketing PR #4](https://github.com/tatumdale/Hourly-Marketing/pull/4) renders the published legal text as static HTML. Its protected Vercel preview returned the correct policy and terms titles and text from raw HTTP; the live URLs still return the “Back soon” shell until the PR is reviewed and released. Policy data-flow wording still needs publisher review.
 2. Tatumdale Ltd, all-country availability and no-commerce behavior are recorded in the package. Portal import must confirm these exact values; the support route still needs reviewer verification.
-3. No reviewer workspace, credentials or demo recording has been verified.
-4. Four fresh Codex 0.4.0 routing smoke cases passed; ChatGPT installation/activation, bundled MCP connection, restricted access, approved write/readback and completed live grant report remain unverified. Codex CLI 0.165.0-alpha.1.2 and 0.166.0-alpha.5.1 reject the portable MCP OAuth `extensions` field despite the published OpenAI package guide permitting it.
-5. The invoice VAT/numbering contract is unresolved. Cross-grant planned capacity for named people is not represented by the current role-plan model; the skill reports actual shares only.
-6. The plugin now bundles 19 distinct workflows; the brochure's 21 count describes source folders and needs a customer-facing correction. The public legal pages are present but their initial HTML is a generic shell; test marketplace crawler recognition.
+3. Hoursly Review Lab and its dedicated reviewer account are active. A ChatGPT OAuth grant with Standard access to Review Lab only and MCP Write was verified on 3 November 2026. The synthetic fixture remains incomplete for the prepared review cases, and no demo recording has been verified.
+4. The private candidate was updated from 0.4.0 to 0.4.1 to replace the incorrect Lovable artwork with the official Hoursly app icon. The personal cloud page now displays the Hoursly icon, 19 skills and one MCP server. Its example launch still opens the desktop app; a fresh ChatGPT Work chat selected the older developer app instead. Packaged ChatGPT MCP execution, OAuth and case results remain unverified. The cloud page displays Tatum Bisley as developer even though package metadata says Tatumdale Ltd; inspect the verified publisher on the marketplace draft.
+5. Four fresh Codex 0.4.0 routing smoke cases passed; fresh packaged ChatGPT activation, restricted access, approved write/readback and completed live grant reporting remain unverified. Codex CLI 0.165.0-alpha.1.2 and 0.166.0-alpha.5.1 reject the portable MCP OAuth `extensions` field despite the published OpenAI package guide permitting it. The 0.4.1 local installation was checked for version and icon, not rerun for MCP acceptance.
+6. First-release invoice scope is billing-readiness drafts only; final VAT, totals and numbering are deferred. Cross-grant planned capacity for named people is not represented by the current role-plan model; the skill reports actual shares only.
+7. The plugin now bundles 19 distinct workflows; the brochure's 21 count describes source folders and needs a customer-facing correction. The public legal pages are present but their initial HTML is a generic shell; test marketplace crawler recognition.
 
 No production records, remote database changes, submission, or publication are implied by this plan.

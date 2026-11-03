@@ -71,6 +71,12 @@ Later on 3 November, the incorrect Lovable image was replaced with a 256-pixel d
 
 The older developer app is a separate ChatGPT object. Its downloaded legacy wrapper contained no icon. An icon-only wrapper version **1.0.1** was uploaded with the official Hoursly image and unchanged App ID, but the developer plugin page still rendered generic plugin/App icons; the new wrapper artwork did not control the App tile. Its current Manage app view offers name, description, refresh tools and delete, with no logo editor. Do not count this older App as branded or substitute it for the 0.4.1 package in review cases. OpenAI's [custom MCP guidance](https://help.openai.com/en/articles/12584461-connecting-custom-mcp-servers-in-chatgpt) says an owner can edit a developer App logo from Manage when that control is available; it is not available in this account's observed view.
 
+### 0.4.1 desktop handoff and reported read check
+
+The user followed the private cloud-plugin page's **Open in desktop app** link and reported that it opened Hoursly **0.4.1** in ChatGPT. The assistant's computer-use interface was denied access to the desktop ChatGPT window, so this launch was a human handoff rather than an independently inspected desktop session.
+
+The user then reported a no-write Hoursly response for the **Primary** connection: one workspace, Hoursly Review Lab; Admin role; Standard grant; workspace-wide read and broad management capabilities; no delete, billing administration, role administration or period close. This agrees with the earlier reviewer Admin MCP access probe. The user's pasted answer did not include the chat's package indicator or expanded tool trace, so record this as **user-reported connection behavior**, not an independently verified 0.4.1 MCP call or one of the five marketplace positive cases. The saved portal draft remains untested.
+
 ## Candidate package and public URLs
 
 - `npm run build` and `npm test` passed: 21 canonical skills checked with zero errors or warnings. A locally rebuilt candidate ZIP contained 19 packaged skills, five positive and three negative case definitions, an icon, unrestricted `publication.countries: []`, and `review.commerce: false`. It had **no demo URL**, so it is not the final submission ZIP.

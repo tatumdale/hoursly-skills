@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "hoursly",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Review and manage Human and Agent work, effort, grants, billing readiness and AI costs in Hoursly.",
   "author": {
     "name": "Tatumdale Ltd",
@@ -105,7 +105,7 @@
       },
       "publication": {
         "countries": [],
-        "release_notes": "Corrects the plugin icon to the official Hoursly app mark. Includes 19 guided workflows for effort, grants and AI work. Invoice work stays draft-only until authoritative VAT and numbering are available."
+        "release_notes": "Distinguishes the packaged Hoursly connection from separately installed Hoursly apps and guides reconnection when authorization expires. Includes 19 guided workflows. Invoice work remains billing-readiness drafts only."
       }
     }
   }

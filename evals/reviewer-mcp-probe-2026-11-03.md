@@ -95,6 +95,14 @@ The Codex desktop test chat's first prompt explicitly mentioned `plugin://hoursl
 
 Therefore these are **packaged-skill plus existing developer-App tool** tests. They do not verify that the package's bundled `mcpServers.hoursly` declaration loaded, completed its own OAuth, or supplied any data call. The content checks above remain useful, but none is an end-to-end bundled-MCP acceptance or a saved-marketplace-draft case. A fresh diagnostic must explicitly exclude the developer App tools, and the final portal draft must be retested separately.
 
+## 5 November isolated connection attempt
+
+A new Codex desktop chat selected Hoursly 0.4.1 and asked to use only its bundled MCP. The core skill loaded. Calls to server `hoursly` failed before a Hoursly tool could run: `OAuth token refresh failed: Failed to parse server response`. No Hoursly record was read or changed. Codex's global configuration also defines a separate MCP server called `hoursly`, so the failed call cannot be conclusively assigned to the package. The private 0.4.1 package and that global server used the same endpoint and name.
+
+A read-only query of Supabase Auth logs for 09:16:00–09:16:08 UTC, the call window, found six HTTP 400 `refresh_token_not_found` events. The logs did not identify the chat's individual refresh request. The pattern matches upstream Supabase Auth [issue #2829](https://github.com/supabase/auth/issues/2829): the token endpoint returns a nonstandard Auth error where OAuth clients expect `invalid_grant`. Open [PR #2864](https://github.com/supabase/auth/pull/2864) addresses that response shape. This is a strong lead, not proof of host behaviour after an upstream fix.
+
+The 0.4.2 candidate names its package MCP `hoursly-plugin` and changes only packaged skill dependency names to match; standalone skills continue to depend on `hoursly`. Test a fresh 0.4.2 host session for actual `hoursly-plugin` tool calls and account/workspace readback. A valid ZIP or a successful `hoursly`/developer-App call does not pass this case.
+
 ## Candidate package and public URLs
 
 - `npm run build` and `npm test` passed: 21 canonical skills checked with zero errors or warnings. A locally rebuilt candidate ZIP contained 19 packaged skills, five positive and three negative case definitions, an icon, unrestricted `publication.countries: []`, and `review.commerce: false`. It had **no demo URL**, so it is not the final submission ZIP.

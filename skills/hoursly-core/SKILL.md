@@ -15,6 +15,15 @@ Use this skill whenever the user's request involves Hoursly, and load it before 
 
 Hoursly gives you authoritative records and purpose-built read models. Build narratives and reports from those records; use server-computed summaries for money, grants and workload rather than recreating their business logic.
 
+## If the Hoursly connection cannot start
+
+Loading this skill does not prove the Hoursly MCP connection works. If its tools are unavailable, or startup fails while refreshing OAuth:
+
+1. Keep the selected Hoursly plugin and any separately installed Hoursly app or MCP connection distinct. The OpenAI package declares the MCP server as `hoursly-plugin`; a global server named `hoursly` or `codex_apps.hoursly` is a different route. Do not silently switch or claim data from that route proves the package works.
+2. If the host offers a connect or reconnect action for this plugin's Hoursly connection, start that action. Let the person choose the account, workspaces and access on Hoursly's consent screen. After it completes, retry `get_organisation` once and verify the intended workspace with `get_my_access` or `list_workspaces`.
+3. If the host cannot open that action, give one clear route: open **ChatGPT Settings → Plugins**, select **Hoursly — Review work and effort**, and use its **Connection** or **Connected accounts** control if shown. In Codex, look for the `hoursly-plugin` MCP connection. If neither host exposes a reconnect control, say the host has not provided one; do not send the person through unrelated Hoursly app settings or disconnect anything yourself without approval.
+4. If OAuth fails before the server receives a request, Hoursly cannot force a sign-in prompt through an MCP tool or a 401 response. Say that plainly. Do not repeatedly retry the failed refresh, ask for passwords or tokens, or reset unrelated connections. State that no Hoursly records were read or changed.
+
 ## 1. Orient first
 
 1. Call `get_organisation`: currency, plan, permission preset, invoicing issuer and payment terms.

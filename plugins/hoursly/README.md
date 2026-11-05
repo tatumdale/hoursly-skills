@@ -6,4 +6,6 @@ The plugin logo and composer icon use `assets/hoursly-icon.png`, a 256-pixel der
 
 The package contains no lifecycle hooks, secrets, OAuth client secret or customer data. Computer History, calendars and email are optional host evidence sources. `log-my-week` continues when any of them is unavailable and proposes Human and Agent entries for review before saving.
 
+The packaged MCP server is named `hoursly-plugin` to distinguish it from a separately configured Hoursly connector. If authorization renewal fails before the server starts, the core skill guides the user to this plugin's host reconnect control and never silently uses another Hoursly connection.
+
 Invoice preparation is a draft/readiness workflow until VAT treatment, gross totals and unique numbering are provided by an authoritative invoice system. No skill should treat a locked time entry as proof that an invoice was issued.

@@ -69,9 +69,19 @@ for (const name of skills) {
 }
 
 // The OpenAI plugin is directly installable from the repository. Keep its
-// selected skills byte-for-byte aligned with their canonical source folders so
-// the marketplace package cannot silently drift or acquire legacy workflows.
+// selected skills aligned with their canonical source folders. Only the MCP
+// dependency name differs: the package uses a distinct server name so hosts
+// can distinguish it from a separately configured Hoursly MCP connection.
 const pluginSkillsDir = join(root, "plugins", "hoursly", "skills");
+const packageServerName = "hoursly-plugin";
+
+function packagedContent(path, bytes) {
+  if (path !== join("agents", "openai.yaml")) return bytes;
+  const original = bytes.toString("utf8");
+  const from = 'value: "hoursly"';
+  if (!original.includes(from)) throw new Error(`missing Hoursly MCP dependency in ${path}`);
+  return Buffer.from(original.replace(from, `value: "${packageServerName}"`));
+}
 
 function packageFiles(dir) {
   if (!existsSync(dir)) return [];
@@ -95,9 +105,9 @@ function skillTreesMatch(name) {
     .map((path) => relative(pluginSkillTarget, path))
     .sort();
   if (JSON.stringify(sourceFiles) !== JSON.stringify(targetFiles)) return false;
-  return sourceFiles.every(
-    (path) => readFileSync(join(pluginSkillSource, path)).equals(readFileSync(join(pluginSkillTarget, path))),
-  );
+  return sourceFiles.every((path) =>
+    packagedContent(path, readFileSync(join(pluginSkillSource, path)))
+      .equals(readFileSync(join(pluginSkillTarget, path))));
 }
 
 if (check) {
@@ -134,6 +144,11 @@ if (check) {
       recursive: true,
       filter: (path) => !path.includes("__pycache__") && !path.endsWith(".DS_Store"),
     });
+    const openaiYaml = join("agents", "openai.yaml");
+    const targetYaml = join(pluginSkillTarget, openaiYaml);
+    if (existsSync(targetYaml)) {
+      writeFileSync(targetYaml, packagedContent(openaiYaml, readFileSync(targetYaml)));
+    }
     console.log(`updated OpenAI plugin skill ${name}`);
   }
 }

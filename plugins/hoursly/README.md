@@ -1,16 +1,11 @@
 # Hoursly OpenAI plugin package
 
-This folder is the portable Agent Plugins package for ChatGPT and Codex. It bundles:
+This portable package contains the Hoursly remote MCP declaration, marketplace metadata and 19 distinct skills selected in `tools/plugin-skills.mjs`. Canonical sources live under `skills/`; run `npm run build` and do not edit packaged copies.
 
-- the public Hoursly streamable HTTP MCP endpoint;
-- `hoursly-core` for workspace, access and safety semantics;
-- `log-my-week` for narrative Human and Agent entry review;
-- `effort-allocation` for LoE, plans and workload analysis;
-- `grant-report` for grant performance and funder-ready drafts;
-- OpenAI marketplace presentation and policy links.
+The plugin logo and composer icon use `assets/hoursly-icon.png`, a 256-pixel derivative of the official Hoursly iOS app icon at `hoursly-app/apps/ios/Hoursly/Assets.xcassets/AppIcon.appiconset/AppIcon.png`. Keep both icon fields pointed at the Hoursly artwork when preparing an update.
 
-The four skills are copied from their canonical repository folders by `npm run build`. Do not edit packaged copies directly. Change the corresponding folder under `skills/`, run the build, then run `npm test`.
+The package contains no lifecycle hooks, secrets, OAuth client secret or customer data. Computer History, calendars and email are optional host evidence sources. `log-my-week` continues when any of them is unavailable and proposes Human and Agent entries for review before saving.
 
-The package contains no lifecycle hooks, secrets, OAuth client secret or customer data. OAuth is discovered and completed by the host when the Hoursly server is connected.
+The packaged MCP server is named `hoursly-plugin` to distinguish it from a separately configured Hoursly connector. If authorization renewal fails before the server starts, the core skill guides the user to this plugin's host reconnect control and never silently uses another Hoursly connection.
 
-This package does not make Computer History, calendars or email available by itself. `log-my-week` checks those host capabilities at runtime and continues with the sources that are actually connected. It always previews new Human and Agent entries before any Hoursly write. The reporting skills are read-only unless a later, explicit workflow separately asks to save or send something.
+Invoice preparation is a draft/readiness workflow until VAT treatment, gross totals and unique numbering are provided by an authoritative invoice system. No skill should treat a locked time entry as proof that an invoice was issued.

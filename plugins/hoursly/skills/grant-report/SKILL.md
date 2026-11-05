@@ -6,7 +6,7 @@ metadata:
   mcp-tools: "get_organisation get_my_access get_grants_overview get_grant_summary list_projects get_project list_time_entries"
   min-permission: read_only
   money-aware: "yes"
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 # Grant report
@@ -63,6 +63,8 @@ Say what the numbers show: on pace, ahead, behind, how many months remain, what 
 ### 5. Draft the funder update when asked
 
 Use [funder update](references/funder-update.md). It is **funder-facing**:
+
+- Ask which style the funder expects: a narrative-led account of change and learning, or a results-framework update with effort and server-returned cost against outputs. If unknown, show a short outline of both and ask the user to select the one to draft.
 
 - Report Official hours where effort is cited, and say so.
 - Roles, not people. No salaries, no per-person cost, no internal names beyond role labels.

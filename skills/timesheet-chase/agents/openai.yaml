@@ -1,0 +1,13 @@
+interface:
+  display_name: "Timesheet chase"
+  short_description: "Find follow-ups and draft reminders"
+  default_prompt: "Use $timesheet-chase to identify Hoursly timesheet follow-ups without sending messages."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hoursly"
+      description: "Hoursly MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.hoursly.app/mcp"

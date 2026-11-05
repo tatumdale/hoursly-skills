@@ -2,6 +2,10 @@
 
 Status: documented, not yet verified with Hoursly. See [hosts](../hosts.md).
 
+The packaged OpenAI plugin and a separately added Hoursly connector are different connections. In the 0.4.2 package, the bundled MCP server is named `hoursly-plugin`; a standalone MCP server named `hoursly` or an Hoursly developer App does not validate the package.
+
+If the packaged connection expires, select **Hoursly — Review work and effort** in ChatGPT Settings → Plugins and use its connection or account reconnect control if shown. In Codex, use the connection control for `hoursly-plugin`. The user must choose the account, workspaces and access on Hoursly's consent screen. If the host offers no reconnect control after a token-refresh failure, report that limitation and do not substitute another Hoursly connection. No plugin skill can force a sign-in prompt when the host fails before contacting the MCP server.
+
 ## 1. Connect the Hoursly MCP server
 
 **ChatGPT**

@@ -1,0 +1,13 @@
+interface:
+  display_name: "Estimate from actuals"
+  short_description: "Estimate role effort from comparable work"
+  default_prompt: "Use $estimate-from-actuals to review this in Hoursly and show the evidence and next steps."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hoursly"
+      description: "Hoursly MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.hoursly.app/mcp"

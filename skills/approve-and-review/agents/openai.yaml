@@ -1,0 +1,13 @@
+interface:
+  display_name: "Approve and review"
+  short_description: "Review time and linked entries"
+  default_prompt: "Use $approve-and-review to show my Hoursly review queue and propose decisions."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hoursly"
+      description: "Hoursly MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.hoursly.app/mcp"

@@ -18,7 +18,35 @@ A draft for the user to review. It is not sent by this skill.
 | Planned vs actual by role | Withheld figures restated or inferred |
 | Milestones, outputs, next period plan (from the user) | Provisional months presented as final |
 
-## Template
+## Narrative-led template
+
+Use when the funder asks what changed and what was learned. Keep outcomes sourced to the user's delivery evidence; Hoursly effort and grant figures support the account but do not prove impact.
+
+```
+[Grant] — [period] narrative update
+What changed: [verified output or user-supplied result, with evidence].
+Who benefited: [aggregate, non-identifying description backed by evidence].
+What we learned: [user-supplied observation and its source].
+Delivery effort: [Official hours by role, with basis and provisional status].
+Funding position: [server-returned burn, received and remaining; withheld stays withheld].
+Next steps: [user-supplied plan and risks].
+```
+
+## Results-framework template
+
+Use when the funder asks for output indicators and value for money. Ask for the agreed framework and its targets; Hoursly does not supply them. Pair each output with the verified result, Official effort and only the server-returned grant cost allocated to that output. If no output-level cost exists, show the grant total separately and say output-level value for money cannot be calculated from this record.
+
+```
+[Grant] — [period] results framework
+| Output/indicator | Target | Observed result and source | Official effort by role | Returned cost |
+| [agreed output] | [agreed target] | [verified result] | [Hoursly hours] | [Hoursly amount or unavailable] |
+
+Value for money: [explain the available result/effort/cost relationship and its limits; no invented ratio].
+Funding position and provisional months: [server-returned figures and status].
+Risks, corrective action and next period: [user-supplied and evidenced].
+```
+
+## General grant template
 
 ```
 [Grant name] — update to [as_of]

@@ -1,0 +1,13 @@
+interface:
+  display_name: "Invoice prep"
+  short_description: "Review billing and prepare an invoice draft"
+  default_prompt: "Use $invoice-prep to review this Hoursly billing period and prepare an invoice draft."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hoursly"
+      description: "Hoursly MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.hoursly.app/mcp"

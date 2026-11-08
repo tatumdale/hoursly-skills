@@ -1,0 +1,13 @@
+interface:
+  display_name: "Commercial review"
+  short_description: "Review revenue, margin and AI economics"
+  default_prompt: "Use $commercial-review to review this in Hoursly and show the evidence and next steps."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hoursly"
+      description: "Hoursly MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.hoursly.app/mcp"

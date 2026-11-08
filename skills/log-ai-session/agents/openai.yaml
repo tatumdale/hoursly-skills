@@ -1,0 +1,13 @@
+interface:
+  display_name: "Log AI session"
+  short_description: "Separate Human work and Agent runs"
+  default_prompt: "Use $log-ai-session to review this AI work and propose the correct Hoursly records."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hoursly"
+      description: "Hoursly MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.hoursly.app/mcp"

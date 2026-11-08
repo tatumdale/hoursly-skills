@@ -1,0 +1,13 @@
+interface:
+  display_name: "Engagement health"
+  short_description: "Check plans, effort and delivery"
+  default_prompt: "Use $engagement-health to review this in Hoursly and show the evidence and next steps."
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "hoursly"
+      description: "Hoursly MCP server"
+      transport: "streamable_http"
+      url: "https://mcp.hoursly.app/mcp"

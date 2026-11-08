@@ -29,7 +29,7 @@ A skill never replaces the connection. You connect the Hoursly MCP server in you
 | [`grant-report`](skills/grant-report/SKILL.md) | Grant award, received, burn, pace, remaining, planned vs actual by role, and a funder update draft. Respects withheld figures. | `reports.grant_costs` and the grant read tools (see [charity pack](packs/charity.md)) |
 | [`log-ai-session`](skills/log-ai-session/SKILL.md) | Records one attended AI session or autonomous run with measured usage and separate Human review. | Hoursly read to propose; write access to save |
 | [`client-update`](skills/client-update/SKILL.md) | Drafts an evidence-backed client update. | Client/project read access; connected delivery evidence |
-| [`approve-and-review`](skills/approve-and-review/SKILL.md) | Reviews a time-entry queue and prepares scoped approval decisions. | Entry review access for actions |
+| [`approve-and-review`](skills/approve-and-review/SKILL.md) | Reviews Human and Agent queues and prepares scoped approval decisions. | Entry review access for actions |
 | [`month-end-close`](skills/month-end-close/SKILL.md) | Checks readiness and closes a timesheet period after reviewed confirmation. | Reporting and period-management access |
 | [`timesheet-chase`](skills/timesheet-chase/SKILL.md) | Identifies follow-up candidates without inventing missing work days. | Team/period reporting access |
 | [`engagement-setup`](skills/engagement-setup/SKILL.md) | Sets up or closes a client engagement with agreements, roles and deliverables. | Relevant commercial and project management access |

@@ -10,7 +10,8 @@
 | `not_entitled` | The caller lacks a capability or the tool is owner/admin only | Omit that section or step and say so |
 | `capability_required` | A named capability is missing | Say which capability and who can grant it |
 | `confirmation_required` | A destructive action needs confirmation | Show the preview and the confirm flow; wait for the user |
-| `upgrade_required` | MCP is a paid feature and the workspace is on the free plan | Tell the user |
+| `upgrade_required` | This workspace does not currently have MCP access under its plan or trial state | Tell the user to check **Admin → Workspace Settings → Workspace beta features**. A Free workspace may start one 30-day MCP trial; an expired trial needs a paid plan to resume. Do not repeatedly reconnect or assume every Free workspace is blocked. |
+| `mcp_trial_expired` | A Free workspace's one MCP trial has expired | Explain that reconnecting will not restart it; a workspace owner can review plans in Hoursly. |
 | MCP startup or OAuth refresh failed | The host could not start this plugin's Hoursly connection; no tool result is available | Use the connection recovery steps in `SKILL.md`; do not use another Hoursly connection without the user's instruction |
 | `invalid_token` | The server rejected the bearer token and issued a reauthorization challenge | Use this plugin's host reconnect action if offered; verify the account and workspace after reconnecting |
 

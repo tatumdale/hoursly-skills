@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "hoursly",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Review and manage Human and Agent work, effort, grants, billing readiness and AI costs in Hoursly.",
   "author": {
     "name": "Tatumdale Ltd",

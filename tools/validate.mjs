@@ -368,7 +368,15 @@ if (existsSync(pluginsDir)) {
             err(`plugin/${name}`, `${serverName} must use a public HTTPS URL`);
           }
           const auth = server.extensions?.["com.openai"]?.auth;
-          if (!auth || !["none", "oauth", "mixed", "api_key"].includes(auth.type)) {
+          // Hoursly advertises OAuth and scopes in its protected-resource challenge.
+          // Codex 0.166.0-alpha.6 rejects the auth extension in a plugin MCP entry.
+          const hourslyDiscovery = name === "hoursly"
+            && serverName === "hoursly-plugin"
+            && server.url === "https://mcp.hoursly.app/mcp";
+          if (hourslyDiscovery && auth) {
+            err(`plugin/${name}`, `${serverName} must use the host's OAuth discovery path`);
+          }
+          if (!hourslyDiscovery && (!auth || !["none", "oauth", "mixed", "api_key"].includes(auth.type))) {
             err(`plugin/${name}`, `${serverName} must declare a supported OpenAI auth type`);
           }
           if (auth?.type === "oauth" || auth?.type === "mixed") {

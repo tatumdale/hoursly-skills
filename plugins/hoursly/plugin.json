@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "hoursly",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Review and manage Human and Agent work, effort, grants, billing readiness and AI costs in Hoursly.",
   "author": {
     "name": "Tatumdale Ltd",
@@ -72,10 +72,10 @@
               "expected_behavior": "Uses server-returned net amounts and readiness, separates client AI charges from supplier cost, labels VAT, gross and unique numbering unresolved until an authoritative invoice source supplies them, and does not lock entries."
             },
             {
-              "description": "Check a timesheet period before close without changing it.",
-              "prompt": "Is September ready to close? Show the blockers and who can resolve them. Do not close or lock anything.",
-              "tools_triggered": "get_organisation, get_my_access, list_timesheet_periods, get_timesheet_period_readiness",
-              "expected_behavior": "Reports the exact period and server readiness, distinguishes participation, entry review and commercial blockers, respects hidden financial sections and performs no write."
+              "description": "Review the seeded Human and Agent approval queue without changing it.",
+              "prompt": "In Hoursly Review Lab, show November 2026 Human and Agent entries awaiting approval and who can act on them. Do not approve, lock or change anything.",
+              "tools_triggered": "get_organisation, get_my_access, list_time_entries, list_ai_entries, get_approval_policy",
+              "expected_behavior": "Separates Human and Agent entries, reports their actual review states and authorized approvers, and makes no approval, lock or other write. If a timesheet period has not been prepared, does not claim period-close readiness."
             },
             {
               "description": "Review a grant from server-computed figures and draft an unsent funder update.",
@@ -105,7 +105,7 @@
       },
       "publication": {
         "countries": [],
-        "release_notes": "Distinguishes the packaged Hoursly connection from separately installed Hoursly apps and guides reconnection when authorization expires. Includes 19 guided workflows. Invoice work remains billing-readiness drafts only."
+        "release_notes": "Uses the seeded reviewer approval queue for the positive month-end test, without assuming a prepared timesheet period. Distinguishes the packaged Hoursly connection from separately installed Hoursly apps and guides reconnection when authorization expires. Includes 19 guided workflows. Invoice work remains billing-readiness drafts only."
       }
     }
   }

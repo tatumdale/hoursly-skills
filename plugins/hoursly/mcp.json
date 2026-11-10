@@ -3,21 +3,7 @@
   "mcpServers": {
     "hoursly-plugin": {
       "type": "streamable-http",
-      "url": "https://mcp.hoursly.app/mcp",
-      "extensions": {
-        "com.openai": {
-          "auth": {
-            "type": "oauth",
-            "client": {
-              "mode": "dcr"
-            },
-            "baseScopes": [
-              "email",
-              "profile"
-            ]
-          }
-        }
-      }
+      "url": "https://mcp.hoursly.app/mcp"
     }
   }
 }

@@ -50,6 +50,8 @@ One table per day with three kinds of row, in the format in [assembly](reference
 
 Then the week totals: logged, proposed, unknown, by client.
 
+The Notes column contains only proposed client-safe descriptions of work actually performed. Leave it blank when the work is unknown. Keep questions, concerns and next steps in the review or chat.
+
 ### 6. Review and approve
 
 Uncertain rows and questions first. Accept approvals by row, by day, or "all high-confidence". Echo exactly which rows will be created and the count. Silence or a general "looks fine" is not approval.
@@ -85,6 +87,6 @@ These rules apply to every Hoursly skill. They are single-sourced in `shared/saf
 6. **Respect access.** Use only what the connection returns. If a section needs a capability the caller lacks, omit it and say so. Never guess hidden values.
 7. **Withheld means withheld.** A `null` with a `restricted` flag is intentionally hidden. Never subtract, difference or compare totals to recover it, and never infer whose figure it is.
 8. **Nothing leaves without an explicit instruction.** Drafting an email, invoice or report is not sending it. Show recipients, subject and attachments and wait for a clear yes.
-9. **Keep personal data out of notes and outputs** unless the user asked for it. Cite evidence by reference, not by pasting message bodies.
+9. **Keep entry notes about work performed.** Time-entry notes may be visible to the client. When creating or updating an entry, describe only work supported by the evidence. If the work cannot be established, leave notes blank. Put uncertainties, questions, concerns, review requests, to-dos and agent-to-user messages in the chat, never in entry notes. Keep personal data out of notes and outputs unless the user asked for it; cite evidence by reference in chat rather than pasting message bodies into notes.
 10. **Say what you did not do.** Report skipped steps, partial data and unavailable tools plainly.
 <!-- shared:safety:end -->

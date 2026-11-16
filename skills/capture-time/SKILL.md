@@ -52,7 +52,7 @@ Map each atom to a client and project with the ordered rules in [attribution](re
 
 ### 5. Build candidate entries
 
-Cluster atoms into entries, assign start and end times, set billable and tags from the user's existing patterns, and remove overlaps with entries already logged. Where the workspace has Activity Codes, propose a code from its own list on each Human row. Saving a code needs `rates.view`; if the caller lacks it, leave the code unset and report the gap. Charity Grant Activity Codes come from the same catalogue, never from invented labels. See [pipeline](references/pipeline.md).
+Cluster atoms into entries, assign start and end times, set billable and tags from the user's existing patterns, and remove overlaps with entries already logged. Write proposed notes only for evidenced work performed; leave them blank if the work is unclear. Put uncertainty and follow-ups in the review, not in notes. Where the workspace has Activity Codes, propose a code from its own list on each Human row. Saving a code needs `rates.view`; if the caller lacks it, leave the code unset and report the gap. Charity Grant Activity Codes come from the same catalogue, never from invented labels. See [pipeline](references/pipeline.md).
 
 ### 6. Review
 
@@ -92,6 +92,6 @@ These rules apply to every Hoursly skill. They are single-sourced in `shared/saf
 6. **Respect access.** Use only what the connection returns. If a section needs a capability the caller lacks, omit it and say so. Never guess hidden values.
 7. **Withheld means withheld.** A `null` with a `restricted` flag is intentionally hidden. Never subtract, difference or compare totals to recover it, and never infer whose figure it is.
 8. **Nothing leaves without an explicit instruction.** Drafting an email, invoice or report is not sending it. Show recipients, subject and attachments and wait for a clear yes.
-9. **Keep personal data out of notes and outputs** unless the user asked for it. Cite evidence by reference, not by pasting message bodies.
+9. **Keep entry notes about work performed.** Time-entry notes may be visible to the client. When creating or updating an entry, describe only work supported by the evidence. If the work cannot be established, leave notes blank. Put uncertainties, questions, concerns, review requests, to-dos and agent-to-user messages in the chat, never in entry notes. Keep personal data out of notes and outputs unless the user asked for it; cite evidence by reference in chat rather than pasting message bodies into notes.
 10. **Say what you did not do.** Report skipped steps, partial data and unavailable tools plainly.
 <!-- shared:safety:end -->

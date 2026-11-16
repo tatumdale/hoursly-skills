@@ -18,6 +18,7 @@ Rules:
 - Show timezone once, above the table.
 - Show **already logged** and **overlaps** as separate short lists.
 - Do not show money.
+- Treat Notes as the exact proposed Hoursly field. It may be client-visible, so describe only work supported by the evidence. Leave it blank if the work itself is unknown. Put confidence, conflicts, questions, concerns and to-dos in the review or questions, never in Notes.
 
 ## Questions
 
@@ -37,7 +38,7 @@ Accept approvals by row, by range, or "all high-confidence". Echo back exactly w
 ## Commit
 
 1. State the count: "I will create 9 entries."
-2. For each approved row call `create_time_entry` with `client_name`, `project_name`, `start_time`, `end_time`, `notes`, `is_billable`, `tag_names`, and `billing_role_name` when required.
+2. For each approved row call `create_time_entry` with `client_name`, `project_name`, `start_time`, `end_time`, `is_billable`, `tag_names`, and `billing_role_name` when required. Pass `notes` only for a reviewed, evidenced Notes value; otherwise omit it.
 3. Create sequentially. If one fails, report it and continue with the others only if the failure is not systematic (permission, plan limit, rate limit). On `permission_denied`, stop.
 4. Report each result with entry id, duration, client and project, and list anything not created.
 5. Offer to re-run the review for any rows that failed.

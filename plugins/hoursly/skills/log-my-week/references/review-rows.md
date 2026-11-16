@@ -16,7 +16,7 @@ Required columns: Type, Name, Time start, Time end, Duration, Description, Token
 
 For a busy day, use one human table and one agent table with those same columns. Keep descriptions to one useful sentence and review notes to the decision needed. Put shared limitations once below the tables. Include substantive unresolved work, but combine related review activity rather than adding a speculative human-supervision row for every agent. Personal/incidental activity belongs in a brief exclusion note unless the user requests a separate record.
 
-Use names such as "Website release review" and "Agent work on website fixes". Write descriptions as proposed Hoursly notes: action, subject, result. A Human row may carry measured tokens when the work was AI-assisted and the usage is uniquely attributable; identify that mode in the description. A Human row without attributable AI use shows "—". Agentic usage belongs only on the Agent row. Never duplicate the same tokens across both types. Keep the full model/tier/cache breakdown available for the approved save. Unknown usage is "Not available", not zero; inseparable mixed usage is "Shared usage—needs allocation".
+Use names such as "Website release review" and "Agent work on website fixes". The Description column is the proposed Hoursly note: factual work performed and its supported result, written for a client who may read it. Leave Description blank if the work cannot be established. Put uncertainty, discrepancies, questions, next steps, AI-assisted classification and agent-to-user messages in Review or chat, not in Description or saved notes. A Human row may carry measured tokens when the work was AI-assisted and the usage is uniquely attributable. A Human row without attributable AI use shows "—". Agentic usage belongs only on the Agent row. Never duplicate the same tokens across both types. Keep the full model/tier/cache breakdown available for the approved save. Unknown usage is "Not available", not zero; inseparable mixed usage is "Shared usage—needs allocation".
 
 Review notes should say what matters: "Already logged", "Ready for your review", "Estimated—please confirm", "Check meeting length", "Confirm project", or "Still running". These explain the decision better than a generic status on every row. Evidence support is not approval; all new entries remain drafts until the user agrees.
 
@@ -31,8 +31,8 @@ For a short observed portion of a larger human task, say "~6m observed; earlier 
 | Type | Name | Time start | Time end | Duration | Description | Token use | Review |
 |---|---|---|---|---|---|---|---|
 | Human | Website release meeting — Example client / Website | 10:00 assumed | 10:50 assumed | 50m recorded | Reviewed launch issues and agreed the remaining website fixes. | — | Confirm actual start and meeting length |
-| Human | Review accessibility fixes — Example client / Website | To confirm | To confirm | To confirm | Reviewed the agent's proposed accessibility changes. | — | Confirm whether reviewed and time spent |
-| Agent | Prepare accessibility fixes — Example client / Website | 11:10 | 11:45 | 35m | Prepared the local patch and passed the recorded checks; release not established. | 12,000 measured | Ready for your review |
+| Human | Review accessibility fixes — Example client / Website | To confirm | To confirm | To confirm |  | — | Confirm whether reviewed and time spent |
+| Agent | Prepare accessibility fixes — Example client / Website | 11:10 | 11:45 | 35m | Prepared the local accessibility patch and passed the recorded checks. | 12,000 measured | Local patch only; release not established |
 
 "For the release meeting, use the recorded 50 minutes or the scheduled hour? How much time did you spend reviewing the accessibility changes?"
 

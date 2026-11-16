@@ -1,6 +1,6 @@
-# Marketplace review cases for 0.4.1
+# Marketplace review cases for 0.4.7
 
-These five positive and three negative cases are in `plugins/hoursly/plugin.json`. They are **prepared, not yet passed**. Run them against the exact saved plugin version and a synthetic reviewer workspace. Record the response, tool calls, actor permissions and any state change. No personal production workspace is a reviewer fixture.
+These five positive and three negative cases are in `plugins/hoursly/plugin.json`. They are **prepared, not yet passed against the saved v0.4.7 draft**. The publisher portal passed all 19 skill checks and rescanned 132 MCP tools, but those checks do not run these cases in ChatGPT. Run them against the exact saved version and a synthetic reviewer workspace. Record the response, bundled tool calls, actor permissions and any state change. No personal production workspace is a reviewer fixture.
 
 The persistent synthetic Review Lab and reviewer OAuth account are active, but the data described in the [fixture design](reviewer-workspace-fixture.md) is incomplete. The [3 November live MCP probe](reviewer-mcp-probe-2026-11-03.md) records what was actually read and the approved write/readback. The Aster and Northstar prompts now match existing records; the September period, billing-event and dedicated calendar/email scenarios still need fixtures before they can pass in full.
 

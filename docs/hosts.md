@@ -7,8 +7,8 @@ All hosts below read the same `SKILL.md` format. What differs is where skills ar
 | Host | Skills | MCP connection | Verified with Hoursly |
 |---|---|---|---|
 | Claude (Claude Code, Claude apps) | 🟡 `.claude/skills`, `~/.claude/skills`, or zip upload | 🟡 custom connector `https://mcp.hoursly.app/mcp` (OAuth) | not yet |
-| ChatGPT | 🟡 Skills tab upload and plugin installation | ⛔ a fresh private v0.4.7 chat exposed no bundled `hoursly-plugin` tools; the saved draft's Review Lab OAuth and scan passed separately | combined package acceptance failed on 17 November |
-| Codex | ✅ local marketplace plugin and `.agents/skills` | ⛔ CLI 0.169.0 rejects the portable OAuth `extensions` field in the cached 0.4.7 package | bundled tools were unavailable in the reported v0.4.7 desktop chat |
+| ChatGPT | 🟡 Skills tab upload and plugin installation | ❓ a fresh private v0.4.7 chat did not start `hoursly-plugin`; the saved draft's Review Lab OAuth and scan passed separately | combined package acceptance failed on 17 November |
+| Codex | ✅ local marketplace plugin and `.agents/skills` | ⛔ CLI 0.169.0 rejects the portable OAuth `extensions` field in the cached 0.4.7 package; desktop logs show the server name ready in other chats | bundled tools were unavailable in the reported v0.4.7 desktop chat |
 | Cursor | 🟡 `.cursor/skills`, `~/.cursor/skills`, also `.agents/skills` | 🟡 `mcp.json` URL, OAuth | not yet |
 | GitHub Copilot (VS Code, CLI, cloud agent) | 🟡 `.github/skills`, `.claude/skills`, `.agents/skills` | 🟡 MCP server configuration with OAuth | not yet |
 | Microsoft 365 Copilot | ❓ | ❓ may need admin setup through Copilot Studio | **not supported until verified** |

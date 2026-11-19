@@ -1,10 +1,8 @@
 # Install in ChatGPT and Codex
 
-Status: documented, not yet verified with Hoursly. See [hosts](../hosts.md).
+This guide covers skills using a separately added Hoursly MCP server. The repository also contains a portable plugin package, but it is a separate connection with its own OAuth grant. You do not need to install the package to use the skills with a manually added MCP server. See [host evidence](../hosts.md) before treating the bundled package as tested.
 
-The packaged OpenAI plugin and a separately added Hoursly connector are different connections. In the 0.4.2 package, the bundled MCP server is named `hoursly-plugin`; a standalone MCP server named `hoursly` or an Hoursly developer App does not validate the package.
-
-If the packaged connection expires, select **Hoursly — Review work and effort** in ChatGPT Settings → Plugins and use its connection or account reconnect control if shown. In Codex, use the connection control for `hoursly-plugin`. The user must choose the account, workspaces and access on Hoursly's consent screen. If the host offers no reconnect control after a token-refresh failure, report that limitation and do not substitute another Hoursly connection. No plugin skill can force a sign-in prompt when the host fails before contacting the MCP server.
+See the [skills and MCP briefing](../skills-and-connection-briefing.md) for the full skill inventory and file locations.
 
 ## 1. Connect the Hoursly MCP server
 
@@ -16,7 +14,15 @@ If the packaged connection expires, select **Hoursly — Review work and effort*
 
 **Codex**
 
-Add the server to your Codex configuration as a streamable HTTP MCP server at `https://mcp.hoursly.app/mcp` and complete the OAuth sign-in. The skill's `agents/openai.yaml` also declares this dependency so a compatible host can offer to connect it.
+Add one streamable HTTP server named `hoursly` at `https://mcp.hoursly.app/mcp`, then complete the OAuth sign-in. With the current Codex CLI, the equivalent command is:
+
+```bash
+codex mcp add hoursly --url https://mcp.hoursly.app/mcp --oauth-client-registration dcr --oauth-resource https://mcp.hoursly.app/mcp
+```
+
+The skills' `agents/openai.yaml` files refer to this server by the name `hoursly`. The name connects the skill dependency to the server entry. OAuth, account choice, workspace access and tool availability belong to the host and MCP server, not to the skill. After sign-in, start a new chat and check that the Hoursly tools appear before invoking a skill. A skill cannot start OAuth or restore tools that the host does not expose.
+
+The packaged plugin uses its own server name, `hoursly-plugin`, and a separate OAuth grant. Do not use a result from the manually added `hoursly` server as proof that the packaged connection works, or the reverse.
 
 ## 2. Install the skills
 

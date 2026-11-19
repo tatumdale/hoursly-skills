@@ -17,6 +17,8 @@ The skills use the open [Agent Skills](https://agentskills.io) format. Host-spec
 
 A skill never replaces the connection. You connect the Hoursly MCP server in your assistant first, then install skills. Connection steps for each host are in [docs/install](docs/install/).
 
+For the skill inventory, file locations, standalone MCP setup and the difference between skills and the bundled plugin, see the [skills and MCP briefing](docs/skills-and-connection-briefing.md).
+
 ## Skills
 
 | Skill | What it does | Needs |
